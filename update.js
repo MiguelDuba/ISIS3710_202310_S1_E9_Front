@@ -3,22 +3,8 @@ const execShPromise = require("exec-sh").promise;
 let fs = require("fs");
 
 const projects = [
-  { name: "ISIS3710_202310_S1_E1_Front" },
-  { name: "ISIS3710_202310_S1_E2_Front" },
-  { name: "ISIS3710_202310_S1_E3_Front" },
-  { name: "ISIS3710_202310_S1_E4_Front" },
-  { name: "ISIS3710_202310_S1_E5_Front" },
-  { name: "ISIS3710_202310_S1_E6_Front" },
-  { name: "ISIS3710_202310_S1_E7_Front" },
-  { name: "ISIS3710_202310_S1_E8_Front" },
-  { name: "ISIS3710_202310_S2_E1_Front" },
-  { name: "ISIS3710_202310_S2_E2_Front" },
-  { name: "ISIS3710_202310_S2_E3_Front" },
-  { name: "ISIS3710_202310_S2_E4_Front" },
-  { name: "ISIS3710_202310_S2_E5_Front" },
-  { name: "ISIS3710_202310_S2_E6_Front" },
-  { name: "ISIS3710_202310_S2_E7_Front" },
-  { name: "ISIS3710_202310_S2_E8_Front" },
+  { name: "ISIS3710_202310_S1_E9_Front" },
+  { name: "ISIS3710_202310_S2_E9_Front" },
 ];
 
 const config = {
