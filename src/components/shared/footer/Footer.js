@@ -1,17 +1,22 @@
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import facebookIcn from '../../../icons/facebook.svg';
+import whatsappIcn from '../../../icons/whatsapp.svg';
+import youtubeIcn from '../../../icons/youtube.svg';
 import './Footer.css';
 
 function Footer() {
     return (
         <footer>
+            <Row>
             <Col>
                 <ul>
-                    <li>Kangaroo</li>
+                    <li className='brand-name'>Kangar<span>oo</span></li>
                     <li>Contactanos y siguenos
-                        <ul>
-                            <a href="#">Facebook</a>
-                            <a href="#">Whatsapp</a>
-                            <a href="#">Instragram</a>
+                        <ul className='socials'>
+                            <a href="#"><img src={facebookIcn}></img></a>
+                            <a href="#"><img src={whatsappIcn}></img></a>
+                            <a href="#"><img src={youtubeIcn}></img></a>
                         </ul>
                     </li>
                 </ul>
@@ -34,6 +39,7 @@ function Footer() {
                     <li><a href="#">Necesidades especiales</a></li>
                 </ul>
             </Col>
+            </Row>
         </footer>
     )
 }

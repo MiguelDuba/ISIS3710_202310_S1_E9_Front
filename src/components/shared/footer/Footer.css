@@ -1,3 +1,36 @@
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+
+    position: fixed;
+    width: 100%;
+    height: fit-content;
+    left: 0px;
+    bottom: 0px;
+
+    background: #F8DFD0
+    }
+
 ul {
     list-style-type: none;
+    align-items: self-start;
+}
+
+li.brand-name > span {
+    font-weight: bold;
+}
+
+ul.socials > img{
+    width: 20%;
+}
+
+.col {
+    /* font-weight: bold; */
+}
+
+a {
+    font-weight: normal;
 }
