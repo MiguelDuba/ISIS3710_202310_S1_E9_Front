@@ -14,23 +14,48 @@ footer {
     background: #F8DFD0
     }
 
+.col {
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+}
+
 ul {
     list-style-type: none;
     align-items: self-start;
+    margin: 10% 0;
+    padding:0;
+}
+
+li.brand-name {
+    font-weight: normal;
+    color:black;
 }
 
 li.brand-name > span {
     font-weight: bold;
+    color:black;
 }
+
+li {
+    margin: 10% 0;
+    color: #646464;
+    font-weight: normal;
+}
+
 
 ul.socials > img{
     width: 20%;
 }
 
-.col {
-    /* font-weight: bold; */
-}
 
 a {
     font-weight: normal;
+    text-decoration: none;
+    color: #646464;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #646464;
 }

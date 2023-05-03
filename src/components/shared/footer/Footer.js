@@ -14,9 +14,9 @@ function Footer() {
                     <li className='brand-name'>Kangar<span>oo</span></li>
                     <li>Contactanos y siguenos
                         <ul className='socials'>
-                            <a href="#"><img src={facebookIcn}></img></a>
-                            <a href="#"><img src={whatsappIcn}></img></a>
-                            <a href="#"><img src={youtubeIcn}></img></a>
+                            <a href="#"><img alt="Logo for Facebook"src={facebookIcn}></img></a>
+                            <a href="#"><img alt="Logo for Whatsapp"src={whatsappIcn}></img></a>
+                            <a href="#"><img alt="Logo for Youtube"src={youtubeIcn}></img></a>
                         </ul>
                     </li>
                 </ul>

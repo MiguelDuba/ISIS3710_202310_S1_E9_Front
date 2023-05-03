@@ -2,6 +2,13 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0; 
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    height: fit-content;
+    left: 0px; 
+    top: 0px;
 }
 
 img {
@@ -10,7 +17,13 @@ img {
     padding: 0;
 }
 
-a {
+a.nav--brand {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+a.nav--brand:hover{
     text-decoration: none;
     font-weight: bold;
     color: black;
