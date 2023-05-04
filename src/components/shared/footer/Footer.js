@@ -8,6 +8,7 @@ import './Footer.css';
 function Footer() {
     return (
         <footer>
+            <div style={{display: 'block'}}></div>
             <Row>
             <Col>
                 <ul>
