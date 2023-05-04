@@ -4,3 +4,8 @@
   position: relative;
   min-height: 100vh;
 }
+
+.body--test {
+  margin: 10%;
+  padding: 10%;
+}
