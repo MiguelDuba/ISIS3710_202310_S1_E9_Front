@@ -4,11 +4,10 @@ nav {
     align-items: center;
     margin: 0; 
     padding: 0;
-    position: fixed;
+    position: sticky;
     width: 100%;
     height: fit-content;
-    left: 0px; 
-    top: 0px;
+    top: 0;
 }
 
 img {
@@ -52,18 +51,35 @@ ul.nav--users {
     display: inline;
 }
 
-ul.nav--users > button.log-in {
+.log-in {
     border: none; 
     background-color: transparent;
+    color: black;
+}
 
+.log-in:hover {
+    border: none; 
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
 }
 
 
-ul.nav--users > button.sign-up {
+.sign-up {
     border: 2px solid #E9A672;
     border-radius: 20px;
     color: #E9A672;
     background-color: transparent;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 7px;
+}
+
+.sign-up:hover {
+    border: 2px solid white;
+    border-radius: 20px;
+    color: white;
+    background-color: #E9A672;
     font-size: 16px;
     line-height: 19px;
     padding: 7px;
