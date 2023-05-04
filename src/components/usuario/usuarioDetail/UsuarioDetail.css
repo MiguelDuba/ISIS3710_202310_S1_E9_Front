@@ -1,0 +1,23 @@
+.detalleUsuario {
+    margin: 213px;
+    text-align: left;
+}
+
+.informacion-general {
+    width: 32%;
+    text-align: right;
+}
+
+.detalleUsuario li {
+    margin: 0 0 0 10px;
+}
+
+.detalleUsuario lh {
+    font-weight: bold;
+}
+
+.detalleUsuario ul {
+    margin: 45px 0 0 0;
+    list-style-type: disc;
+    list-style-position: inside;
+}
