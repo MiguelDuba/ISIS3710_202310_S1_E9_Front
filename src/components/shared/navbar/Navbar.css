@@ -1,13 +1,5 @@
-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0; 
-    padding: 0;
-    position: sticky;
-    width: 100%;
-    height: fit-content;
-    top: 0;
+.kangaroo-nav {
+    background-color: white;
 }
 
 img {

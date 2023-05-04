@@ -5,7 +5,7 @@ import './Navbar.css';
 
 function KangarooNavbar() {
     return (
-        <Navbar fixed='top' expand="lg">
+        <Navbar className='kangaroo-nav'bg-white fixed='top' expand="lg">
             <Navbar.Brand>
                 <a className='nav--brand' href='#'><img src={logo} alt="Cartoon of a kangaroo"></img>Kangaroo</a> 
             </Navbar.Brand>
@@ -14,7 +14,7 @@ function KangarooNavbar() {
                     <Nav.Link href='#'>Inicio</Nav.Link>
                     <Nav.Link href='#'>Sobre</Nav.Link>
                     <Nav.Link href='#'>Preguntas Frecuentes</Nav.Link>
-                    <Nav.Link href='#'><img src={searchIcn}></img></Nav.Link>
+                    <Nav.Link href='#'><img src={searchIcn} alt='Search button'></img></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse>
