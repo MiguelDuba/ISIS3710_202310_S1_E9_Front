@@ -10,7 +10,7 @@ function Footer() {
         <footer>
             <div style={{display: 'block'}}></div>
             <Row>
-            <Col>
+            <Col className='footer-col'>
                 <ul>
                     <li className='brand-name'>Kangar<span>oo</span></li>
                     <li>Contactanos y siguenos
@@ -22,7 +22,7 @@ function Footer() {
                     </li>
                 </ul>
             </Col>
-            <Col> Kangaroo
+            <Col className='footer-col'> Kangaroo
                 <ul>
                     <li><a href="#">Como funciona</a></li>
                     <li><a href="#">Ayuda</a></li>
@@ -30,7 +30,7 @@ function Footer() {
                     <li><a href="#">Datos</a></li>
                 </ul>
             </Col>
-            <Col>
+            <Col className='footer-col'>
                 Conecta
                 <ul>
                     <li><a href="#">Sobre nosotros</a></li>
