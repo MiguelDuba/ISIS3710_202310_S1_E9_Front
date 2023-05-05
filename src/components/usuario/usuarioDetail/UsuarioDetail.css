@@ -1,23 +1,60 @@
 .detalleUsuario {
-    margin: 213px;
+    margin: 6% 187px 0 200px;
+    width: fit-content;
     text-align: left;
 }
 
 .informacion-general {
-    width: 32%;
+    width: fit-content;
     text-align: right;
 }
 
 .detalleUsuario li {
-    margin: 0 0 0 10px;
+    color: black;
+    margin: 5px 0 5px 10px;
 }
 
 .detalleUsuario lh {
-    font-weight: bold;
+    font-weight: semi-bold;
 }
 
 .detalleUsuario ul {
-    margin: 45px 0 0 0;
+    margin: 22px 0 22px 0;
     list-style-type: disc;
     list-style-position: inside;
+}
+
+#foto {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin: 0 0 0 10px;
+}
+
+#aniosExperiencia {
+    padding: 0 0 0 80px;
+}
+
+.centered {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.info-col {
+    text-align: left;
+    padding-right: 60px;
+}
+
+button {
+    background-color: #EF7146;
+    color: white;
+    border: 0;
+    border-radius: 16px;
+    padding: 5% 30%;
+    font-size: larger;
 }

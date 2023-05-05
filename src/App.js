@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="App">
       <KangarooNavbar/>
-      <UsuarioDetail NombreUsuario="Valerie Robertson" TipoUsuario="Canguro" AniosExperiencia={5}/>
-      <Footer/>
+      <UsuarioDetail nombreUsuario="Valerie Robertson" tipoUsuario="Canguro" aniosExperiencia={5} celular="3012455675" correoElectronico="v.robertson@gmail.com" caracteristicas={["Creatividad","Comunicación efectiva","Certificación en primeros auxilios y RCP"]} antecedentes={[]} foto="https://media.discordapp.net/attachments/1040862459378020502/1103425810448257125/Ellipse_3.png"/>
+      {/* <Footer/> */}
     </div>
   );
 }
