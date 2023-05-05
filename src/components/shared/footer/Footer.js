@@ -23,21 +23,21 @@ function Footer() {
                 </ul>
             </Col>
             <Col className='footer-col'> Kangaroo
-                <ul>
-                    <li><a href="#">Como funciona</a></li>
-                    <li><a href="#">Ayuda</a></li>
-                    <li><a href="#">Términos y privacidad</a></li>
-                    <li><a href="#">Datos</a></li>
-                </ul>
-            </Col>
+                <ul className='footer--ul'>
+                    <li className='footer--link'><a href="#">Como funciona</a></li>
+                    <li className='footer--link'><a href="#">Ayuda</a></li>
+                    <li className='footer--link'><a href="#">Términos y privacidad</a></li>
+                    <li className='footer--link'><a href="#">Datos</a></li>
+                </ul> className='footer--link'
+            </Col> className='footer--link'
             <Col className='footer-col'>
-                Conecta
-                <ul>
-                    <li><a href="#">Sobre nosotros</a></li>
-                    <li><a href="#">Consejos</a></li>
-                    <li><a href="#">Seguridad</a></li>
-                    <li><a href="#">Normas</a></li>
-                    <li><a href="#">Necesidades especiales</a></li>
+                Conecta className='footer--link'
+                <ul className='footer--ul'>
+                    <li className='footer--link'><a href="#">Sobre nosotros</a></li>
+                    <li className='footer--link'><a href="#">Consejos</a></li>
+                    <li className='footer--link'><a href="#">Seguridad</a></li>
+                    <li className='footer--link'><a href="#">Normas</a></li>
+                    <li className='footer--link'><a href="#">Necesidades especiales</a></li>
                 </ul>
             </Col>
             </Row>

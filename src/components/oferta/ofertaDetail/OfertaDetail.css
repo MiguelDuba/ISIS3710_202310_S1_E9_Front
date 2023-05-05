@@ -5,6 +5,7 @@ h1.person-name {
 
 .detail {
     text-align: left;
+    /* color: #5A5A5A;*/
 }
 
 .detail--subtitle {
@@ -38,6 +39,12 @@ h3 {
     width: 50%;
     border-radius: 50%;
     object-fit: cover;
+}
+
+ul {
+    align-items: self-start;
+    padding: 0;
+    margin: 0;
 }
 
 .row--request {
