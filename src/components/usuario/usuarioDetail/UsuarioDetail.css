@@ -1,0 +1,73 @@
+.mid {
+    padding: 6rem;
+    clear:both;
+}
+
+.detailUsuario {
+    text-align: left;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.mid lh {
+    font-weight: bold;
+}
+
+.mid ul {
+    margin: 0;
+    padding: 1rem 0 0 0;
+}
+
+.mid li {
+    margin: 1rem 0 0 1rem;
+    list-style-position: inside;
+    list-style-type: disc;
+    color:black;
+}
+
+.no-margin {
+    margin: 0;
+    padding: 0;
+}
+
+.right {
+    text-align: right;
+}
+
+.foto {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.foto img {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.center-img {
+    padding: 6rem 1rem 0 1rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.my-btn {
+    background-color: #EF7146;
+    color: white;
+    border-width: 0;
+    margin: 1rem 1rem 0 1rem;
+    padding: 1rem 4rem 1rem 4rem;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.fit-content {
+    height: fit-content;
+}
