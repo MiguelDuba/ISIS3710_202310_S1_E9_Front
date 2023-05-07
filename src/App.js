@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './App.css';
+import OfertaCreate from './components/oferta/ofertaCreate/OfertaCreate';
 import OfertaDetail from './components/oferta/ofertaDetail/OfertaDetail';
 import Footer from './components/shared/footer/Footer';
 import KangarooNavbar from './components/shared/navbar/KangarooNavbar';
@@ -14,7 +15,8 @@ function App() {
       <KangarooNavbar/>
       <main>
         <OfertaDetail info={ofertaDetail}/>
-        <UsuarioCreate/>
+        <OfertaCreate/>
+        {/* <UsuarioCreate/> */}
       </main>
       {/* <Footer/> */}
     </div>

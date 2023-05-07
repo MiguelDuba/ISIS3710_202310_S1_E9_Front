@@ -3,15 +3,10 @@ h1.person-name {
     font-weight: bold;
 }
 
-.detail {
-    text-align: left;
-    /* color: #5A5A5A;*/
-}
-
 .detail--subtitle {
-    margin-bottom: 4em;
     font-family: 'Rubik';
     font-style: normal;
+    padding-right: 0;
 }
 
 .offer-type {
@@ -24,12 +19,8 @@ h1.person-name {
 h3 {
     font-weight: bold;
     font-size: 30px;
-}
-
-
-.image-cropper {
-    display: block;
-    margin: auto;
+    margin-top: 1.5em;
+    text-align: left;
 }
   
 .person-img {
@@ -37,27 +28,26 @@ h3 {
     margin: 0 auto;
     height: 50%;
     width: 50%;
-    border-radius: 50%;
     object-fit: cover;
 }
 
-ul {
-    align-items: self-start;
-    padding: 0;
-    margin: 0;
+
+.detail--info {
+    color: #5A5A5A;
+    text-align: left;
 }
 
 .row--request {
-    padding: 0 40%;
-    margin-top: 4em;
+    justify-content: center;
 }
 
-.btn--request {
-    text-align: center;
-    border: none;
+.btn-flat, .btn-flat:hover, .btn-flat:active, .btn-flat:focus, .btn-flat:enabled, .btn-flat:focus-visible {
     background-color: #EF7146;
+    color: #FFF;
     font-family: 'Karla', sans-serif;
     font-weight: bold;
-    border-radius: .6em;
-    padding: .5em 3em;
+    max-width: fit-content;
+    padding: 1% 10%; 
+    border-radius: 0.8em;
+    font-size: larger;
 }
