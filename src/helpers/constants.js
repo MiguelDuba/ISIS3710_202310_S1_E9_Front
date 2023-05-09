@@ -1,5 +1,5 @@
-export const KANGAROO = 'KANGAROO'; 
-export const GUARDIAN = 'ACUDIENTE';
+export const KANGAROO = 'Canguro'; 
+export const GUARDIAN = 'Acudiente';
 
 export const WEEKDAYS = [
   "Lunes",
