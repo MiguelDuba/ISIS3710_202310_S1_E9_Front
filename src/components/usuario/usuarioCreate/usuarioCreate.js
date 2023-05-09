@@ -52,13 +52,13 @@ function UsuarioCreate(props) {
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Contraseña *</Form.Label>
-                            <Form.Control placeholder="Ingresa tu contraseña de acceso a tu cuenta" />
+                            <Form.Control type="password" placeholder="Ingresa tu contraseña de acceso a tu cuenta" />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Verificar Contraseña *</Form.Label>
-                            <Form.Control placeholder="Ingresa nuevamente la contraseña de acceso a tu cuenta" />
+                            <Form.Control type="password" placeholder="Ingresa nuevamente la contraseña de acceso a tu cuenta" />
                         </Form.Group>
                     </Col>
                 </Row>
