@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import Footer from './components/shared/footer/Footer';
 import KangarooNavbar from './components/shared/navbar/KangarooNavbar';
-import ContratoDetail from './components/contrato/Contrato';
+import ContratoDetail from './components/contrato/ContratoDetail';
 
 function App() {
   return (

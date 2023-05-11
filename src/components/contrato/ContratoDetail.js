@@ -1,5 +1,5 @@
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
-import "./Contrato.css"
+import "./ContratoDetail.css"
 
 function ContratoDetail(){
     return (
