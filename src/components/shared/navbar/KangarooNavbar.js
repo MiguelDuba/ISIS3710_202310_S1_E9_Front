@@ -14,7 +14,7 @@ function KangarooNavbar() {
                     <Nav.Link href='#'>Inicio</Nav.Link>
                     <Nav.Link href='#'>Sobre</Nav.Link>
                     <Nav.Link href='#'>Preguntas Frecuentes</Nav.Link>
-                    <Nav.Link href='#'><img src={searchIcn} alt='Search button'></img></Nav.Link>
+                    <Nav.Link href='#'><img className='searchIcn' src={searchIcn} alt='Search button'></img></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse>
