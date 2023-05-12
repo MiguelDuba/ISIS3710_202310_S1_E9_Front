@@ -8,3 +8,26 @@
     width: 20%;
     float: left;
 }
+
+aside.filter-sm {
+    display: none !important;
+}
+
+
+@media (max-width: 480px) {
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      justify-items: center;
+      padding: 0;
+      margin-bottom: 1em;
+  
+      }
+      .filter {
+       display:none
+      }
+      .filter-sm {
+        display: flex;
+      }
+  }

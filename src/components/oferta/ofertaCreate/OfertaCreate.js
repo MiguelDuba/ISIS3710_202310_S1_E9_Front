@@ -107,8 +107,9 @@ function OfertaCreate() {
   return (
     <Form className="createOffer">
       <h1>Nueva Oferta</h1>
-      <Row>
-        <Col className="form--OfferData">
+      <div className='form--items'>
+        <div className="form--OfferData">
+
           <Form.Group controlId="form--Price">
             <Form.Label>Precio</Form.Label>
             <CurrencyInput
@@ -154,9 +155,9 @@ function OfertaCreate() {
               </Form.Group>
             </Col>
           </Row>
-        </Col>
+        </div>
 
-        <Col className="form--ScheduleData">
+        <div className="form--ScheduleData">
           <Form.Group controlId="form--Schedule">
             <Form.Label>Horario</Form.Label>
             {WEEKDAYS.map((day) => {
@@ -174,11 +175,11 @@ function OfertaCreate() {
               );
             })}
           </Form.Group>
-        </Col>
-      </Row>
+        </div>
+      </div>
 
-      <Row className="submitCancelBtns justify-content-md-center">
-        <Col className="offer-cancelBtn" size={6}>
+      <div className="submitCancelBtns">
+        <div className="offer-cancelBtn">
           <Button
             className="offer-cancelBtn"
             size="lg"
@@ -187,8 +188,8 @@ function OfertaCreate() {
           >
             Cancelar
           </Button>
-        </Col>
-        <Col className="offer-createBtn" size={6}>
+        </div>
+        <div className="offer-createBtn">
           <Button
             className="offer-createBtn"
             size="lg"
@@ -197,8 +198,8 @@ function OfertaCreate() {
           >
             Crear oferta
           </Button>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </Form>
   );
 }

@@ -1,4 +1,3 @@
-import { Col, Row } from "react-bootstrap";
 import { formatterCOP } from "../../../helpers/priceFormatter";
 import './OfertaCard.css';
 
@@ -20,11 +19,11 @@ function OfertaCard(props) {
                 </div>
             </div>
             <div className='infoDiv'>
-                <p>Precio</p>
+                <span className='infoDiv--title'>Precio</span>
                 {formatterCOP.format(offerData.price)}
-                <p >Habilidades</p>
+                <span className='infoDiv--title'>Habilidades</span>
                 {ability_elements}
-                <p >Horario</p>
+                <span className='infoDiv--title'>Horario</span>
                 {schedule_elements}
             </div>
         </div>

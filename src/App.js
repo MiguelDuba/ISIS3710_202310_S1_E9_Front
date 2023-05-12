@@ -3,11 +3,12 @@ import React from 'react';
 import './App.css';
 import OfertaCreate from './components/oferta/ofertaCreate/OfertaCreate';
 import OfertaDetail from './components/oferta/ofertaDetail/OfertaDetail';
+import OfertaList from './components/oferta/ofertaList/OfertaList';
 import Footer from './components/shared/footer/Footer';
 import KangarooNavbar from './components/shared/navbar/KangarooNavbar';
 import UsuarioCreate from './components/usuario/usuarioCreate/usuarioCreate';
 import UsuarioDetail from './components/usuario/usuarioDetail/UsuarioDetail';
-import { ofertaDetail } from './tempData/ofertaDetailData';
+import { ofertaDetail, ofertaListData } from './tempData/ofertaData';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <main>
         <OfertaDetail info={ofertaDetail}/>
         <OfertaCreate/>
-        {/* <UsuarioCreate/> */}
+        <OfertaList info={ofertaListData}/>
+        {/* <UsuarioCreate/>Í */}
       </main>
       {/* <Footer/> */}
     </div>

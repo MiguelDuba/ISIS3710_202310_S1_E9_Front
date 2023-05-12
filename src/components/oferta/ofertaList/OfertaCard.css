@@ -4,7 +4,7 @@
     border-radius: 1em;
     border-color: #E9A672;
     flex-direction: column;
-    padding: 5% 10%;
+    padding: 5% 5%;
     margin: 5% 5%;
 }
 
@@ -24,6 +24,13 @@
     align-items: flex-start;
     justify-content: center;
 }
+.userInfoTop > h5 {
+    font-weight: bold;
+}
+
+.userInfoTop > p {
+    color: #646464
+}
 
 .userInfo > img {
     width: 30%; 
@@ -35,4 +42,8 @@
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+}
+
+.infoDiv--title {
+    font-weight: bold;
 }
