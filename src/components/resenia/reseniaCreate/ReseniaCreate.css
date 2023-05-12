@@ -7,10 +7,6 @@
     font-size: 1.1em
 }
 
-.form-secondlabel {
-    font-size: 0.5em
-}
-
 input:not(.form-check-input) {
     color: #646464;
     display: block;

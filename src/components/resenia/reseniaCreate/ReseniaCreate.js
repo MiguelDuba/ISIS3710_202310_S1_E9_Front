@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Col, Form, FormGroup, Row, ToggleButtonGroup, ToggleButton  } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
 import './ReseniaCreate.css';
 import { buildReseniaPayload } from './ReseniaCreateHelper';
@@ -8,13 +8,20 @@ import { buildReseniaPayload } from './ReseniaCreateHelper';
 function ReseniaCreate() {
 
   const [titulo, setTitulo] = useState("")
-  const [calificacion, setCalificacion] = useState(1)
+  const [calificacion, setCalificacion] = useState({ kindOfStand: "", another: "another" });
   const [descripcion, setDescripcion] = useState("")
+  const { kindOfStand } = calificacion;
 
-  const handleRatingChange = (value) => {
-    setCalificacion(value);
+  const handleChange = e => {
+    e.persist();
+    console.log(e.target.value);
+
+    setCalificacion(prevState => ({
+      ...prevState,
+      kindOfStand: e.target.value
+    }));
   };
-  
+
   const cancelReseniaCreate = () => {
     console.log("canceling create...");
   };
@@ -68,14 +75,47 @@ function ReseniaCreate() {
 
           <Form.Group controlId="form-Calificacion">
             <Form.Label>Calificacion</Form.Label>
-            <Form.SecondLabel>Califica tu experiencia, siendo 1 pésima y 5 excelente</Form.SecondLabel>
-            <ToggleButtonGroup type="radio" name="calificacion" value={calificacion} onChange={handleRatingChange}>
-                <ToggleButton value={1}>1</ToggleButton>
-                <ToggleButton value={2}>2</ToggleButton>
-                <ToggleButton value={3}>3</ToggleButton>
-                <ToggleButton value={4}>4</ToggleButton>
-                <ToggleButton value={5}>5</ToggleButton>
-            </ToggleButtonGroup>
+            {/*</Form.Group><>Califica tu experiencia, siendo 1 pésima y 5 excelente<>*/}
+            <Form.Check
+              value="1"
+              type="radio"
+              aria-label="radio 2"
+              label="1"
+              onChange={handleChange}
+              checked={kindOfStand === "1"}
+            />
+            <Form.Check
+              value="2"
+              type="radio"
+              aria-label="radio 2"
+              label="2"
+              onChange={handleChange}
+              checked={kindOfStand === "2"}
+            />
+            <Form.Check
+              value="3"
+              type="radio"
+              aria-label="radio 2"
+              label="3"
+              onChange={handleChange}
+              checked={kindOfStand === "3"}
+            />
+            <Form.Check
+              value="4"
+              type="radio"
+              aria-label="radio 2"
+              label="4"
+              onChange={handleChange}
+              checked={kindOfStand === "4"}
+            />
+            <Form.Check
+              value="5"
+              type="radio"
+              aria-label="radio 2"
+              label="5"
+              onChange={handleChange}
+              checked={kindOfStand === "5"}
+            />
           </Form.Group>
 
         </Col>
