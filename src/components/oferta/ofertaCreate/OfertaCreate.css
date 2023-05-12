@@ -94,3 +94,20 @@ input:not(.form-check-input) {
     white-space: nowrap;
     text-align: center;
 }
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .form--items {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-row-gap: 1rem;
+    }
+
+    .form--OfferData {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .form--ScheduleData {
+        grid-area: 2 / 1 / 3 / 2
+    }
+}

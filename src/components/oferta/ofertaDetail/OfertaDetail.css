@@ -14,6 +14,7 @@
 
 .ofertaDetail--image {
     grid-area: 1 / 2 / 5 / 3;
+    justify-self: start;
 }
 
 h1.person-name {
@@ -110,7 +111,6 @@ h3 {
 @media (min-width: 481px) and (max-width: 768px) {
     .ofertaDetail--image {
         grid-area: 1 / 2 / 5 / 3;
-        padding-right: 25%;
     }
     .person-img {
         width: 210px; 

@@ -38,6 +38,7 @@ function OfertaList(props) {
         </Button>
       </aside>
       <aside className='filter'>
+        <div>
         <label>Usuario</label>
         <input 
           type="search"
@@ -46,7 +47,8 @@ function OfertaList(props) {
             setUserSearch(e.target.value); updateFilters()
           }}
         ></input>
-
+        </div>
+        <div>
         <label>Tipo Oferta</label>
         <select className='form-select'
           aria-label="form--OfferType-Input"
@@ -58,6 +60,9 @@ function OfertaList(props) {
           <option value={KANGAROO}>Canguro</option>
           <option value={GUARDIAN}>Acudiente</option>
         </select>
+        </div>
+        <div>
+
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <label>Fecha Inicio</label>
           <DatePicker
@@ -67,6 +72,8 @@ function OfertaList(props) {
             }}
           />
         </LocalizationProvider>
+        </div>
+        <div>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <label>Fecha Inicio</label>
           <DatePicker
@@ -76,6 +83,11 @@ function OfertaList(props) {
             }}
           />
         </LocalizationProvider>
+        </div>
+        
+
+        
+        
       </aside>
       <div className="gallery">{uiCardElements}</div>
     </>
