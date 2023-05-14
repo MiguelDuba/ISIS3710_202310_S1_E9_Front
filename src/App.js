@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import OfertaCreate from './components/oferta/ofertaCreate/OfertaCreate';
 import OfertaDetail from './components/oferta/ofertaDetail/OfertaDetail';
@@ -15,9 +16,18 @@ function App() {
     <div className="App">
       <KangarooNavbar/>
       <main>
-        <OfertaDetail info={ofertaDetail}/>
+      <BrowserRouter>
+          <Routes>
+            {/* <Route path="/" element={<Mascotas />} /> */}
+            <Route path="/ofertas" element={<OfertaList />} />
+            <Route path="/ofertas/new" element={<OfertaCreate />} />
+            <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
+          </Routes>
+        </BrowserRouter>
+        
+        {/* <OfertaDetail info={ofertaDetail}/>
         <OfertaCreate/>
-        <OfertaList info={ofertaListData}/>
+        <OfertaList info={ofertaListData}/> */}
         {/* <UsuarioCreate/>Í */}
       </main>
       {/* <Footer/> */}

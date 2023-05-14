@@ -25,6 +25,18 @@
     /* margin-right: 50%; */
 }
 
+.form--Dates {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.dates--StartDate, .dates--EndDate {
+    display: flex; 
+    flex-direction: column;
+    margin: 0 1em;
+}
+
+
 .form-label {
     font-size: 1.1em
 }

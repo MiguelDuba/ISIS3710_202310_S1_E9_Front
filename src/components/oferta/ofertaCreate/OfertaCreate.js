@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
-import { GUARDIAN, KANGAROO, WEEKDAYS } from "../../../helpers/constants";
+import { BASE_URL, GUARDIAN, KANGAROO, WEEKDAYS } from "../../../helpers/constants";
 import './OfertaCreate.css';
 import { buildOfferPayload, buildSchedulePayload } from './OfertaCreaterHelper';
 
@@ -21,6 +21,7 @@ function OfertaCreate() {
   const [initDate, setInitDate] = useState(dayjs())
   const [endDate, setEndDate] = useState(dayjs().add(1, 'd'))
 
+  const postUrl = BASE_URL + "/ofertas"
 
   const cancelOfferCreate = () => {
     console.log("canceling create...");
@@ -29,18 +30,25 @@ function OfertaCreate() {
   const createOffer = (event) => {
     event.preventDefault();
     console.log("creating offer...");
-    // validate data
+    // TODO: validate data
     const offer = {
       price: price, 
       offerType: offerType, 
       initDate: dayjs(initDate).format('DD/MM/YYYY'), 
       endDate: dayjs(endDate).format('DD/MM/YYYY'), 
     }
-    // build payload
-    console.log(buildOfferPayload(offer))
 
     // post offer
     console.log('sending post request')
+    const requestOfferPayload = {
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(buildOfferPayload(offer))
+    }
+    
+    fetch(BASE_URL + "/ofertas", requestOfferPayload)
+      .then(response => response.json())
+      .then(data => console.log(data));
 
     // assoc schedule
     const schedulePayloads = []
@@ -50,10 +58,17 @@ function OfertaCreate() {
     });
 
     schedulePayloads.forEach( (schedule) => {
-      console.log('sending schedule request for ', schedule)
-    })
-
-  };
+      const requestOfferPayload = {
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(buildOfferPayload(schedule))
+      }
+      fetch(BASE_URL + "/horarios", requestOfferPayload)
+      .then(response => response.json())
+      .then(data => console.log(data));
+      }
+    );
+  }
 
   const showHourForDay = (event) => {
     const checkedDay = event.target.value;
@@ -131,9 +146,9 @@ function OfertaCreate() {
               <option value={GUARDIAN}>Acudiente</option>
             </Form.Select>
           </FormGroup>
-          <Row>
-            <Col>
-              <Form.Group controlId="form--StartDate">
+          <div className='form--Dates'>
+            {/* <div className='dates--StartDate'> */}
+              <Form.Group className='dates--StartDate' controlId="form--StartDate">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Form.Label>Fecha inicial</Form.Label>
                   <DatePicker
@@ -142,9 +157,9 @@ function OfertaCreate() {
                   />
                 </LocalizationProvider>
               </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="form--EndDate">
+            {/* </div>
+            <div className='dates--EndDate'> */}
+              <Form.Group className='dates--EndDate' controlId="form--EndDate">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Form.Label>Fecha final</Form.Label>
                   <DatePicker
@@ -153,8 +168,8 @@ function OfertaCreate() {
                   />
                 </LocalizationProvider>
               </Form.Group>
-            </Col>
-          </Row>
+            {/* </div> */}
+          </div>
         </div>
 
         <div className="form--ScheduleData">

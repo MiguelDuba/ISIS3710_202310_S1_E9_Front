@@ -10,3 +10,5 @@ export const WEEKDAYS = [
   "Sabado",
   "Domingo",
 ];
+
+export const BASE_URL = 'http://localhost:3000/api/v1'
