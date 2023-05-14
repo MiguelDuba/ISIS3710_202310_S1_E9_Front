@@ -1,3 +1,4 @@
+import { create } from '@mui/material/styles/createTransitions';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -120,7 +121,7 @@ function OfertaCreate() {
   }
 
   return (
-    <Form className="createOffer">
+    <Form className="createOffer" onSubmit={createOffer}>
       <h1>Nueva Oferta</h1>
       <div className='form--items'>
         <div className="form--OfferData">

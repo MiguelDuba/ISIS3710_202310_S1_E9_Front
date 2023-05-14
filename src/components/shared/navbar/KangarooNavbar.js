@@ -1,6 +1,7 @@
 import { Button, Nav, Navbar } from 'react-bootstrap';
 import searchIcn from '../../../icons/lupa.svg';
 import logo from '../../../logo.svg';
+import Login from '../login/Login';
 import './Navbar.css';
 
 function KangarooNavbar() {
@@ -19,7 +20,7 @@ function KangarooNavbar() {
             </Navbar.Collapse>
             <Navbar.Collapse>
                 <Nav>
-                    <Button className='log-in'>Accede</Button>
+                    <a href='/login'><Button className='log-in'>Accede</Button></a>
                     <Button className='sign-up'>Registrate</Button>
                 </Nav>
             </Navbar.Collapse>
