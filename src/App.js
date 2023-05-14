@@ -23,7 +23,7 @@ function App() {
       <main>
       <BrowserRouter>
           <Routes>
-            {/* <Route path="/" element={<Mascotas />} /> */}
+            <Route path="/"  />
             <Route path="/ofertas" element={<OfertaList />} />
             <Route path="/ofertas/new" element={<OfertaCreate />} />
             <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
@@ -36,7 +36,7 @@ function App() {
         <OfertaList info={ofertaListData}/> */}
         {/* <UsuarioCreate/>Í */}
       </main>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }

@@ -3,14 +3,14 @@ footer {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 4rem;
+    padding: 2rem;
     width: 100%;
     height: fit-content;
-
+    position: absolute;
     background: #F8DFD0;
     position: fixed; 
     bottom: 0; 
-    width: 100%
+    width: 100%; 
 }
 
 .footer-col {

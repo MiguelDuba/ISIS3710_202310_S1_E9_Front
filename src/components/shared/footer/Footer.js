@@ -11,7 +11,7 @@ function Footer() {
             <div style={{display: 'block'}}></div>
             <Row>
             <Col className='footer-col'>
-                <ul>
+                <ul className='footer--ul'>
                     <li className='brand-name'>Kangar<span>oo</span></li>
                     <li>Contactanos y siguenos
                         <ul className='socials'>
@@ -28,10 +28,10 @@ function Footer() {
                     <li className='footer--link'><a href="#">Ayuda</a></li>
                     <li className='footer--link'><a href="#">Términos y privacidad</a></li>
                     <li className='footer--link'><a href="#">Datos</a></li>
-                </ul> className='footer--link'
-            </Col> className='footer--link'
+                </ul> 
+            </Col>
             <Col className='footer-col'>
-                Conecta className='footer--link'
+                Conecta
                 <ul className='footer--ul'>
                     <li className='footer--link'><a href="#">Sobre nosotros</a></li>
                     <li className='footer--link'><a href="#">Consejos</a></li>

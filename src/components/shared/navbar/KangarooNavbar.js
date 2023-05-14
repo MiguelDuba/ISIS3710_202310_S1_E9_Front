@@ -5,6 +5,19 @@ import Login from '../login/Login';
 import './Navbar.css';
 
 function KangarooNavbar() {
+    const user = localStorage.getItem('userData')
+    const userData = JSON.parse(user)
+
+    const loadUser = () => {
+        if(!user) {
+            return ( <Nav>
+            <a href='/login'><Button className='log-in'>Accede</Button></a>
+            <Button className='sign-up'>Registrate</Button>
+        </Nav>)
+        } else {
+            return (<Nav>{userData.nombre}</Nav>)
+        }
+    }
     return (
         <Navbar className='kangaroo-nav' bg-white fixed='top' expand="lg">
             <Navbar.Brand>
@@ -12,17 +25,14 @@ function KangarooNavbar() {
             </Navbar.Brand>
             <Navbar.Collapse>
                 <Nav>
-                    <Nav.Link href='#'>Inicio</Nav.Link>
-                    <Nav.Link href='#'>Sobre</Nav.Link>
-                    <Nav.Link href='#'>Preguntas Frecuentes</Nav.Link>
-                    <Nav.Link href='#'><img className='searchIcn' src={searchIcn} alt='Search button'></img></Nav.Link>
+                    <Nav.Link href='/'>Inicio</Nav.Link>
+                    <Nav.Link href='/'>Sobre</Nav.Link>
+                    <Nav.Link href='/'>Preguntas Frecuentes</Nav.Link>
+                    <Nav.Link href='/'><img className='searchIcn' src={searchIcn} alt='Search button'></img></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse>
-                <Nav>
-                    <a href='/login'><Button className='log-in'>Accede</Button></a>
-                    <Button className='sign-up'>Registrate</Button>
-                </Nav>
+                {loadUser()}
             </Navbar.Collapse>
         </Navbar>
     );
