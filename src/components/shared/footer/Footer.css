@@ -3,23 +3,23 @@ footer {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 4rem;
+    padding: 2rem;
     width: 100%;
     height: fit-content;
-
+    position: absolute;
     background: #F8DFD0;
     position: fixed; 
     bottom: 0; 
-    width: 100%
+    width: 100%; 
 }
 
-.col {
+.footer-col {
     font-weight: bold;
     text-align: left;
     white-space: nowrap;
 }
 
-ul {
+ul.footer--ul {
     list-style-type: none;
     align-items: self-start;
     margin: 10% 0;
@@ -36,7 +36,7 @@ li.brand-name > span {
     color:black;
 }
 
-li {
+li.footer--link {
     margin: 10% 0;
     color: #646464;
     font-weight: normal;
