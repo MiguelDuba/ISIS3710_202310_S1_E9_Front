@@ -1,14 +1,35 @@
+import { useEffect, useState } from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { BASE_URL } from "../../../helpers/constants";
 import { formatterCOP } from "../../../helpers/priceFormatter";
 import "./OfertaDetail.css";
 
 function OfertaDetail(props) {
-  console.log(JSON.stringify(props));
-  const info = props.info;
-  const ability_elements = info.abilities.map((ability) => {
+  const params = useParams();
+  const offerId = params.ofertaId;
+
+  const [offer, setOffer] = useState();
+
+  useEffect( () => {
+    const token = localStorage.getItem('sessionToken')
+    fetch(`${BASE_URL}/ofertas/${offerId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      // TODO check that offer is found
+      setOffer(data)
+    });
+  }, [offer, offerId])
+  
+
+  const ability_elements = offer.abilities.map((ability) => {
     return <li>{ability}</li>;
   });
-  const schedule_elements = info.schedule.map((item) => {
+  const schedule_elements = offer.schedule.map((item) => {
     return <li>{item}</li>;
   });
 
@@ -20,17 +41,17 @@ function OfertaDetail(props) {
       <div className="ofertaDetail--container">
         <div className="ofertaDetail--info">
           <div className="detail--title">
-            <h1 className="person-name">{info.name}</h1>
+            <h1 className="person-name">{offer.name}</h1>
             <Row className="detail--subtitle">
-              <Col className="offer-type">{info.offerType}</Col>
+              <Col className="offer-type">{offer.offerType}</Col>
               <Col className="experience">
-                {info.experienceNum} años de experiencia
+                {offer.experienceNum} años de experiencia
               </Col>
             </Row>
           </div>
           <div>
             <h3>Precio</h3>
-            <p className="detail--info">{formatterCOP.format(info.price)}</p>
+            <p className="detail--info">{formatterCOP.format(offer.price)}</p>
           </div>
           <div>
             <h3>Habilidades</h3>
@@ -44,8 +65,8 @@ function OfertaDetail(props) {
         <div className="ofertaDetail--image">
           <Image
             className="person-img"
-            src={info.image}
-            alt={`Imagen de ${info.name}`}
+            src={offer.image}
+            alt={`Imagen de ${offer.name}`}
             fluid
             roundedCircle
           ></Image>

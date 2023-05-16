@@ -16,7 +16,6 @@ import { ofertaDetail, ofertaListData } from './tempData/ofertaData';
 // import { reseniaListData } from './tempData/reseniaData';
 
 function App() {
-  const [token, setToken] = useState()
   return (
     <div className="App">
       <KangarooNavbar/>
