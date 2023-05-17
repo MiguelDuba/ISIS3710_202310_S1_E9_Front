@@ -4,32 +4,18 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
+import { getOffers, getUserbyOffer } from '../../../helpers/backend/offerBackend';
 import { BASE_URL, GUARDIAN, KANGAROO } from "../../../helpers/constants";
 import filterImg from '../../../icons/filter-hmg.svg';
 import OfertaCard from "./OfertaCard";
 import "./OfertaList.css";
 
 
-async function getOffer() {
-  return fetch(`${BASE_URL}/ofertas`)
-    .then((response) => response.json())
-    .then((data) => data);
-}
-async function getUserOfOffer(offer) {
-    const userId = offer.usuario.id; 
-    console.log('o-u', userId)
-    return fetch(`${BASE_URL}/ofertas/${offer.id}/usuarios/${userId}`)
-    .then((response) => response.json())
-    .then((data) => data);
-}
-
 function mapCardElements(offerList) {
   return offerList.map((offer) => <OfertaCard info={offer} />)
-
 }
 
 function OfertaList() {
-  const [offerList, setOfferList] = useState([])
   const [userSearch, setUserSearch] = useState();
   const [initDate, setInitDate] = useState(dayjs());
   const [endDate, setEndDate] = useState(dayjs().add(1, "d"));
@@ -38,19 +24,13 @@ function OfertaList() {
   const [cardElements, setCardElements] = useState([]);
 
   useEffect(() => async function () {
-    const offerData = await getOffer();
+    const offerData = await getOffers();
     const asyncRes = await Promise.all(offerData.map(async (offer) => {
-      const userData = await getUserOfOffer(offer);
+      const userData = await getUserbyOffer(offer.id, offer.usuario.id);
       return {...offer, "usuario": userData}
     }));
-    
-    setOfferList(asyncRes)
     setCardElements(mapCardElements(asyncRes))
-  }, [offerList]);
-
-  // const uiCardElements = offerList.map((offer) => {
-  //   return <OfertaCard info={offer} />;
-  // });
+  }, []);
 
   const updateFilters = () => {
     console.log({

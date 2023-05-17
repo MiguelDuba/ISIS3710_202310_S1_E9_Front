@@ -27,6 +27,7 @@ function App() {
             <Route path="/ofertas/new" element={<OfertaCreate />} />
             <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/error" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
         
@@ -38,6 +39,10 @@ function App() {
       <Footer/>
     </div>
   );
+}
+
+function PageNotFound () {
+  return <div><h1>ERROR</h1></div>
 }
 
 export default App;

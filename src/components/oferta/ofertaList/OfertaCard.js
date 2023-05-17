@@ -1,20 +1,24 @@
+import dayjs from "dayjs";
 import { formatterCOP } from "../../../helpers/priceFormatter";
 import "./OfertaCard.css";
 
 function OfertaCard(props) {
-
-  console.log("card", props.info);
   const userData = props.info.usuario;
   const offerData = props.info;
-
-  console.log('user', userData)
-  console.log('off', offerData)
+  const offerId = offerData.id; 
   const ability_elements = userData.especialidades.join(", ");
   const needs_elements = userData.necesidades.join(", ");
-  const schedule_elements = offerData.horarios.join(", ");
+  const schedule_elements = offerData.horarios.map((horario) => {
+    const init = dayjs(horario.horaInicio).format('ha')
+    const end = dayjs(horario.horaFin).format('ha')
+    return `${horario.dia} ${init}-${end}`
+  }
+  ).join(", ")
+
+
   return (
     <div className="ofertaCard">
-      <a href="#">
+      <a href={`/ofertas/${offerId}`}>
         <div className="userInfo">
           <img
             src={userData.foto}
@@ -30,8 +34,11 @@ function OfertaCard(props) {
         <div className="infoDiv">
           <span className="infoDiv--title">Precio</span>
           {formatterCOP.format(offerData.precio)}
-          <span className="infoDiv--title">Habilidades</span>
+          
+          {userData.especialidades.len > 0 && <span className="infoDiv--title">Habilidades</span>}
           {ability_elements}
+          {userData.necesidades.len > 0 && <span className="infoDiv--title">Necesidades</span>}
+          {needs_elements}
           <span className="infoDiv--title">Horario</span>
           {schedule_elements}
         </div>

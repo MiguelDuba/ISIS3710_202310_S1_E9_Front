@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 
 import CurrencyInput from "react-currency-input-field";
+import { createAndAssocSchedule } from "../../../helpers/backend/offerBackend";
 import {
   BASE_URL,
   GUARDIAN,
@@ -60,7 +61,8 @@ async function assocSchedtoOffer(offerId, schedId) {
   return fetch(
     `${BASE_URL}/ofertas/${offerId}/horarios/${schedId}`,
     assocPayload
-  );
+  ).then((response) => response.json())
+  .then((data) => console.log('r', data));
 }
 
 function OfertaCreate() {
@@ -103,18 +105,27 @@ function OfertaCreate() {
         const offerId = offer.id;
         console.log(offerId)
         const schedulePayloads = [];
+        
         activeDays.forEach((day) => {
           const dayPayload = buildSchedulePayload(day, activeTimes);
           schedulePayloads.push(dayPayload);
         });
 
-        const schedId = [];
-        await schedulePayloads.forEach((schedule) => {
-          const id = createSchedule(schedule);
-          schedId.push(id)
-        });
-
-        schedId.forEach((id) => assocSchedtoOffer(offerId, id))
+        await schedulePayloads.forEach( async (schedule) => {
+          const scheudlePayload = {
+            method: "POST",
+            headers: { "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,},
+            body: JSON.stringify(schedule),
+          };
+          const res = await createAndAssocSchedule(scheudlePayload, offerId)
+          if(!res) {
+            console.log('error', res)
+          } else {
+            console.log('gud', res)
+          }
+        })
+        
       }
     }
   };
