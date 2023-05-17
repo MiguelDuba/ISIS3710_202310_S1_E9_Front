@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { formatterCOP } from "../../../helpers/priceFormatter";
+import { formatOfferTime } from "../../../helpers/timeFormatter";
 import "./OfertaCard.css";
 
 function OfertaCard(props) {
@@ -8,11 +9,7 @@ function OfertaCard(props) {
   const offerId = offerData.id; 
   const ability_elements = userData.especialidades.join(", ");
   const needs_elements = userData.necesidades.join(", ");
-  const schedule_elements = offerData.horarios.map((horario) => {
-    const init = dayjs(horario.horaInicio).format('ha')
-    const end = dayjs(horario.horaFin).format('ha')
-    return `${horario.dia} ${init}-${end}`
-  }
+  const schedule_elements = offerData.horarios.map((horario) => formatOfferTime(horario)
   ).join(", ")
 
 
