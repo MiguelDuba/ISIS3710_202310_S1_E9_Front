@@ -2,23 +2,35 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
-import { GUARDIAN, KANGAROO } from "../../../helpers/constants";
+import { getOffers, getUserbyOffer } from '../../../helpers/backend/offerBackend';
+import { BASE_URL, GUARDIAN, KANGAROO } from "../../../helpers/constants";
 import filterImg from '../../../icons/filter-hmg.svg';
 import OfertaCard from "./OfertaCard";
 import "./OfertaList.css";
 
-function OfertaList(props) {
+
+function mapCardElements(offerList) {
+  return offerList.map((offer) => <OfertaCard info={offer} />)
+}
+
+function OfertaList() {
   const [userSearch, setUserSearch] = useState();
   const [initDate, setInitDate] = useState(dayjs());
   const [endDate, setEndDate] = useState(dayjs().add(1, "d"));
   const [offerType, setOfferType] = useState(KANGAROO);
-  const listElements = props.info;
 
-  const uiCardElements = listElements.map((offer) => {
-    return <OfertaCard info={offer} />;
-  });
+  const [cardElements, setCardElements] = useState([]);
+
+  useEffect(() => async function () {
+    const offerData = await getOffers();
+    const asyncRes = await Promise.all(offerData.map(async (offer) => {
+      const userData = await getUserbyOffer(offer.id, offer.usuario.id);
+      return {...offer, "usuario": userData}
+    }));
+    setCardElements(mapCardElements(asyncRes))
+  }, []);
 
   const updateFilters = () => {
     console.log({
@@ -27,7 +39,6 @@ function OfertaList(props) {
       init: initDate, 
       end: endDate,
     })
-
   }
   return (
     <>
@@ -84,12 +95,8 @@ function OfertaList(props) {
           />
         </LocalizationProvider>
         </div>
-        
-
-        
-        
       </aside>
-      <div className="gallery">{uiCardElements}</div>
+      <div className="gallery">{cardElements}</div>
     </>
   );
 }

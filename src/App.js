@@ -17,7 +17,6 @@ import { ofertaDetail, ofertaListData } from './tempData/ofertaData';
 // import { reseniaListData } from './tempData/reseniaData';
 
 function App() {
-  const [token, setToken] = useState()
   return (
     <div className="App">
       <KangarooNavbar/>
@@ -31,6 +30,7 @@ function App() {
             <Route path="/usuarios/new" element={<UsuarioCreate />} />
             <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/error" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
         
@@ -42,6 +42,10 @@ function App() {
       <Footer/>
     </div>
   );
+}
+
+function PageNotFound () {
+  return <div><h1>ERROR</h1></div>
 }
 
 export default App;

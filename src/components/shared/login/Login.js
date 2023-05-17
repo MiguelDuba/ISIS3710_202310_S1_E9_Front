@@ -1,33 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { getToken, getUserByEmail } from '../../../helpers/backend';
 import { BASE_URL } from "../../../helpers/constants";
 import './Login.css';
 
-async function loginUser(credentials) {
-  console.log(JSON.stringify(credentials))
-    return fetch(BASE_URL + "/usuarios/login", {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-      .then(data => data.json())
-   }
-async function getUser(email) {
-  const token = localStorage.getItem('sessionToken')
-  const auth = `Bearer ${token}`
-  return fetch(`${BASE_URL}/usuarios/email/${email}`, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': auth
-    }
-  }).then(data => data.json())
-}
 export default function Login() {
     const navigate = useNavigate()
     const [email, setEmail] = useState()
@@ -35,20 +12,26 @@ export default function Login() {
     
     const handleSubmit = async e => {
       e.preventDefault();
-      const token = await loginUser({
-        "email": email, 
-        "password": password, 
-        "roles": "registeredUser"
-      });
+      const token = await getToken({
+        email: email, 
+        password: password, 
+        roles: "registeredUser"
+      })
       console.log(token)
       if (token.statusCode) {
         console.log('Invalid User')
+        // TODO show on screen
       } else {
         localStorage.setItem('sessionToken', token.token)
-        const userData = await getUser(email)
-        localStorage.setItem('userData', JSON.stringify(userData))
-        console.log(JSON.stringify(userData))
-        navigate('/')
+        const userData = await getUserByEmail(email)
+        if (!userData) {
+          console.log('error while getting user data (no token)')
+        }
+        else {
+          localStorage.setItem('userData', JSON.stringify(userData))
+          console.log(JSON.stringify(userData))
+          navigate('/')
+        }
       }
     }
       

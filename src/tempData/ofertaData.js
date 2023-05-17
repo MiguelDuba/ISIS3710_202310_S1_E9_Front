@@ -1,15 +1,16 @@
 export const ofertaDetail = {
-    name: "Valerie Robertson", 
-    offerType: "Canguro", 
-    experienceNum: 2, 
-    image: "https://robincollettephotography.com/wp-content/uploads/sites/7154/2021/04/sacramento_headshot_photographer-1-1.jpg",
-    price: 35000, 
-    abilities: ['Creatividad',
+    nombre: "Valerie Robertson", 
+    tipoOferta: "Canguro", 
+    aniosExperiencia: 2, 
+    foto: "https://robincollettephotography.com/wp-content/uploads/sites/7154/2021/04/sacramento_headshot_photographer-1-1.jpg",
+    precio: 35000, 
+    especialidades: ['Creatividad',
         'Comunicación efectiva',
         'Certificación en primeros auxilios y RCP'],
-    schedule: [
+    horarios: [
         'Martes de 8 am a 10 am', 'Miércoles de 7am a 9am'
-    ]
+    ], 
+    necesidades: []
 }
 
 export const ofertaListData = [
