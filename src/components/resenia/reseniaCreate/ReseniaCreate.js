@@ -3,6 +3,24 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
 import './ReseniaCreate.css';
 import { buildReseniaPayload } from './ReseniaCreateHelper';
+import { BASE_URL } from "../../../helpers/constants";
+
+
+const token = localStorage.getItem("sessionToken");
+
+async function postResenia(reseniaPayload) {
+  const requestReseniaPayload = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(reseniaPayload),
+  };
+  return fetch(BASE_URL + "/resenias", requestReseniaPayload)
+    .then((response) => response.json())
+    .then((data) => data);
+} 
 
 
 function ReseniaCreate() {
@@ -26,20 +44,26 @@ function ReseniaCreate() {
     console.log("canceling create...");
   };
 
-  const createResenia = (event) => {
+  const createResenia = async function (event) {
     event.preventDefault();
     console.log("creating resenia...");
-    // validate data
+
     const resenia = {
       titulo: titulo, 
       calificacion: calificacion, 
       descripcion:  descripcion, 
     }
-    // build payload
-    console.log(buildReseniaPayload(resenia))
 
-    // post offer
-    console.log('sending post request')
+    const bodyPayload = buildReseniaPayload(resenia);
+    if (!bodyPayload) {
+      console.log("invalid user");
+    } else {
+      console.log("sending post request");
+      const resenia = await postResenia(bodyPayload);
+      const reseniaId = resenia.id;
+      console.log(reseniaId)
+      
+    }
 
   };
 
@@ -51,17 +75,17 @@ function ReseniaCreate() {
 
           <Form.Group controlId="form--Titulo">
             <Form.Label>Titulo</Form.Label>
-            <CurrencyInput
-              id="form--Titulo-Input"
-              name="input-titulo"
-              placeholder="Ingresa un titulo que describa tu opinion"
-              onChange={(e) => setTitulo(e.target.value)}
-            />
+              <Form.Control
+                id="form--Titulo-Input"
+                name="input-titulo"
+                placeholder="Ingresa un título que describa tu opinión"
+                onChange={(e) => setTitulo(e.target.value)}
+              />
           </Form.Group>
 
           <Form.Group controlId="form--Descripcion">
             <Form.Label>Descripcion</Form.Label>
-            <CurrencyInput
+            <Form.Control
               id="form--Descripcion-Input"
               name="input-Descripcion"
               placeholder="Ingresa la descripción de tu opinion"

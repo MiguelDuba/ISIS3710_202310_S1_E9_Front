@@ -1,4 +1,7 @@
 export const buildReseniaPayload = (resenia) => {
+    if (!getUser()){
+      return false
+    }
     return {
         titulo: resenia.titulo, 
         calificacion: resenia.calificacion, 
@@ -10,5 +13,9 @@ export const buildReseniaPayload = (resenia) => {
   };
   
   const getUser = () => {
-    return "id";
+    const localUsr = localStorage.getItem('userData')
+    if(localUsr) {
+      return JSON.parse(localStorage.getItem('userData')).id;
+    }
+    return false
   };
