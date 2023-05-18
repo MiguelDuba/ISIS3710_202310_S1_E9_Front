@@ -1,10 +1,13 @@
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
 import "./UsuarioDetail.css"
+import { useParams } from "react-router-dom";
 
 function UsuarioDetail() {
+    const params = useParams();
 
     return (
         <Container className="mid">
+            {params.usuarioId}
             <Row className="detailUsuario">
                 <Col xs={4}>
                     <Row>

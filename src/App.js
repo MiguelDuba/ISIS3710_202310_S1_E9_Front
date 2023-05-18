@@ -39,7 +39,7 @@ function App() {
         <OfertaList info={ofertaListData}/> */}
         {/* <UsuarioCreate/>Í */}
       </main>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }
