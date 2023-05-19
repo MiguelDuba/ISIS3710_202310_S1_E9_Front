@@ -1,4 +1,4 @@
-import { BASE_URL } from "./constants";
+import { BASE_URL } from "../constants";
 
 export const getToken = async function (credentials) {
   return fetch(BASE_URL + "/usuarios/login", {
