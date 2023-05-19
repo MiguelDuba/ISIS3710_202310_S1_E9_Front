@@ -1,13 +1,18 @@
 import { Button, Nav, Navbar } from 'react-bootstrap';
 import searchIcn from '../../../icons/lupa.svg';
 import logo from '../../../logo.svg';
-import Login from '../login/Login';
 import './Navbar.css';
 
 function KangarooNavbar() {
     const user = localStorage.getItem('userData')
     const userData = JSON.parse(user)
 
+    const logoutUser = () => {
+        localStorage.removeItem('userData')
+        localStorage.removeItem('sessionToken')
+        window.location.reload()
+    }
+    
     const loadUser = () => {
         if(!user) {
             return ( <Nav>
@@ -15,7 +20,7 @@ function KangarooNavbar() {
             <Button className='sign-up'>Registrate</Button>
         </Nav>)
         } else {
-            return (<Nav>{userData.nombre}</Nav>)
+            return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)
         }
     }
     return (

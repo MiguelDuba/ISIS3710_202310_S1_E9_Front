@@ -30,7 +30,7 @@ export default function Login() {
         else {
           localStorage.setItem('userData', JSON.stringify(userData))
           console.log(JSON.stringify(userData))
-          navigate('/')
+          window.location.reload()
         }
       }
     }
