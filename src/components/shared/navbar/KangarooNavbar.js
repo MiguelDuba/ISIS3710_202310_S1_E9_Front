@@ -17,7 +17,7 @@ function KangarooNavbar() {
         if(!user) {
             return ( <Nav>
             <a href='/login'><Button className='log-in'>Accede</Button></a>
-            <Button className='sign-up'>Registrate</Button>
+            <a href='/register'><Button className='sign-up'>Crea tu Cuenta</Button></a>
         </Nav>)
         } else {
             return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)

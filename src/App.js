@@ -27,8 +27,8 @@ function App() {
             <Route path="/ofertas" element={<OfertaList />} />
             <Route path="/ofertas/new" element={<OfertaCreate />} />
             <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
-            <Route path="/usuarios/new" element={<UsuarioCreate />} />
-            <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
+            <Route path="/register" element={<UsuarioCreate />} />
+            <Route path="/usuarios/:usuarioId/:tipo" element={<UsuarioDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/error" element={<PageNotFound />} />
           </Routes>
