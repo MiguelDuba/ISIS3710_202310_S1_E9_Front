@@ -60,11 +60,13 @@ function UsuarioCreate() {
     };
 
     return (
-        <Container id="usuarioDetail">
-            <h1 className="title">Crea tu Cuenta</h1>
+        <Container className='usuario--container'>
+            <Row className='usuario--title'>
+                <h1 className="title">Crea tu Cuenta</h1>
+            </Row>
             <Form className="formulario" title="Crea tu cuenta" name="field2" onSubmit={handleSubmit}>
                 <Row>
-                    <Col xs={6}>
+                    <Col xs={6} className='usuario--info1'>
                         <h2 className="subtitle">Información Personal:</h2>
                         <Form.Group className="mb-3" controlId="nombre">
                             <Form.Label>Nombre *</Form.Label>
@@ -87,23 +89,14 @@ function UsuarioCreate() {
                             <Form.Control placeholder="Ingresa tu dirección de residencia" name="direccion" onChange={handleInputChange} />
                         </Form.Group>
                         <h2 className="subtitle">Configurar Cuenta:</h2>
-                        <Form.Label>Tipo de Cuenta *</Form.Label>
-                        <Form.Group className="mb-3">
-                            <Form.Check
-                                inline
-                                label={KANGAROO}
-                                type="checkbox"
-                                value={KANGAROO}
-                                onChange={handleCheckboxChange}
-                            />
-
-                            <Form.Check
-                                inline
-                                label={GUARDIAN}
-                                type="checkbox"
-                                value={GUARDIAN}
-                                onChange={handleCheckboxChange}
-                            />
+                        <Form.Group className="mb-3 subtitle">
+                            <Form.Label>Tipo de Cuenta *</Form.Label>
+                            <Form.Select label="Default select">
+                                <option>Ingresa tu rol</option>
+                                <option value="canguro">Canguro</option>
+                                <option value="acudiente">Acudiente</option>
+                                <option value="ambos">Canguro y Acudiente</option>
+                            </Form.Select>
                         </Form.Group>
                     </Col>
                     <Col xs={6} className="add-foto">
@@ -113,8 +106,10 @@ function UsuarioCreate() {
                         </Row>
                         <Row>
                             <Col className='center'>
-                                <Button className="btn-t2 small" type="button">Remover</Button>
-                                <Button className="btn-t1 small" type="button">Agregar</Button>
+                                <Form.Group className="mb-3" controlId="enlace">
+                                    <Form.Label>Enlace Foto de Peril*</Form.Label>
+                                    <Form.Control className="text-center" placeholder="Ingresa el enlace de la imagen" name="enlace" onChange={handleInputChange} />
+                                </Form.Group>
                             </Col>
                         </Row>
                     </Col>
