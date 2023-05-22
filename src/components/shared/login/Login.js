@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { getToken, getUserByEmail } from '../../../helpers/backend';
+import { getToken, getUserByEmail } from '../../../helpers/backend/backend';
 import { BASE_URL } from "../../../helpers/constants";
 import './Login.css';
 
 export default function Login() {
-    const navigate = useNavigate()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     
@@ -30,7 +29,7 @@ export default function Login() {
         else {
           localStorage.setItem('userData', JSON.stringify(userData))
           console.log(JSON.stringify(userData))
-          navigate('/')
+          window.location.reload()
         }
       }
     }

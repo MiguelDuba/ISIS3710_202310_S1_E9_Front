@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
 import { getOffers, getUserbyOffer } from '../../../helpers/backend/offerBackend';
-import { BASE_URL, GUARDIAN, KANGAROO } from "../../../helpers/constants";
+import { GUARDIAN, KANGAROO } from "../../../helpers/constants";
 import filterImg from '../../../icons/filter-hmg.svg';
 import OfertaCard from "./OfertaCard";
 import "./OfertaList.css";
