@@ -6,8 +6,7 @@ import './Navbar.css';
 function KangarooNavbar() {
     const user = localStorage.getItem('userData')
     const userData = JSON.parse(user)
-    const urlDetalle = '/usuarios/' + userData.id + "/Canguro"
-
+    
     const logoutUser = () => {
         localStorage.removeItem('userData')
         localStorage.removeItem('sessionToken')
@@ -21,6 +20,12 @@ function KangarooNavbar() {
             <a href='/register'><Button className='sign-up'>Crea tu Cuenta</Button></a>
         </Nav>)
         } else {
+            let urlDetalle;
+            if(userData.tipoUsuario.toLowerCase() === 'ambos') {
+                urlDetalle = '/usuarios/' + userData.id + "/Canguro"
+            } else {
+                urlDetalle = '/usuarios/' + userData.id + "/" + userData.tipoUsuario
+            }
             return (<Nav><a href={urlDetalle}>{userData.nombre}</a> <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)
         }
     }

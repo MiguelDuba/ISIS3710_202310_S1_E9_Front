@@ -11,7 +11,7 @@ function UsuarioDetail() {
     const [titulo, setTitulo] = useState();
     const [habilidades, setHabilidades] = useState();
     const [antecedentes, setAntecedentes] = useState();
-    const [isCanguro, setIsCanguro] = useState();
+    const [isCanguro, setIsCanguro] = useState(true);
 
     const usuarioId = params.usuarioId;
     const tipoUsuario = params.tipo;
@@ -20,6 +20,7 @@ function UsuarioDetail() {
         () =>
         async function () {
             const newUsuario = await getUsuarioById(usuarioId);
+            console.log(newUsuario)
             setUsuario(newUsuario);
             if(newUsuario.antecedentes.length === 0) {
                 setAntecedentes(<li>El usuario no tiene antecedentes</li>)
@@ -27,14 +28,16 @@ function UsuarioDetail() {
                 setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
             }
             if((newUsuario.tipoUsuario.toLowerCase() === "canguro" || newUsuario.tipoUsuario.toLowerCase() === "ambos")  && tipoUsuario.toLowerCase() === "canguro") {
+                console.log("NO")
                 setIsCanguro(true);
                 setTitulo(<h2>Especialidades:</h2>)
-                if (newUsuario.especialidades.length === 0) {
-                    setHabilidades(<li>El canguro no tiene especialidades</li>)
+                if (newUsuario.necesidades.length === 0) {
+                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
                 } else {
-                    setHabilidades(newUsuario.especialidades.map((esp) => <li>{esp.tipo}</li>))
+                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
                 }
             } else if ((newUsuario.tipoUsuario.toLowerCase() === "acudiente" || newUsuario.tipoUsuario.toLowerCase() === "ambos")  && tipoUsuario.toLowerCase() === "acudiente") {
+                console.log("NO")
                 setIsCanguro(false);
                 setTitulo(<h2>Necesidades:</h2>)
                 if (newUsuario.necesidades.length === 0) {
@@ -43,9 +46,8 @@ function UsuarioDetail() {
                     setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
                 }
             } else {
-                //Deberia llevar a la pg de error
+                window.location.href = '/error';
             }
-            console.log("offer set", newUsuario);
         },
         [usuarioId,tipoUsuario]
     );
@@ -55,26 +57,32 @@ function UsuarioDetail() {
     }
 
     const changeIsCanguro = () => {
+        console.log(isCanguro)
+        if (isCanguro) {
+            window.location.href = "/usuarios/" + usuarioId + "/Acudiente";
+        } else {
+            window.location.href = "/usuarios/" + usuarioId + "/Canguro";
+        }
         setIsCanguro(!isCanguro);
     };
 
     if (usuario) {
         return (
             <Container className="mid">
-                <Row className="d-flex justify-content-end">
-                    <Link className="change" to={"/usuarios/" + usuarioId + "/Canguro"}><Button type="button" disabled={!isCanguro} onClick={changeIsCanguro}>Canguro</Button></Link>
-                    <Link className="change" to={"/usuarios/" + usuarioId + "/Acudiente"}><Button type="button" disabled={isCanguro} onClick={changeIsCanguro}>Acudiente</Button></Link>
+                <Row className="justify-content-md-center down">
+                    <Button className="change" type="button" disabled={isCanguro} onClick={changeIsCanguro}>Canguro</Button>
+                    <Button className="change" type="button" disabled={!isCanguro} onClick={changeIsCanguro}>Acudiente</Button>
                 </Row>
-                <Row className="justify-content-md-center detailUsuario">
+                <Row className="justify-content-md-center">
                     <Col xs={4}>
                         <Row>
-                            <h1 className="title no-margin">Valerie Robertson</h1> 
+                            <Row className="left">
+                                <h1 className="title no-margin">{usuario.nombre}</h1> 
+                            </Row>
+                            <span>{tipoUsuario}</span>
+                            <span className="bold">{usuario.aniosExperiencia} años de experiencia</span>
                         </Row>
-                        <Row>
-                            <Col className="no-margin">Canguro</Col>
-                            <Col className="no-margin right left-padding bold">2 años de experiencia</Col>
-                        </Row>                
-                        <Row className="margin">
+                        <Row className="left">
                             {titulo}
                             <ul>
                                 {habilidades}
@@ -90,19 +98,17 @@ function UsuarioDetail() {
                             </ul>
                         </Row>
                     </Col>
-                    <Col xs={4} className="add-foto">
+                    <Col xs={4} className="add-foto cent">
                         <Row>
-                            <Image className="foto" src={usuario.foto}/>
+                            <Image className="fotoCreate" src={usuario.foto} />
                         </Row>
                     </Col>
                 </Row>
                 <Row className="justify-content-md-center">
-                    <Col xs={8}>
-                        <Button className="my-btn" type="button">Ver Ofertas</Button>
-                        <Button className="my-btn" type="button">Ver Reseñas</Button>
-                    </Col>
+                    <Button className="big-btn" type="button">Ver Ofertas</Button>
+                    <Button className="big-btn" type="button">Ver Reseñas</Button>
                 </Row>
-            </Container>
+            </Container> 
         );
     }   
 }
