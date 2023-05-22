@@ -50,13 +50,13 @@
 }
 
 .fotoCreate {
-    padding: 0 10% 0 10%;
+    padding: 0 20% 0 20%;
     border-radius: 100%;
 }
 
 .formulario img {
     min-height: 100px !important;
-
+    min-width: 100px !important;
 }
 
 @media (min-width: 300px) and (max-width: 639px) {
