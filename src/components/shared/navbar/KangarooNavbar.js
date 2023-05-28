@@ -1,4 +1,5 @@
 import { Button, Nav, Navbar } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 import searchIcn from '../../../icons/lupa.svg';
 import logo from '../../../logo.svg';
 import './Navbar.css';
@@ -16,11 +17,11 @@ function KangarooNavbar() {
     const loadUser = () => {
         if(!user) {
             return ( <Nav>
-            <a href='/login'><Button className='log-in'>Accede</Button></a>
-            <Button className='sign-up'>Registrate</Button>
+            <a href='/login'><Button className='log-in'><FormattedMessage id='sign-in'/></Button></a>
+            <Button className='sign-up'><FormattedMessage id='sign-up'/></Button>
         </Nav>)
         } else {
-            return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)
+            return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'><FormattedMessage id='log-out'/></Button></Nav>)
         }
     }
     return (
@@ -30,9 +31,9 @@ function KangarooNavbar() {
             </Navbar.Brand>
             <Navbar.Collapse>
                 <Nav>
-                    <Nav.Link href='/'>Inicio</Nav.Link>
-                    <Nav.Link href='/'>Sobre</Nav.Link>
-                    <Nav.Link href='/'>Preguntas Frecuentes</Nav.Link>
+                    <Nav.Link href='/'><FormattedMessage id='start'/></Nav.Link>
+                    <Nav.Link href='/'><FormattedMessage id='about-us'/></Nav.Link>
+                    <Nav.Link href='/'><FormattedMessage id='FAQ'/></Nav.Link>
                     <Nav.Link href='/'><img className='searchIcn' src={searchIcn} alt='Search button'></img></Nav.Link>
                 </Nav>
             </Navbar.Collapse>

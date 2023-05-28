@@ -26,6 +26,10 @@ ul.footer--ul {
     padding:0;
 }
 
+
+li.contacto-li {
+    font-weight: normal;
+}
 li.brand-name {
     font-weight: normal;
     color:black;

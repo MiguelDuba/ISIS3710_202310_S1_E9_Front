@@ -4,6 +4,12 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { Button } from 'react-bootstrap';
+import {
+  FormattedDate,
+  FormattedMessage,
+  FormattedNumber,
+  FormattedPlural,
+} from "react-intl";
 import { getOffers, getUserbyOffer } from '../../../helpers/backend/offerBackend';
 import { GUARDIAN, KANGAROO } from "../../../helpers/constants";
 import filterImg from '../../../icons/filter-hmg.svg';
@@ -44,13 +50,13 @@ function OfertaList() {
     <>
       <aside className='filter--sm'>
         <Button>
-          Filtros
+          <FormattedMessage id='filter' />
           <span><img src={filterImg}></img></span>
         </Button>
       </aside>
       <aside className='filter'>
         <div>
-        <label>Usuario</label>
+        <label><FormattedMessage id='user'/></label>
         <input 
           type="search"
           value={userSearch}
@@ -60,7 +66,7 @@ function OfertaList() {
         ></input>
         </div>
         <div>
-        <label>Tipo Oferta</label>
+        <label><FormattedMessage id='offer-type'/></label>
         <select className='form-select'
           aria-label="form--OfferType-Input"
           onChange={(e) => {
@@ -75,7 +81,7 @@ function OfertaList() {
         <div>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <label>Fecha Inicio</label>
+          <label><FormattedMessage id='init-date'/></label>
           <DatePicker
             value={initDate}
             onChange={(newInitDate) => {setInitDate(newInitDate);
@@ -86,7 +92,7 @@ function OfertaList() {
         </div>
         <div>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <label>Fecha Inicio</label>
+          <label><FormattedMessage id='end-date'/></label>
           <DatePicker
             value={endDate}
             onChange={(newEndDate) => {setEndDate(newEndDate);

@@ -18,6 +18,8 @@
   "description-offers-c": "Search for and find babysitting services offers that adapt to your needs, and, at the same time, check other's reviews how have worked with them.",
   "banner-offers-a": "Meet new babysitters",
   "description-offers-a": "",
+  "filters":"Filters",
+  "user": "User",
   "new-offer": "New Offer",
   "price": "Price",
   "offer-type": "Offer Type",
@@ -25,5 +27,8 @@
   "end-date": "End Date",
   "schedule": "Schedule",
   "cancel": "Cancel",
-  "create-offer": "Create Offer"
+  "create-offer": "Create Offer", 
+  "abilites": "Abilites", 
+  "needs": "Needs",
+  "experience": "years of experience"
 }

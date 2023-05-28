@@ -18,6 +18,8 @@
   "description-offers-c": "Busca y encuentra ofertas de servicios de niñera que se adapten mejor a tus necesidades y, al mismo tiempo, revisa las reseñas de otros clientes que han trabajado con ellas.",
   "banner-offers-a": "Conoce nuev@s niñer@s",
   "description-offers-a": "Busca y encuentra ofertas de servicios de niñera que se adapten mejor a tus necesidades y, al mismo tiempo, revisa las reseñas de otros clientes que han trabajado con ellas.",
+  "filters":"Filtros",
+  "user": "Usuario",
   "new-offer": "Nueva oferta",
   "price": "Precio",
   "offer-type": "Tipo oferta",
@@ -25,5 +27,8 @@
   "end-date": "Fecha fin",
   "schedule": "Horario",
   "cancel": "Cancelar",
-  "create-offer": "Crear oferta"
+  "create-offer": "Crear oferta", 
+  "abilites": "Habilidades", 
+  "needs": "Necesidades", 
+  "experience": "años de experiencia"
 }
