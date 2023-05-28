@@ -1,13 +1,37 @@
 import { BASE_URL } from "../constants";
 
-export const getResenias = async function () {
-    return fetch(`${BASE_URL}/resenias`)
+export const getFullResenia = async function(reseniaId, token) {
+  const requestReseniaPayload = {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    };
+  return fetch(BASE_URL+"/resenias/"+reseniaId, requestReseniaPayload)
+  .then((response) => response.json())
+  .then((data) => data);
+}
+
+export const getReseniaByReceptor = async function(userId, token) {
+    const requestReseniaPayload = {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      };
+    return fetch(BASE_URL+"/usuarios/"+userId+"/resenias", requestReseniaPayload)
     .then((response) => response.json())
     .then((data) => data);
 }
 
-export const getUserbyResenia = async function(reseniaId, userId) {
-    return fetch(`${BASE_URL}/resenias/${reseniaId}/usuarios/${userId}`)
+export const getAutorByResenia = async function(autorId, token) {
+    const requestReseniaPayload = {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      };
+    return fetch(BASE_URL+"/usuarios/"+autorId, requestReseniaPayload)
     .then((response) => response.json())
     .then((data) => data);
 }

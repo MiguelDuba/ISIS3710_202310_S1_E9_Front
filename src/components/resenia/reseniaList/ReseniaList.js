@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getResenias, getUserbyResenia } from '../../../helpers/backend/reseniaBackend';
+import { getReseniaByReceptor, getAutorByResenia, getFullResenia } from '../../../helpers/backend/reseniaBackend';
 import ReseniaCard from "./ReseniaCard";
 import "./ReseniaList.css";
 
@@ -10,15 +10,26 @@ function mapCardElements(reseniaList) {
 function ReseniaList() {
 
   const [cardElements, setCardElements] = useState([]);
+  const token = localStorage.getItem("sessionToken");
 
   useEffect(() => async function () {
-    const reseniaData = await getResenias();
+    const userId = await getReceptor();
+    const reseniaData = await getReseniaByReceptor(userId, token);
     const asyncRes = await Promise.all(reseniaData.map(async (resenia) => {
-      const userData = await getUserbyResenia(resenia.id, resenia.usuario.id);
-      return {...resenia, "usuario": userData}
+      const reseniaFullData = await getFullResenia(resenia.id, token);
+      return {reseniaFullData}
     }));
     setCardElements(mapCardElements(asyncRes))
   }, []);
+
+  const getReceptor = () => {
+    const localUsr = localStorage.getItem('userData');
+    console.log('localUsr', localUsr);
+    if (localUsr) {
+      return JSON.parse(localStorage.getItem('userData')).id;
+    }
+    return false;
+  };
 
   return (
     <div className="gallery">{cardElements}</div>

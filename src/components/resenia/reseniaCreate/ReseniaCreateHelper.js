@@ -1,21 +1,22 @@
 export const buildReseniaPayload = (resenia) => {
-    if (!getUser()){
-      return false
-    }
-    return {
-        titulo: resenia.titulo, 
-        calificacion: resenia.calificacion, 
-        descripcion:  resenia.descripcion, 
-        autor: {
-            id: getUser(),
-        },
-    };
+
+  console.log(resenia.calificacion);
+  const calificacion = parseInt(resenia.calificacion); 
+
+  return {
+    titulo: resenia.titulo,
+    calificacion: calificacion,
+    descripcion: resenia.descripcion,
+    receptor: getUser(),
+    autor: getUser(),
   };
-  
-  const getUser = () => {
-    const localUsr = localStorage.getItem('userData')
-    if(localUsr) {
-      return JSON.parse(localStorage.getItem('userData')).id;
-    }
-    return false
-  };
+};
+
+const getUser = () => {
+  const localUsr = localStorage.getItem('userData');
+  console.log('localUsr', localUsr);
+  if (localUsr) {
+    return JSON.parse(localStorage.getItem('userData')).id;
+  }
+  return false;
+};

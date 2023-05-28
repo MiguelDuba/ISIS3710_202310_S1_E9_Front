@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button, Col, Form, Row } from "react-bootstrap";
-import CurrencyInput from "react-currency-input-field";
 import './ReseniaCreate.css';
 import { buildReseniaPayload } from './ReseniaCreateHelper';
 import { BASE_URL } from "../../../helpers/constants";
@@ -17,9 +16,10 @@ async function postResenia(reseniaPayload) {
     },
     body: JSON.stringify(reseniaPayload),
   };
+  console.log(requestReseniaPayload)
   return fetch(BASE_URL + "/resenias", requestReseniaPayload)
     .then((response) => response.json())
-    .then((data) => data);
+    .then((data) => console.log(data));
 } 
 
 
@@ -29,7 +29,7 @@ function ReseniaCreate() {
   const [calificacion, setCalificacion] = useState({ kindOfStand: "", another: "another" });
   const [descripcion, setDescripcion] = useState("")
   const { kindOfStand } = calificacion;
-
+  
   const handleChange = e => {
     e.persist();
     console.log(e.target.value);
@@ -50,7 +50,7 @@ function ReseniaCreate() {
 
     const resenia = {
       titulo: titulo, 
-      calificacion: calificacion, 
+      calificacion: kindOfStand, 
       descripcion:  descripcion, 
     }
 
@@ -97,10 +97,10 @@ function ReseniaCreate() {
 
         <Col className="form-Calificacion">
 
-          <Form.Group controlId="form-Calificacion">
-            <Form.Label>Calificacion</Form.Label>
+          <Form.Group>
+            <Form.Label className='form-label padding-left: 50em' >Calificacion</Form.Label>
             {/*</Form.Group><>Califica tu experiencia, siendo 1 pésima y 5 excelente<>*/}
-            <Form.Check
+            <Form.Check className='form-check'
               value="1"
               type="radio"
               aria-label="radio 2"
@@ -108,7 +108,7 @@ function ReseniaCreate() {
               onChange={handleChange}
               checked={kindOfStand === "1"}
             />
-            <Form.Check
+            <Form.Check className='form-check'
               value="2"
               type="radio"
               aria-label="radio 2"
@@ -116,7 +116,7 @@ function ReseniaCreate() {
               onChange={handleChange}
               checked={kindOfStand === "2"}
             />
-            <Form.Check
+            <Form.Check className='form-check'
               value="3"
               type="radio"
               aria-label="radio 2"
@@ -124,7 +124,7 @@ function ReseniaCreate() {
               onChange={handleChange}
               checked={kindOfStand === "3"}
             />
-            <Form.Check
+            <Form.Check className='form-check'
               value="4"
               type="radio"
               aria-label="radio 2"
@@ -132,7 +132,7 @@ function ReseniaCreate() {
               onChange={handleChange}
               checked={kindOfStand === "4"}
             />
-            <Form.Check
+            <Form.Check className='form-check'
               value="5"
               type="radio"
               aria-label="radio 2"

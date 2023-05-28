@@ -23,10 +23,8 @@ function App() {
       <main>
       <BrowserRouter>
         <Routes>
-          {/*<Route path="/"  />*/}
-          {/*<Route path="/ofertas" element={<OfertaList />} />*/}
+          <Route path="/resenias/user" element={<ReseniaList/>} />
           <Route path="/resenias/new" element={<ReseniaCreate />} />
-          {/*<Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />*/}
           <Route path="/login" element={<Login />} />
           <Route path="/error" element={<PageNotFound />} />
         </Routes>
