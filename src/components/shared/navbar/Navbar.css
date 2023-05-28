@@ -1,0 +1,81 @@
+.kangaroo-nav {
+    background-color: white;
+}
+
+img {
+    width: 10%;
+    margin-right: 20px;
+    padding: 0;
+}
+
+a.nav--brand {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+a.nav--brand:hover{
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+ul.nav--items {
+    list-style-type: none;
+    margin-right: auto;
+    padding: 0;
+    display: inline;
+}
+
+ul.nav--items > li {
+    display: inline;
+    margin-right: 2rem;
+}
+ul.nav--items > li.img {
+    margin: 0;
+    padding: 0;
+}
+
+ul.nav--users {
+    list-style-type: none;
+    margin-right: 0;
+    padding: 0;
+    display: inline;
+}
+
+.log-in {
+    border: none; 
+    background-color: transparent;
+    color: black;
+}
+
+.log-in:hover {
+    border: none; 
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+}
+
+.sign-up {
+    border: 2px solid #E9A672;
+    border-radius: 20px;
+    color: #E9A672;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 7px;
+}
+
+.sign-up:hover {
+    border: 2px solid white;
+    border-radius: 20px;
+    color: white;
+    background-color: #E9A672;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 7px;
+}
+
+.searchIcn {
+    width: 2rem;
+}
