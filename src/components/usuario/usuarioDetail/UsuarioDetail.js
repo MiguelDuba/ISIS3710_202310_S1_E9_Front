@@ -1,51 +1,116 @@
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
 import "./UsuarioDetail.css"
+import { Link, Navigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUsuarioById } from "../../../helpers/backend/usuarioBackend";
 
 function UsuarioDetail() {
+    const params = useParams();
+    const token = localStorage.getItem("sessionToken");
+    const [usuario, setUsuario] = useState();
+    const [titulo, setTitulo] = useState();
+    const [habilidades, setHabilidades] = useState();
+    const [antecedentes, setAntecedentes] = useState();
+    const [isCanguro, setIsCanguro] = useState(true);
 
-    return (
-        <Container className="mid">
-            <Row className="detailUsuario">
-                <Col xs={4}>
-                    <Row>
-                        <h1 className="title no-margin">Valerie Robertson</h1> 
-                    </Row>
-                    <Row>
-                        <Col xs={3} className="no-margin">Canguro</Col>
-                        <Col xs={6} className="no-margin right left-padding bold">2 años de experiencia</Col>
-                    </Row>                
-                    <Row className="margin">
-                        <ul>
-                            <lh>Habilidades</lh>
-                            <li>Creatividad</li>
-                            <li>Comunicación efectiva</li>
-                            <li>Certificación en primeros auxilios y RCP</li>
-                        </ul>
-                        <ul>
-                            <lh>Métodos de Contacto</lh>
-                            <li>Correo:  v.robertson@gmail.com</li>
-                            <li>Celular:  3012455675</li>
-                        </ul>
-                        <ul>
-                            <lh>Antecedentes</lh>
-                            <li>No tiene</li>
-                        </ul>
-                    </Row>
-                </Col>
-                <Col xs={4} className="center-img">
-                    <Container className="foto">
-                        <Image className="no-margin" src="https://media.discordapp.net/attachments/1040862459378020502/1104211558386651136/sacramento_professional_headshot_tips-1-2048x1699.jpg?width=809&height=671" roundedCircle fluid/>
-                    </Container>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={8}>
-                    <button className="my-btn" type="button">Ver Ofertas</button>
-                    <button className="my-btn" type="button">Ver Reseñas</button>
-                </Col>
-            </Row>
-        </Container>
+    const usuarioId = params.usuarioId;
+    const tipoUsuario = params.tipo;
+
+    useEffect(
+        () =>
+        async function () {
+            const newUsuario = await getUsuarioById(usuarioId);
+            console.log(newUsuario)
+            setUsuario(newUsuario);
+            if(newUsuario.antecedentes.length === 0) {
+                setAntecedentes(<li>El usuario no tiene antecedentes</li>)
+            } else {
+                setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
+            }
+            if((newUsuario.tipoUsuario.toLowerCase() === "canguro" || newUsuario.tipoUsuario.toLowerCase() === "ambos")  && tipoUsuario.toLowerCase() === "canguro") {
+                console.log("NO")
+                setIsCanguro(true);
+                setTitulo(<h2>Especialidades:</h2>)
+                if (newUsuario.necesidades.length === 0) {
+                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
+                } else {
+                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+                }
+            } else if ((newUsuario.tipoUsuario.toLowerCase() === "acudiente" || newUsuario.tipoUsuario.toLowerCase() === "ambos")  && tipoUsuario.toLowerCase() === "acudiente") {
+                console.log("NO")
+                setIsCanguro(false);
+                setTitulo(<h2>Necesidades:</h2>)
+                if (newUsuario.necesidades.length === 0) {
+                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
+                } else {
+                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+                }
+            } else {
+                window.location.href = '/error';
+            }
+        },
+        [usuarioId,tipoUsuario]
     );
+
+    if (!token) {
+        return <Navigate to="/error"></Navigate>;
+    }
+
+    const changeIsCanguro = () => {
+        console.log(isCanguro)
+        if (isCanguro) {
+            window.location.href = "/usuarios/" + usuarioId + "/Acudiente";
+        } else {
+            window.location.href = "/usuarios/" + usuarioId + "/Canguro";
+        }
+        setIsCanguro(!isCanguro);
+    };
+
+    if (usuario) {
+        return (
+            <Container className="mid">
+                <Row className="justify-content-md-center down">
+                    <Button className="change" type="button" disabled={isCanguro} onClick={changeIsCanguro}>Canguro</Button>
+                    <Button className="change" type="button" disabled={!isCanguro} onClick={changeIsCanguro}>Acudiente</Button>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col xs={4}>
+                        <Row>
+                            <Row className="left">
+                                <h1 className="title no-margin">{usuario.nombre}</h1> 
+                            </Row>
+                            <span>{tipoUsuario}</span>
+                            <span className="bold">{usuario.aniosExperiencia} años de experiencia</span>
+                        </Row>
+                        <Row className="left">
+                            {titulo}
+                            <ul>
+                                {habilidades}
+                            </ul>
+                            <h2>Métodos de Contacto:</h2>
+                            <ul>
+                                <li> Correo: {usuario.correoElectronico} </li>
+                                <li> Celular: {usuario.celular} </li>
+                            </ul>
+                            <h2>Antecedentes:</h2>
+                            <ul className="list-group">
+                                {antecedentes}
+                            </ul>
+                        </Row>
+                    </Col>
+                    <Col xs={4} className="add-foto cent">
+                        <Row>
+                            <Image className="fotoCreate" src={usuario.foto} />
+                        </Row>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Button className="big-btn" type="button">Ver Ofertas</Button>
+                    <Button className="big-btn" type="button">Ver Reseñas</Button>
+                </Row>
+            </Container> 
+        );
+    }   
 }
 
 export default UsuarioDetail;

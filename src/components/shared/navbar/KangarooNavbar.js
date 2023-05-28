@@ -1,21 +1,32 @@
 import { Button, Nav, Navbar } from 'react-bootstrap';
 import searchIcn from '../../../icons/lupa.svg';
 import logo from '../../../logo.svg';
-import Login from '../login/Login';
 import './Navbar.css';
 
 function KangarooNavbar() {
     const user = localStorage.getItem('userData')
     const userData = JSON.parse(user)
-
+    
+    const logoutUser = () => {
+        localStorage.removeItem('userData')
+        localStorage.removeItem('sessionToken')
+        window.location.reload()
+    }
+    
     const loadUser = () => {
         if(!user) {
             return ( <Nav>
             <a href='/login'><Button className='log-in'>Accede</Button></a>
-            <Button className='sign-up'>Registrate</Button>
+            <a href='/register'><Button className='sign-up'>Crea tu Cuenta</Button></a>
         </Nav>)
         } else {
-            return (<Nav>{userData.nombre}</Nav>)
+            let urlDetalle;
+            if(userData.tipoUsuario.toLowerCase() === 'ambos') {
+                urlDetalle = '/usuarios/' + userData.id + "/Canguro"
+            } else {
+                urlDetalle = '/usuarios/' + userData.id + "/" + userData.tipoUsuario
+            }
+            return (<Nav><a href={urlDetalle}>{userData.nombre}</a> <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)
         }
     }
     return (

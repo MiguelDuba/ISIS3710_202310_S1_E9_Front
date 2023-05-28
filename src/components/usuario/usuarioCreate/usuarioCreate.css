@@ -1,8 +1,3 @@
-.mid {
-    padding: 6rem;
-    clear:both;
-}
-
 .formulario {
     text-align: left;
     align-content: flex-start;
@@ -24,38 +19,54 @@
 
 .add-foto {
     text-align: center;
-    align-items: center;
 }
 
-.btn-t1 {
+.formulario .btn-t1 {
     background-color: #EF7146;
     color: white;
     border: 3px solid #EF7146;
-    margin: 1rem 0.5rem 0 0.5rem;
-    padding: 0 1rem 0 1rem;
-    border-radius: 50px;
     font-weight: bold;
 }
 
-.btn-t2 {
+.formulario .btn-t2 {
     background-color: white;
     color: black;
     border: 3px solid #EF7146;
-    margin: 1rem 0.5rem 0 0.5rem;
-    padding: 0 1rem 0 1rem;
-    border-radius: 50px;
     font-weight: bold;
+}
+
+.formulario button {
+    margin: 0.5rem 1rem 0 1rem !important; 
+}
+
+.formulario .big {
+    margin-left: 100px;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    border-radius: 20px;
 }
 
 .center {
     text-align: center;
-    align-items: center;
 }
 
-.foto {
-    text-align: center;
-    max-width: 100%;
-    padding: 0 5rem 0 5rem;
-    size: 10rem;
-    border-radius: 50%;
+.fotoCreate {
+    padding: 0 20% 0 20%;
+    border-radius: 100%;
+}
+
+.formulario img {
+    min-height: 100px !important;
+    min-width: 100px !important;
+}
+
+@media (min-width: 300px) and (max-width: 639px) {
+    .usuario--title {
+        margin-top: 3rem;
+    }
+}
+
+@media (min-width: 639px) and (max-width: 790px) {
+    .usuario--title {
+        margin-top: 1rem;
+    }
 }

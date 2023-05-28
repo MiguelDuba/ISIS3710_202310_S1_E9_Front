@@ -5,16 +5,14 @@ import {
   getOfferById,
   getUserbyOffer,
 } from "../../../helpers/backend/offerBackend";
-import { BASE_URL } from "../../../helpers/constants";
 import { formatterCOP } from "../../../helpers/priceFormatter";
 import { formatOfferTime } from "../../../helpers/timeFormatter";
-import { ofertaDetail } from "../../../tempData/ofertaData";
 import "./OfertaDetail.css";
 
 function OfertaDetail() {
   const params = useParams();
   const token = localStorage.getItem("sessionToken");
-  const [offer, setOffer] = useState();
+  const [offer, setOffer] = useState({});
 
   const offerId = params.ofertaId;
 

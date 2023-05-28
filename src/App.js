@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
@@ -30,10 +31,6 @@ function App() {
           <Route path="/error" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
-        
-        {/* <OfertaDetail info={ofertaDetail}/>
-        <OfertaCreate/>
-        <OfertaList info={ofertaListData}/> */}
       </main>
       {/*<Footer/>*/}
     </div>

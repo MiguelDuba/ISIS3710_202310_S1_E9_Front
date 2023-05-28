@@ -1,31 +1,30 @@
-.mid {
-    padding: 6rem;
-    clear:both;
-}
-
 .detailUsuario {
     text-align: left;
 }
 
+.mid {
+    margin: 0 2rem 0 2rem;
+}
+
 .title {
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .mid lh {
     font-weight: bold;
 }
-/* 
+
 .mid ul {
     margin: 0;
-    padding: 1rem 0 0 0;
+    padding: 0 0 0 0;
 }
 
 .mid li {
-    margin: 1rem 0 0 1rem;
+    margin: 0.5rem 0 0.5rem 1rem;
     list-style-position: inside;
     list-style-type: disc;
     color:black;
-} */
+}
 
 .no-margin {
     margin: 0;
@@ -36,22 +35,13 @@
     text-align: right;
 }
 
+.add-foto {
+    text-align: center;
+}
+
 .foto {
-    width: 100%;
-    padding-bottom: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.foto img {
-    position: absolute;
-    width: 80%;
-    height: 80%;
-    object-fit: cover;
-}
-
-.center-img {
-    padding: 6rem 1rem 0 1rem;
+    padding: 0 0 0 0;
+    border-radius: 100%;
 }
 
 .bold {
@@ -70,4 +60,76 @@
 
 .fit-content {
     height: fit-content;
+}
+
+.detailUsuario h2 {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+    padding: 1rem 0 0 0;
+}
+
+.change {
+    font-size: 14px;
+    color: #EF7146;
+    font-weight: bold;
+    width: fit-content;
+    margin: 0 1rem 0 0 !important;
+}
+
+button:disabled {
+    background-color: #EF7146 !important;
+    border-color: #EF7146 !important;
+}
+
+button:hover {
+    background-color: #EF7146 !important;
+    border-color: #EF7146 !important;
+}
+
+.left {
+    text-align: left;
+}
+
+.big-btn {
+    padding: 1rem 5rem 1rem 5rem;
+    margin: 1rem !important;
+    border-radius: 15px;
+    font-weight: bold;
+    width: fit-content;
+}
+
+.mid h2 {
+    padding: 0;
+    margin: 1rem 0 0 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+.cent {
+    align-self: center;
+}
+
+.fotoCreate {
+    padding: 0 20% 0 20%;
+    border-radius: 100%;
+}
+
+.down {
+    margin: 0 0 1rem 0;
+}
+
+.mid span {
+    width: fit-content;
+}
+
+@media (min-width: 300px) and (max-width: 639px) {
+    .mid {
+        margin-top: 3rem;
+    }
+}
+
+@media (min-width: 639px) and (max-width: 790px) {
+    .mid {
+        margin-top: 1rem;
+    }
 }
