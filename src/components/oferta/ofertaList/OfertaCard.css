@@ -1,0 +1,49 @@
+.ofertaCard {
+    display: flex;
+    border: .1em solid #E9A672;
+    border-radius: 1em;
+    border-color: #E9A672;
+    flex-direction: column;
+    padding: 5% 5%;
+    margin: 5% 5%;
+}
+
+.data {
+    flex: 1 1 auto;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.userInfoTop {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.userInfoTop > h5 {
+    font-weight: bold;
+}
+
+.userInfoTop > p {
+    color: #646464
+}
+
+.userInfo > img {
+    width: 30%; 
+    height: 30%;
+}
+
+.infoDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.infoDiv--title {
+    font-weight: bold;
+}
