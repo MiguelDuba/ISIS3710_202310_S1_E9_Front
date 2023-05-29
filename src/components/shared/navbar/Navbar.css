@@ -75,3 +75,7 @@ ul.nav--users {
     line-height: 19px;
     padding: 7px;
 }
+
+.searchIcn {
+    width: 2rem;
+}

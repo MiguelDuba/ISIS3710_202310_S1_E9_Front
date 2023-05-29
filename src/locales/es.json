@@ -1,0 +1,10 @@
+{   
+    "new-offer" : "Nueva oferta", 
+    "price": "Precio", 
+    "offer-type": "Tipo oferta", 
+    "init-date": "Fecha inico", 
+    "end-date": "Fecha fin", 
+    "schedule": "Horario", 
+    "cancel": "Cancelar",
+    "create-offer": "Crear oferta"
+}
