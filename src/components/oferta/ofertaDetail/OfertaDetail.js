@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Navigate, useParams } from "react-router-dom";
 import {
   getOfferById,
   getUserbyOffer,
 } from "../../../helpers/backend/offerBackend";
-import { formatterCOP } from "../../../helpers/priceFormatter";
+import { convertToUSD, formatterCOP, formatterUSD } from "../../../helpers/priceFormatter";
 import { formatOfferTime } from "../../../helpers/timeFormatter";
 import "./OfertaDetail.css";
 
 function OfertaDetail() {
   const params = useParams();
+  const intl = useIntl();
   const token = localStorage.getItem("sessionToken");
   const [offer, setOffer] = useState({});
 
@@ -48,6 +49,13 @@ function OfertaDetail() {
     <Navigate to="/error"></Navigate>;
   }
 
+  const showLocalizedPrice = (precio) => {
+    if (intl.locale === 'en') {
+      return formatterUSD.format(convertToUSD(precio));
+    }
+    return formatterCOP.format(precio)
+  }
+
   const requestOffer = () => {
     console.log("Requesting offer...");
   };
@@ -69,7 +77,7 @@ function OfertaDetail() {
             <div>
               <h3><FormattedMessage id="price"/></h3>
               <p className="detail--info">
-                {formatterCOP.format(offer.precio)}
+                {showLocalizedPrice(offer.precio)}
               </p>
             </div>
             {offer.usuario.especialidades && offer.usuario.especialidades.length > 0 && <div>

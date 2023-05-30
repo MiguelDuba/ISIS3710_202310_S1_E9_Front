@@ -5,9 +5,8 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
-
 import CurrencyInput from "react-currency-input-field";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from 'react-intl';
 import { createAndAssocSchedule } from "../../../helpers/backend/offerBackend";
 import {
   BASE_URL,
@@ -15,6 +14,7 @@ import {
   KANGAROO,
   WEEKDAYS,
 } from "../../../helpers/constants";
+import { convertToCOP } from "../../../helpers/priceFormatter";
 import "./OfertaCreate.css";
 import {
   buildOfferPayload,
@@ -40,6 +40,7 @@ async function postOffer(offerPayload) {
 } 
 
 function OfertaCreate() {
+  const intl = useIntl()
   let timesByDay = {};
   WEEKDAYS.forEach((day) => (timesByDay[day] = { start: null, end: null }));
 
@@ -58,8 +59,13 @@ function OfertaCreate() {
     event.preventDefault();
     console.log("creating offer...");
 
+    let priceCOP = price;
+    if(intl.locale === "en-USD") {
+      priceCOP = convertToCOP(price)
+    }
+
     const offer = {
-      price: price,
+      price: priceCOP,
       offerType: offerType,
       initDate: initDate,
       endDate: endDate,
@@ -128,7 +134,7 @@ function OfertaCreate() {
         <Row className="time-pickers">
           <Col>
             <Form.Group controlId="form--StartTime">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
                 <Form.Label><FormattedMessage id="init-time"/></Form.Label>
                 <TimePicker
                   value={activeTimes[day].start}
@@ -139,7 +145,7 @@ function OfertaCreate() {
           </Col>
           <Col>
             <Form.Group controlId="form--StartTime">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
                 <Form.Label><FormattedMessage id="end-time"/></Form.Label>
                 <TimePicker
                   value={activeTimes[day].end}
@@ -167,9 +173,10 @@ function OfertaCreate() {
             <CurrencyInput
               id="form--Price-Input"
               name="input-price"
-              placeholder="Ingresa el precio sin el signo de pesos ($)"
+              placeholder={<FormattedMessage id='price-placeholder'/>}
               decimalsLimit={0}
               prefix={"$"}
+              intlConfig={{ locale: intl.locale, currency: "USD" ? intl.locale = "en-US" : "COP" }}
               onValueChange={handleOnValueChange}
               onChange={(e) => setPrice(e.target.value)}
             />
@@ -190,7 +197,7 @@ function OfertaCreate() {
               className="dates--StartDate"
               controlId="form--StartDate"
             >
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
                 <Form.Label><FormattedMessage id='init-date'/></Form.Label>
                 <DatePicker
                   value={initDate}
@@ -201,7 +208,7 @@ function OfertaCreate() {
             {/* </div>
             <div className='dates--EndDate'> */}
             <Form.Group className="dates--EndDate" controlId="form--EndDate">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
                 <Form.Label><FormattedMessage id='end-date'/></Form.Label>
                 <DatePicker
                   value={endDate}

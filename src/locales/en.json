@@ -25,6 +25,7 @@
   "user": "User",
   "new-offer": "New Offer",
   "price": "Price",
+  "price-placeholder": "Enter the price without the dollar sign ($)",
   "offer-type": "Offer Type",
   "init-date": "Start Date",
   "end-date": "End Date",

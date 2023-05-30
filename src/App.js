@@ -14,7 +14,7 @@ import localeEnMessages from "./locales/en.json";
 import localeEsMessages from "./locales/es.json";
 
 const language = navigator.language || navigator.userLanguage;
-let langStr = "en";
+let langStr = "en-US";
 let messages = localeEnMessages;
 if (language.includes("es")) {
   langStr = "es-ES";

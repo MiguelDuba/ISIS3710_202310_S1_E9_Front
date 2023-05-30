@@ -25,6 +25,7 @@
   "user": "Usuario",
   "new-offer": "Nueva oferta",
   "price": "Precio",
+  "price-placeholder": "Ingresa el precio sin el signo de pesos ($)",
   "offer-type": "Tipo oferta",
   "init-date": "Fecha de inicio",
   "end-date": "Fecha de fin",

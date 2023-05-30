@@ -9,6 +9,7 @@ import {
   FormattedMessage,
   FormattedNumber,
   FormattedPlural,
+  useIntl,
 } from "react-intl";
 import { getOffers, getUserbyOffer } from '../../../helpers/backend/offerBackend';
 import { GUARDIAN, KANGAROO } from "../../../helpers/constants";
@@ -16,12 +17,12 @@ import filterImg from '../../../icons/filter-hmg.svg';
 import OfertaCard from "./OfertaCard";
 import "./OfertaList.css";
 
-
 function mapCardElements(offerList) {
   return offerList.map((offer) => <OfertaCard info={offer} />)
 }
 
 function OfertaList() {
+  const intl = useIntl()
   const [userSearch, setUserSearch] = useState();
   const [initDate, setInitDate] = useState(dayjs());
   const [endDate, setEndDate] = useState(dayjs().add(1, "d"));
@@ -80,7 +81,7 @@ function OfertaList() {
         </div>
         <div>
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
           <label><FormattedMessage id='init-date'/></label>
           <DatePicker
             value={initDate}
@@ -91,7 +92,7 @@ function OfertaList() {
         </LocalizationProvider>
         </div>
         <div>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
           <label><FormattedMessage id='end-date'/></label>
           <DatePicker
             value={endDate}
