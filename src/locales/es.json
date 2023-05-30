@@ -37,5 +37,7 @@
   "init-time": "Hora inicio",
   "end-time": "Hora fin", 
   "request": "Solicitar",
-  "offer-detail-err": "Error getting offer."
+  "offer-detail-err": "Error getting offer.", 
+  "kangaroo": "Canguro", 
+  "guardian": "Acudiente"
 }

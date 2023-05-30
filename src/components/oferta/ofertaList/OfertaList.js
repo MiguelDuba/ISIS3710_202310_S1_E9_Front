@@ -51,7 +51,7 @@ function OfertaList() {
       <aside className='filter--sm'>
         <Button>
           <FormattedMessage id='filter' />
-          <span><img src={filterImg}></img></span>
+          <span><img src={filterImg} alt="three lines indicating a filter icon"></img></span>
         </Button>
       </aside>
       <aside className='filter'>
@@ -74,8 +74,8 @@ function OfertaList() {
             updateFilters()
           }}
         >
-          <option value={KANGAROO}>Canguro</option>
-          <option value={GUARDIAN}>Acudiente</option>
+          <option value={KANGAROO}><FormattedMessage id="kangaroo"/></option>
+          <option value={GUARDIAN}><FormattedMessage id="guardian"/></option>
         </select>
         </div>
         <div>
