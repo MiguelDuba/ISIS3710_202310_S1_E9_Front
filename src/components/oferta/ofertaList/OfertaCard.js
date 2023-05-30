@@ -37,7 +37,7 @@ function OfertaCard(props) {
           ></img>
           <div className="userInfoTop">
             <h5>{userData.nombre}</h5>
-            <p>{userData.tipoOferta}</p>
+            <p>{offerData.tipoOferta}</p>
             <p>
               {userData.aniosExperiencia}{" "}
               <FormattedPlural
