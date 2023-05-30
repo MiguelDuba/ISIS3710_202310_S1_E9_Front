@@ -60,7 +60,7 @@ function OfertaCreate() {
     console.log("creating offer...");
 
     let priceCOP = price;
-    if(intl.locale === "en-USD") {
+    if(intl.locale === "en-US") {
       priceCOP = convertToCOP(price)
     }
 
@@ -173,10 +173,10 @@ function OfertaCreate() {
             <CurrencyInput
               id="form--Price-Input"
               name="input-price"
-              placeholder={<FormattedMessage id='price-placeholder'/>}
+              placeholder={intl.formatMessage({id: 'price-placeholder'})}
               decimalsLimit={0}
               prefix={"$"}
-              intlConfig={{ locale: intl.locale, currency: "USD" ? intl.locale = "en-US" : "COP" }}
+              intlConfig={{ locale: intl.locale, currency: intl.locale === "en-US" ? "USD" : "COP" }}
               onValueChange={handleOnValueChange}
               onChange={(e) => setPrice(e.target.value)}
             />

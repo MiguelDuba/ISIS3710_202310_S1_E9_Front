@@ -26,6 +26,7 @@ function OfertaDetail() {
         console.log("offer set", newOffer);
         if (newOffer.statusCode) {
           console.log("err at offer");
+          setOffer(undefined)
         } else {
           const userData = await getUserbyOffer(
             newOffer.id,
@@ -50,7 +51,7 @@ function OfertaDetail() {
   }
 
   const showLocalizedPrice = (precio) => {
-    if (intl.locale === 'en') {
+    if (intl.locale === 'en-US') {
       return formatterUSD.format(convertToUSD(precio));
     }
     return formatterCOP.format(precio)
@@ -60,7 +61,12 @@ function OfertaDetail() {
     console.log("Requesting offer...");
   };
 
-  if (offer) {
+  // return (<h1>{JSON.stringify(offer)}</h1>)
+
+  if (Object.keys(offer).length === 0) {
+    return <h1>Loading...</h1>
+  } else if (offer) {
+  
     return (
       <>
         <div className="ofertaDetail--container">
