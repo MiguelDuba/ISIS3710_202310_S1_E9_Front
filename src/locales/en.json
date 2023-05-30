@@ -35,5 +35,7 @@
   "needs": "Needs",
   "experience": "years of experience",
   "init-time": "Start Time",
-  "end-time": "End Time"
+  "end-time": "End Time",
+  "request": "Request", 
+  "offer-detail-err": "Error getting offer."
 }
