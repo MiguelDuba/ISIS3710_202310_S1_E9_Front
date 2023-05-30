@@ -5,6 +5,9 @@
   "sign-up": "Registrate",
   "sign-in": "Accede",
   "log-out": "Salir",
+  "email": "Corre",
+  "password": "Contraseña",
+  "invalid-user": "Correo o contraseña incorrectas. Intente de nuevo.",
   "contact": "Contactanos y siguenos",
   "how-it-works": "Como funciona",
   "help": "Ayuda",
@@ -23,12 +26,14 @@
   "new-offer": "Nueva oferta",
   "price": "Precio",
   "offer-type": "Tipo oferta",
-  "init-date": "Fecha inico",
-  "end-date": "Fecha fin",
+  "init-date": "Fecha de inicio",
+  "end-date": "Fecha de fin",
   "schedule": "Horario",
   "cancel": "Cancelar",
   "create-offer": "Crear oferta", 
   "abilites": "Habilidades", 
   "needs": "Necesidades", 
-  "experience": "años de experiencia"
+  "experience": "años de experiencia",
+  "init-time": "Hora inicio",
+  "end-time": "Hora fin"
 }

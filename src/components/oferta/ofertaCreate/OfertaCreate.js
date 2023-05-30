@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 
 import CurrencyInput from "react-currency-input-field";
+import { FormattedMessage } from "react-intl";
 import { createAndAssocSchedule } from "../../../helpers/backend/offerBackend";
 import {
   BASE_URL,
@@ -37,33 +38,6 @@ async function postOffer(offerPayload) {
     .then((response) => response.json())
     .then((data) => data);
 } 
-
-async function createSchedule(schedPayload) {
-  const requestOfferPayload = {
-    method: "POST",
-    headers: { "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`,},
-    body: JSON.stringify(schedPayload),
-  };
-  return fetch(BASE_URL + "/horarios", requestOfferPayload)
-    .then((response) => response.json())
-    .then((data) => data.id);
-}
-
-async function assocSchedtoOffer(offerId, schedId) {
-  console.log('creating schedule')
-  const assocPayload = {
-    method: "POST",
-    headers: { "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`, },
-  };
-
-  return fetch(
-    `${BASE_URL}/ofertas/${offerId}/horarios/${schedId}`,
-    assocPayload
-  ).then((response) => response.json())
-  .then((data) => console.log('r', data));
-}
 
 function OfertaCreate() {
   let timesByDay = {};
@@ -155,7 +129,7 @@ function OfertaCreate() {
           <Col>
             <Form.Group controlId="form--StartTime">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Form.Label>Hora Incio</Form.Label>
+                <Form.Label><FormattedMessage id="init-time"/></Form.Label>
                 <TimePicker
                   value={activeTimes[day].start}
                   onChange={(newTime) => updatedActiveTimes(newTime, day, true)}
@@ -166,7 +140,7 @@ function OfertaCreate() {
           <Col>
             <Form.Group controlId="form--StartTime">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Form.Label>Hora Fin</Form.Label>
+                <Form.Label><FormattedMessage id="end-time"/></Form.Label>
                 <TimePicker
                   value={activeTimes[day].end}
                   onChange={(newTime) =>
@@ -185,11 +159,11 @@ function OfertaCreate() {
   };
   return (
     <Form className="createOffer" onSubmit={createOffer}>
-      <h1>Nueva Oferta</h1>
+      <h1><FormattedMessage id='new-offer'/></h1>
       <div className="form--items">
         <div className="form--OfferData">
           <Form.Group controlId="form--Price">
-            <Form.Label>Precio</Form.Label>
+            <Form.Label><FormattedMessage id='price'/></Form.Label>
             <CurrencyInput
               id="form--Price-Input"
               name="input-price"
@@ -201,7 +175,7 @@ function OfertaCreate() {
             />
           </Form.Group>
           <FormGroup controlId="form--OfferType">
-            <Form.Label>Tipo de Oferta</Form.Label>
+            <Form.Label><FormattedMessage id='offer-type'/></Form.Label>
             <Form.Select
               aria-label="form--OfferType-Input"
               onChange={(e) => setOfferType(e.target.value)}
@@ -217,7 +191,7 @@ function OfertaCreate() {
               controlId="form--StartDate"
             >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Form.Label>Fecha inicial</Form.Label>
+                <Form.Label><FormattedMessage id='init-date'/></Form.Label>
                 <DatePicker
                   value={initDate}
                   onChange={(newInitDate) => setInitDate(newInitDate)}
@@ -228,7 +202,7 @@ function OfertaCreate() {
             <div className='dates--EndDate'> */}
             <Form.Group className="dates--EndDate" controlId="form--EndDate">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Form.Label>Fecha final</Form.Label>
+                <Form.Label><FormattedMessage id='end-date'/></Form.Label>
                 <DatePicker
                   value={endDate}
                   onChange={(newEndDate) => setEndDate(newEndDate)}
@@ -241,7 +215,7 @@ function OfertaCreate() {
 
         <div className="form--ScheduleData">
           <Form.Group controlId="form--Schedule">
-            <Form.Label>Horario</Form.Label>
+            <Form.Label><FormattedMessage id='schedule'/></Form.Label>
             {WEEKDAYS.map((day) => {
               return (
                 <Row>
@@ -268,7 +242,7 @@ function OfertaCreate() {
             type="cancel"
             onClick={cancelOfferCreate}
           >
-            Cancelar
+            <FormattedMessage id='cancel'/>
           </Button>
         </div>
         <div className="offer-createBtn">
@@ -278,7 +252,7 @@ function OfertaCreate() {
             type="submit"
             onClick={createOffer}
           >
-            Crear oferta
+            <FormattedMessage id='create-offer'/>
           </Button>
         </div>
       </div>

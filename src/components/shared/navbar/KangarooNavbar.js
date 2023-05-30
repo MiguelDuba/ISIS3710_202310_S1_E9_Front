@@ -32,7 +32,7 @@ function KangarooNavbar() {
             <Navbar.Collapse>
                 <Nav>
                     <Nav.Link href='/'><FormattedMessage id='start'/></Nav.Link>
-                    <Nav.Link href='/'><FormattedMessage id='about-us'/></Nav.Link>
+                    <Nav.Link href='/'><FormattedMessage id='about'/></Nav.Link>
                     <Nav.Link href='/'><FormattedMessage id='FAQ'/></Nav.Link>
                     <Nav.Link href='/'><img className='searchIcn' src={searchIcn} alt='Search button'></img></Nav.Link>
                 </Nav>
