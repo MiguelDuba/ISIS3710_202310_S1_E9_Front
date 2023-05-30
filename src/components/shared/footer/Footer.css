@@ -6,9 +6,8 @@ footer {
     padding: 2rem;
     width: 100%;
     height: fit-content;
-    position: absolute;
     background: #F8DFD0;
-    position: fixed; 
+    position: relative; 
     bottom: 0; 
     width: 100%; 
 }

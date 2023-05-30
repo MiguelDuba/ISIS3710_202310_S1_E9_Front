@@ -10,7 +10,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer>
-      <div style={{ display: "block" }}></div>
+      <div></div>
       <Row>
         <Col className="footer-col">
           <ul className="footer--ul">
@@ -20,13 +20,13 @@ function Footer() {
             <li className="contacto-li" >
               <FormattedMessage id="contact" />
               <ul className="socials">
-                <a href="#">
+                <a href="/">
                   <img alt="Logo for Facebook" src={facebookIcn}></img>
                 </a>
-                <a href="#">
+                <a href="/">
                   <img alt="Logo for Whatsapp" src={whatsappIcn}></img>
                 </a>
-                <a href="#">
+                <a href="/">
                   <img alt="Logo for Youtube" src={youtubeIcn}></img>
                 </a>
               </ul>
@@ -38,22 +38,22 @@ function Footer() {
           Kangaroo
           <ul className="footer--ul">
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="how-it-works" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="help" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="terms" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="data" />
               </a>
             </li>
@@ -63,27 +63,27 @@ function Footer() {
           <FormattedMessage id="contact" />
           <ul className="footer--ul">
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="about" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="advice" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="security" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="rules" />
               </a>
             </li>
             <li className="footer--link">
-              <a href="#">
+              <a href="/">
                 <FormattedMessage id="special-needs" />
               </a>
             </li>
