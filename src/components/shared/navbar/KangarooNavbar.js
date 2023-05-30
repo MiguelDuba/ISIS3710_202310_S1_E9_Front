@@ -27,7 +27,7 @@ function KangarooNavbar() {
     return (
         <Navbar className='kangaroo-nav' bg-white fixed='top' expand="lg">
             <Navbar.Brand>
-                <a className='nav--brand' href='#'><img src={logo} alt="Cartoon of a kangaroo"></img>Kangaroo</a> 
+                <a className='nav--brand' href='/'><img src={logo} alt="Cartoon of a kangaroo"></img>Kangaroo</a> 
             </Navbar.Brand>
             <Navbar.Collapse>
                 <Nav>

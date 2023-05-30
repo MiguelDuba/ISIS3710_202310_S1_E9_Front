@@ -2,6 +2,7 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { ChevronLeft, ChevronRight, StarFill } from 'react-bootstrap-icons';
+import { FormattedMessage } from 'react-intl';
 import './InfoCanguro.css';
 
 
@@ -15,7 +16,7 @@ function InfoCanguro() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Canguro</h5>
+                            <h5><FormattedMessage id="kangaroo"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -40,7 +41,7 @@ function InfoCanguro() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Canguro</h5>
+                            <h5><FormattedMessage id="kangaroo"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -65,7 +66,7 @@ function InfoCanguro() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Canguro</h5>
+                            <h5><FormattedMessage id="kangaroo"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -90,7 +91,7 @@ function InfoCanguro() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Canguro</h5>
+                            <h5><FormattedMessage id="kangaroo"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -115,7 +116,7 @@ function InfoCanguro() {
                     </div>
                     <div className="userInfoTop">
                         <h5>Brooklyn Simmons</h5>
-                        <h5>Canguro</h5>
+                        <h5><FormattedMessage id="kangaroo"/></h5>
                     </div>
                 </div>
                 <div className='infoDiv'>
@@ -166,10 +167,8 @@ function InfoCanguro() {
     return (
         <div class="container" >
             <div style={{ justifyContent: 'center'}}>
-                <h1 style={{ margin: '50px' }}>Encuentra nuevas ofertas de trabajo</h1>
-                <h6 style={{ margin: '40px' }}>Busca y encuentra ofertas de servicios de niñera 
-                    que se adapten mejor a tus necesidades y, al mismo tiempo, 
-                    revisa las reseñas de otros clientes que han trabajado con ellas.</h6>
+                <h1 style={{ margin: '50px' }}><FormattedMessage id="banner-offers-c"/></h1>
+                <h6 style={{ margin: '40px' }}><FormattedMessage id="description-offers-c"/></h6>
             </div>
             <AliceCarousel
                 items={items}

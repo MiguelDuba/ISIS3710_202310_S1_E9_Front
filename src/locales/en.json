@@ -34,11 +34,12 @@
   "create-offer": "Create Offer", 
   "abilities": "Abilites", 
   "needs": "Needs",
-  "experience": "years of experience",
+  "experience-pl": "years of experience",
+  "experience-sing": "year of experience",
   "init-time": "Start Time",
   "end-time": "End Time",
   "request": "Request", 
   "offer-detail-err": "Error getting offer.",
-  "kangaroo": "Canguro", 
-  "guardian": "Acudiente"
+  "kangaroo": "Kangaroo", 
+  "guardian": "Guardian"
 }
