@@ -3,15 +3,28 @@
   grid-template-areas: "text image"; /* defines the grid areas */
   grid-template-columns: 1fr auto; /* adjusts column width as needed */
   align-items: center;
-  column-gap: 50px;
-  margin: 170px;
+  column-gap: 60px;
+  margin: 150px;
 }
 
-.container p {
+.general--first--text p {
   grid-area: text; /* assigns the grid area to the text element */
 }
 
 .general--family--image {
   grid-area: image; /* assigns the grid area to the image element */
-  transform: scale(9.5);
+  transform: scale(10.0);
 }
+
+.second--info--container {
+    display: flex;
+    align-items: center; /* vertically aligns items in the center */
+    margin: 250px;
+}
+
+.general--children--image {
+    transform: scale(11.0); /* adjust the scaling factor as needed */
+}
+
+
+
