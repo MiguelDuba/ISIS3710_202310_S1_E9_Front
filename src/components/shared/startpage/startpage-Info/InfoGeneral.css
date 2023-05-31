@@ -1,0 +1,17 @@
+.general--info--container {
+  display: grid;
+  grid-template-areas: "text image"; /* defines the grid areas */
+  grid-template-columns: 1fr auto; /* adjusts column width as needed */
+  align-items: center;
+  column-gap: 50px;
+  margin: 170px;
+}
+
+.container p {
+  grid-area: text; /* assigns the grid area to the text element */
+}
+
+.general--family--image {
+  grid-area: image; /* assigns the grid area to the image element */
+  transform: scale(9.5);
+}
