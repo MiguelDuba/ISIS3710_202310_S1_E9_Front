@@ -1,10 +1,12 @@
 import { Col, Container, Row, Image, Button } from "react-bootstrap";
 import "./UsuarioDetail.css"
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUsuarioById } from "../../../helpers/backend/usuarioBackend";
 
 function UsuarioDetail() {
+    const navigate = useNavigate();
+
     const params = useParams();
     const token = localStorage.getItem("sessionToken");
     const [usuario, setUsuario] = useState();
@@ -53,7 +55,7 @@ function UsuarioDetail() {
     );
 
     if (!token) {
-        return <Navigate to="/error"></Navigate>;
+        // return <Navigate to="/error"></Navigate>;
     }
 
     const changeIsCanguro = () => {
@@ -64,6 +66,18 @@ function UsuarioDetail() {
             window.location.href = "/usuarios/" + usuarioId + "/Canguro";
         }
         setIsCanguro(!isCanguro);
+    };
+
+    const seeOfertas = () => {
+        console.log('Button 3 clicked');
+    };
+    
+    const seeResenias = () => {
+        navigate('/resenias/user', { state: { usuarioId } });
+    };
+
+    const addResenia = () => {
+        navigate('/resenias/new', { state: { usuarioId } });
     };
 
     if (usuario) {
@@ -105,8 +119,9 @@ function UsuarioDetail() {
                     </Col>
                 </Row>
                 <Row className="justify-content-md-center">
-                    <Button className="big-btn" type="button">Ver Ofertas</Button>
-                    <Button className="big-btn" type="button">Ver Reseñas</Button>
+                    <Button className="big-btn" type="button" onClick={seeOfertas}>Ver Ofertas</Button>
+                    <Button className="big-btn" type="button" onClick={seeResenias}>Ver Reseñas</Button>
+                    <Button className="big-btn" type="button" onClick={addResenia}>Añadir Reseña</Button>
                 </Row>
             </Container> 
         );
