@@ -48,12 +48,9 @@ function OfertaCreate() {
     });
   };
 
+
   useEffect(() => {
     if (!navigator.onLine) {
-      console.log(
-        "offline",
-        JSON.parse(localStorage.getItem("offer-form-data"))
-      );
       if (localStorage.getItem("offer-form-data") !== null) {
         const storedForm = JSON.parse(localStorage.getItem("offer-form-data"));
         Object.keys(storedForm.activeTimes).forEach((day) => {
