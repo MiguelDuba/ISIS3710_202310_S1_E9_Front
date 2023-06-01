@@ -58,6 +58,12 @@
     background-color: transparent !important;
 }
 
+.error {
+    justify-content: center;
+    color: red;
+    font-weight: bold;
+}
+
 /* Media */
 
 @media (min-width: 700px) and (max-width: 1100px) {

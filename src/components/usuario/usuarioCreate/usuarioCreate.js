@@ -6,10 +6,12 @@ import "./usuarioCreate.css"
 
 function UsuarioCreate() {
 
+    // State to store the form data
     const [formData, setFormData] = useState({
         nombre: '',
         cedula: '',
         contrasenia: '',
+        verContrasenia: '',
         correoElectronico: '',
         direccion: '',
         celular: '',
@@ -18,9 +20,12 @@ function UsuarioCreate() {
         foto: 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png',
     });
 
-    
+    const [error, setError] = useState();
+
+    // Function to create a new usuario in the backend
     async function createUsuario() {
         console.log("Creando usuario...");
+        // Create the request
         const requestCreateUsuario = {
             method: "POST",
             headers: {
@@ -28,6 +33,12 @@ function UsuarioCreate() {
             },
             body: JSON.stringify(formData),
         };
+        // Frontend validation
+        if(formData["contrasenia"] !== formData["verContrasenia"]) {
+            setError("Las contraseñas no coinciden")
+            return;
+        }
+        // Send the request
         return fetch(BASE_URL + "/usuarios", requestCreateUsuario).then(async (response) => {
             const token = await getToken({
                 email: formData["correoElectronico"], 
@@ -47,34 +58,31 @@ function UsuarioCreate() {
         })
     }
 
+    // Function to handle when the any input of the form changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    // Function to handle when the form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); // Output the form data to the console
-        // Do something with the form data
         createUsuario();
     };
 
+    // Function to handle when an image is cant be shown
     const handleImageError = (event) => {
         event.target.src = './icons/user.png';
     };
 
-    /*
-        1. Cambiar tamaño de los h1 cuando se hace mas pequeña la pantalla
-
-    */
     return (
         <Container className='usuario--create'>
-            <Row className='usuario--title' style={{border: '1px solid black'}}>
+            <Row className='usuario--title'>
                 <h1 className="title">Crea tu Cuenta</h1>
             </Row>
             <Form className="formulario" title="Crea tu cuenta" onSubmit={handleSubmit}>
-                <Row style={{border: '1px solid black'}}>
-                    <Col style={{border: '1px solid black'}}>
+                <Row>
+                    <Col>
                         <h2 className="subtitle mb-3">Información Personal:</h2>
                         <Form.Group className="mb-3" controlId="nombre">
                             <Form.Label>Nombre *</Form.Label>
@@ -107,7 +115,7 @@ function UsuarioCreate() {
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col style={{border: '1px solid black'}}>
+                    <Col>
                         <Row className="add-foto">
                             <h2 className="subtitle center">Foto de Perfil</h2>
                             <Image className="foto" src={formData['foto']} onError={handleImageError}required />
@@ -118,21 +126,24 @@ function UsuarioCreate() {
                         </Row>
                     </Col>
                 </Row>
-                <Row style={{border: '1px solid black'}}>
-                    <Col style={{border: '1px solid black'}}>
+                <Row>
+                    <Col>
                         <Form.Group className="mb-3" controlId="contrasenia">
                             <Form.Label>Contraseña *</Form.Label>
                             <Form.Control type="password" placeholder="Ingresa tu contraseña de acceso a tu cuenta" name="contrasenia" onChange={handleInputChange} required />
                         </Form.Group>
                     </Col>
-                    <Col style={{border: '1px solid black'}}>
+                    <Col>
                         <Form.Group className="mb-3" controlId="verContrasenia">
                             <Form.Label>Verificar Contraseña *</Form.Label>
                             <Form.Control type="password" placeholder="Ingresa nuevamente la contraseña de acceso" name="verContrasenia" onChange={handleInputChange} required />
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row className="center" style={{border: '1px solid black'}}>
+                <Row className="error">
+                    {error}
+                </Row>
+                <Row className="center">
                     <Button className="btn-t2 big" type="button" >Cancelar</Button>
                     <Button className="btn-t1 big" type="submit" >Crear Cuenta</Button>
                 </Row>
