@@ -3,109 +3,140 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 import CurrencyInput from "react-currency-input-field";
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from "react-intl";
 import { createAndAssocSchedule } from "../../../helpers/backend/offerBackend";
-import {
-  BASE_URL,
-  GUARDIAN,
-  KANGAROO,
-  WEEKDAYS,
-} from "../../../helpers/constants";
+import { GUARDIAN, KANGAROO, WEEKDAYS } from "../../../helpers/constants";
 import { convertToCOP } from "../../../helpers/priceFormatter";
 import "./OfertaCreate.css";
 import {
   buildOfferPayload,
   buildSchedulePayload,
+  postOffer,
   validateOfferData,
   validateScheduleData,
 } from "./OfertaCreaterHelper";
 
 const token = localStorage.getItem("sessionToken");
 
-async function postOffer(offerPayload) {
-  const requestOfferPayload = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-    },
-    body: JSON.stringify(offerPayload),
-  };
-  return fetch(BASE_URL + "/ofertas", requestOfferPayload)
-    .then((response) => response.json())
-    .then((data) => data);
-} 
-
 function OfertaCreate() {
-  const intl = useIntl()
+  const intl = useIntl();
   let timesByDay = {};
   WEEKDAYS.forEach((day) => (timesByDay[day] = { start: null, end: null }));
 
-  const [activeDays, setActiveDays] = useState([]);
-  const [activeTimes, setActiveTimes] = useState(timesByDay);
-  const [price, setPrice] = useState(20000);
-  const [offerType, setOfferType] = useState(KANGAROO);
-  const [initDate, setInitDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs().add(1, "d"));
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [offerData, setOfferData] = useState({
+    price: null,
+    offerType: KANGAROO,
+    initDate: dayjs(),
+    endDate: dayjs().add(1, "d"),
+    activeDays: [],
+    activeTimes: timesByDay,
+  });
 
   const cancelOfferCreate = () => {
-    console.log("canceling create...");
+    localStorage.removeItem("offer-form-data");
+    setOfferData({
+      price: 0,
+      offerType: KANGAROO,
+      initDate: dayjs(),
+      endDate: dayjs().add(1, "d"),
+      activeDays: [],
+      activeTimes: timesByDay,
+    });
+  };
+
+
+  useEffect(() => {
+    if (!navigator.onLine) {
+      if (localStorage.getItem("offer-form-data") !== null) {
+        const storedForm = JSON.parse(localStorage.getItem("offer-form-data"));
+        Object.keys(storedForm.activeTimes).forEach((day) => {
+          if (storedForm.activeDays.includes(day)) {
+          storedForm.activeTimes[day].start = dayjs(
+            storedForm.activeTimes[day].start
+          );
+          storedForm.activeTimes[day].end = dayjs(
+            storedForm.activeTimes[day].end
+          );}
+        });
+        const storedOffer = {
+          price: parseInt(storedForm.price),
+          offerType: storedForm.offerType,
+          initDate: dayjs(storedForm.initDate),
+          endDate: dayjs(storedForm.endDate),
+          activeDays: [...storedForm.activeDays],
+          activeTimes: storedForm.activeTimes,
+        };
+        console.log('stored', storedOffer);
+        setOfferData(storedOffer);
+        storedOffer.activeDays.forEach((day) => {
+          renderTime(day);});
+      }
+    }
+  }, []);
+
+  const handleInputChange = (name, value) => {
+    setOfferData({ ...offerData, [name]: value });
+    localStorage.setItem("offer-form-data", JSON.stringify(offerData));
+    console.log(offerData);
   };
 
   const createOffer = async function (event) {
     event.preventDefault();
-    console.log("creating offer...");
-
-    let priceCOP = price;
-    if(intl.locale === "en-US") {
-      priceCOP = convertToCOP(price)
+    let priceCOP = offerData.price;
+    if (intl.locale === "en") {
+      priceCOP = convertToCOP(offerData.price);
     }
 
+    console.log(offerData);
     const offer = {
       price: priceCOP,
-      offerType: offerType,
-      initDate: initDate,
-      endDate: endDate,
+      offerType: offerData.offerType,
+      initDate: offerData.initDate,
+      endDate: offerData.endDate,
     };
 
-    activeDays.forEach((day) => validateScheduleData(activeTimes[day]));
+    offerData.activeDays.forEach((day) =>
+      validateScheduleData(offerData.activeTimes[day])
+    );
 
     if (!validateOfferData(offer)) {
-      console.log("invalid dates");
+      setErrorMsg("Invalid Dates");
     } else {
       const bodyPayload = buildOfferPayload(offer);
       if (!bodyPayload) {
-        console.log("invalid user");
+        setErrorMsg("Invalid User");
       } else {
-        console.log("sending post request");
-        const offer = await postOffer(bodyPayload);
+        console.log("Sending post request");
+        const offer = await postOffer(bodyPayload, token);
         const offerId = offer.id;
-        console.log(offerId)
+        console.log(offerId);
         const schedulePayloads = [];
-        
-        activeDays.forEach((day) => {
-          const dayPayload = buildSchedulePayload(day, activeTimes);
+
+        offerData.activeDays.forEach((day) => {
+          const dayPayload = buildSchedulePayload(day, offerData.activeTimes);
           schedulePayloads.push(dayPayload);
         });
 
-        await schedulePayloads.forEach( async (schedule) => {
+        await schedulePayloads.forEach(async (schedule) => {
           const scheudlePayload = {
             method: "POST",
-            headers: { "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,},
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify(schedule),
           };
-          const res = await createAndAssocSchedule(scheudlePayload, offerId)
-          if(!res) {
-            console.log('error', res)
+          const res = await createAndAssocSchedule(scheudlePayload, offerId);
+          if (!res) {
+            setErrorMsg("Error creating schedule");
           } else {
-            console.log('gud', res)
+            alert("Offer created successfully");
           }
-        })
-        
+        });
       }
     }
   };
@@ -113,31 +144,42 @@ function OfertaCreate() {
   const showHourForDay = (event) => {
     const checkedDay = event.target.value;
     if (event.target.checked) {
-      setActiveDays([...activeDays, checkedDay]);
+      setOfferData({
+        ...offerData,
+        activeDays: [...offerData.activeDays, checkedDay],
+      });
     } else {
-      setActiveDays((prevDays) => prevDays.filter((day) => day !== checkedDay));
+      setOfferData({
+        ...offerData,
+        activeDays: (prevDays) => prevDays.filter((day) => day !== checkedDay),
+      });
     }
   };
   const updatedActiveTimes = (time, day, start) => {
-    console.log(activeTimes);
+    console.log(offerData.activeTimes);
     if (start) {
-      activeTimes[day].start = time;
+      offerData.activeTimes[day].start = time;
     } else {
-      activeTimes[day].end = time;
+      offerData.activeTimes[day].end = time;
     }
-    setActiveTimes(activeTimes);
+    setOfferData({ ...offerData, activeTimes: offerData.activeTimes });
   };
 
   const renderTime = (day) => {
-    if (activeDays.includes(day)) {
+    if (offerData.activeDays.includes(day)) {
       return (
         <Row className="time-pickers">
           <Col>
             <Form.Group controlId="form--StartTime">
-              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
-                <Form.Label><FormattedMessage id="init-time"/></Form.Label>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={intl.locale}
+              >
+                <Form.Label>
+                  <FormattedMessage id="init-time" />
+                </Form.Label>
                 <TimePicker
-                  value={activeTimes[day].start}
+                  value={offerData.activeTimes[day].start}
                   onChange={(newTime) => updatedActiveTimes(newTime, day, true)}
                 />
               </LocalizationProvider>
@@ -145,10 +187,15 @@ function OfertaCreate() {
           </Col>
           <Col>
             <Form.Group controlId="form--StartTime">
-              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
-                <Form.Label><FormattedMessage id="end-time"/></Form.Label>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={intl.locale}
+              >
+                <Form.Label>
+                  <FormattedMessage id="end-time" />
+                </Form.Label>
                 <TimePicker
-                  value={activeTimes[day].end}
+                  value={offerData.activeTimes[day].end}
                   onChange={(newTime) =>
                     updatedActiveTimes(newTime, day, false)
                   }
@@ -160,69 +207,92 @@ function OfertaCreate() {
       );
     }
   };
-  const handleOnValueChange = (value, _, values) => {
-    setPrice(value);
-  };
+
   return (
     <Form className="createOffer" onSubmit={createOffer}>
-      <h1><FormattedMessage id='new-offer'/></h1>
+      <h1>
+        <FormattedMessage id="new-offer" />
+      </h1>
       <div className="form--items">
         <div className="form--OfferData">
           <Form.Group controlId="form--Price">
-            <Form.Label><FormattedMessage id='price'/></Form.Label>
+            <Form.Label>
+              <FormattedMessage id="price" />
+            </Form.Label>
             <CurrencyInput
               id="form--Price-Input"
-              name="input-price"
-              placeholder={intl.formatMessage({id: 'price-placeholder'})}
+              name="price"
+              placeholder={intl.formatMessage({ id: "price-placeholder" })}
               decimalsLimit={0}
               prefix={"$"}
-              intlConfig={{ locale: intl.locale, currency: intl.locale === "en-US" ? "USD" : "COP" }}
-              onValueChange={handleOnValueChange}
-              onChange={(e) => setPrice(e.target.value)}
+              value={offerData.price === 0 ? "" : offerData.price}
+              // intlConfig={{
+              //   locale: intl.locale,
+              //   currency: intl.locale === "en" ? "USD" : "COP",
+              // }}
+              onValueChange={(value, _, values) =>
+                handleInputChange("price", value)
+              }
             />
           </Form.Group>
           <FormGroup controlId="form--OfferType">
-            <Form.Label><FormattedMessage id='offer-type'/></Form.Label>
+            <Form.Label>
+              <FormattedMessage id="offer-type" />
+            </Form.Label>
             <Form.Select
               aria-label="form--OfferType-Input"
-              onChange={(e) => setOfferType(e.target.value)}
+              onChange={(e) => {
+                handleInputChange("offerType", e.target.value);
+              }}
             >
               <option value={KANGAROO}>Canguro</option>
               <option value={GUARDIAN}>Acudiente</option>
             </Form.Select>
           </FormGroup>
           <div className="form--Dates">
-            {/* <div className='dates--StartDate'> */}
             <Form.Group
               className="dates--StartDate"
               controlId="form--StartDate"
             >
-              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
-                <Form.Label><FormattedMessage id='init-date'/></Form.Label>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={intl.locale}
+              >
+                <Form.Label>
+                  <FormattedMessage id="init-date" />
+                </Form.Label>
                 <DatePicker
-                  value={initDate}
-                  onChange={(newInitDate) => setInitDate(newInitDate)}
+                  value={offerData.initDate}
+                  onChange={(newInitDate) => {
+                    handleInputChange("initDate", newInitDate);
+                  }}
                 />
               </LocalizationProvider>
             </Form.Group>
-            {/* </div>
-            <div className='dates--EndDate'> */}
             <Form.Group className="dates--EndDate" controlId="form--EndDate">
-              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={intl.locale}>
-                <Form.Label><FormattedMessage id='end-date'/></Form.Label>
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={intl.locale}
+              >
+                <Form.Label>
+                  <FormattedMessage id="end-date" />
+                </Form.Label>
                 <DatePicker
-                  value={endDate}
-                  onChange={(newEndDate) => setEndDate(newEndDate)}
+                  value={offerData.endDate}
+                  onChange={(newEndDate) => {
+                    handleInputChange("endDate", newEndDate);
+                  }}
                 />
               </LocalizationProvider>
             </Form.Group>
-            {/* </div> */}
           </div>
         </div>
 
         <div className="form--ScheduleData">
           <Form.Group controlId="form--Schedule">
-            <Form.Label><FormattedMessage id='schedule'/></Form.Label>
+            <Form.Label>
+              <FormattedMessage id="schedule" />
+            </Form.Label>
             {WEEKDAYS.map((day) => {
               return (
                 <Row>
@@ -232,6 +302,7 @@ function OfertaCreate() {
                     value={day}
                     label={day}
                     onClick={showHourForDay}
+                    defaultChecked={offerData.activeDays.includes(day)}
                   />
                   {renderTime(day)}
                 </Row>
@@ -249,7 +320,7 @@ function OfertaCreate() {
             type="cancel"
             onClick={cancelOfferCreate}
           >
-            <FormattedMessage id='cancel'/>
+            <FormattedMessage id="cancel" />
           </Button>
         </div>
         <div className="offer-createBtn">
@@ -259,10 +330,11 @@ function OfertaCreate() {
             type="submit"
             onClick={createOffer}
           >
-            <FormattedMessage id='create-offer'/>
+            <FormattedMessage id="create-offer" />
           </Button>
         </div>
       </div>
+      <div>{errorMsg && <p>{errorMsg}</p>}</div>
     </Form>
   );
 }

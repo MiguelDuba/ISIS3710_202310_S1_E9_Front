@@ -6,8 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
-  getOffers,
-  getUserbyOffer,
+  getFullOffersList,
 } from "../../../helpers/backend/offerBackend";
 import { GUARDIAN, KANGAROO } from "../../../helpers/constants";
 import filterImg from "../../../icons/filter-hmg.svg";
@@ -15,34 +14,41 @@ import OfertaCard from "./OfertaCard";
 import "./OfertaList.css";
 
 function mapCardElements(offerList) {
-  return offerList.map((offer) => <OfertaCard info={offer} />);
+  return offerList.map((offer) => <OfertaCard key={offer.id} info={offer} />);
 }
 
 function OfertaList() {
   const intl = useIntl();
-  const [offerList, setOfferList] = useState();
+  const [offerList, setOfferList] = useState([]);
   const [userSearch, setUserSearch] = useState("");
-  const [initDate, setInitDate] = useState(dayjs());
-  const [endDate, setEndDate] = useState(dayjs().add(1, "d"));
+  const [initDate, setInitDate] = useState(dayjs().locale(intl.locale));
+  const [endDate, setEndDate] = useState(
+    dayjs().locale(intl.locale).add(1, "d")
+  );
   const [offerType, setOfferType] = useState(KANGAROO);
-
   const [cardElements, setCardElements] = useState([]);
 
-  useEffect(
-    () =>
-      async function () {
-        const offerData = await getOffers();
-        const asyncRes = await Promise.all(
-          offerData.map(async (offer) => {
-            const userData = await getUserbyOffer(offer.id, offer.usuario.id);
-            return { ...offer, usuario: userData };
-          })
-        );
-        setOfferList(asyncRes)
-        setCardElements(mapCardElements(asyncRes));
-      },
-    []
-  );
+
+  useEffect(() => {
+    if(!navigator.onLine) {
+      if(localStorage.getItem('offer-list') === null) {
+        setCardElements(mapCardElements([]));
+      } else {
+        console.log("Getting list from local storage");
+          setOfferList(JSON.parse(localStorage.getItem("offer-list")));
+          setCardElements(
+            mapCardElements(JSON.parse(localStorage.getItem("offer-list")))
+          );
+      }
+  } else {
+    getFullOffersList().then((res) => {
+      setOfferList(res);
+      setCardElements(mapCardElements(res));
+      localStorage.setItem("offer-list", JSON.stringify(res));
+    });
+  }
+    
+  }, [])
 
   const updateFilters = () => {
     console.log({
@@ -52,22 +58,29 @@ function OfertaList() {
       end: endDate,
     });
 
-    console.log('at filter', offerList)
-    if(offerList) {
+    console.log("at filter", offerList);
+    if (offerList) {
       const filtered = offerList.filter(
         (item) =>
           item.usuario.nombre.includes(userSearch) &&
           item.tipoOferta === offerType
       );
-      console.log(filtered)
+      console.log(filtered);
       setCardElements(mapCardElements(filtered));
     }
+  };
+
+  const loadInfo = () => {
+    if (cardElements.length > 0) {
+      return <div className="gallery">{cardElements}</div>;
+    }
+    return <div className='pwa-loading'>Loading...</div>;
   };
   return (
     <>
       <aside className="filter--sm">
         <Button>
-          <FormattedMessage id="filter" />
+          <FormattedMessage id="filter-v" />
           <span>
             <img
               src={filterImg}
@@ -107,7 +120,7 @@ function OfertaList() {
         <div>
           <LocalizationProvider
             dateAdapter={AdapterDayjs}
-            adapterLocale={intl.locale.toLowerCase()}
+            adapterLocale={intl.locale}
           >
             <label>
               <FormattedMessage id="init-date" />
@@ -121,20 +134,22 @@ function OfertaList() {
         <div>
           <LocalizationProvider
             dateAdapter={AdapterDayjs}
-            adapterLocale={intl.locale.toLowerCase()}
+            adapterLocale={intl.locale}
           >
             <label>
               <FormattedMessage id="end-date" />
             </label>
             <DatePicker
               value={endDate}
-              onChange={(newEndDate) => setEndDate(newEndDate)} 
+              onChange={(newEndDate) => setEndDate(newEndDate)}
             />
           </LocalizationProvider>
-          <Button onClick={() => updateFilters()}><FormattedMessage id="filter-v"/></Button>
+          <Button onClick={() => updateFilters()}>
+            <FormattedMessage id="filter-v" />
+          </Button>
         </div>
       </aside>
-      <div className="gallery">{cardElements}</div>
+      {loadInfo()}
     </>
   );
 }

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { BASE_URL } from '../../../helpers/constants';
 
 export const validateOfferData = (offer) => {
   console.log(dayjs(offer.initDate), dayjs(offer.endDate))
@@ -46,6 +47,20 @@ export const buildSchedulePayload = (day, activeTimes) => {
     horaFin: dayjs( activeTimes[day].end).toDate() ,
   };
 };
+
+export const postOffer = async function (offerPayload, token) {
+  const requestOfferPayload = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(offerPayload),
+  };
+  return fetch(BASE_URL + "/ofertas", requestOfferPayload)
+    .then((response) => response.json())
+    .then((data) => data);
+}
 
 const getUser = () => {
   const localUsr = localStorage.getItem('userData')
