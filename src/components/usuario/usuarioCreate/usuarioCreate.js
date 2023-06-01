@@ -6,10 +6,12 @@ import "./usuarioCreate.css"
 
 function UsuarioCreate() {
 
+    // State to store the form data
     const [formData, setFormData] = useState({
         nombre: '',
         cedula: '',
         contrasenia: '',
+        verContrasenia: '',
         correoElectronico: '',
         direccion: '',
         celular: '',
@@ -18,9 +20,12 @@ function UsuarioCreate() {
         foto: 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png',
     });
 
-    
+    const [error, setError] = useState();
+
+    // Function to create a new usuario in the backend
     async function createUsuario() {
         console.log("Creando usuario...");
+        // Create the request
         const requestCreateUsuario = {
             method: "POST",
             headers: {
@@ -28,7 +33,19 @@ function UsuarioCreate() {
             },
             body: JSON.stringify(formData),
         };
+        // Frontend validation
+        if(formData["contrasenia"] !== formData["verContrasenia"]) {
+            setError("Las contraseñas no coinciden")
+            return;
+        }
+        // Send the request
         return fetch(BASE_URL + "/usuarios", requestCreateUsuario).then(async (response) => {
+            // Backend validation
+            if (response.status === 412) {
+                setError((await response.json()).message);
+                return;
+            }
+            // Automatic login process
             const token = await getToken({
                 email: formData["correoElectronico"], 
                 password: formData["contrasenia"], 
@@ -44,34 +61,35 @@ function UsuarioCreate() {
                 console.log(JSON.stringify(userData))
                 window.location.href = '/';
             }
-        })
+        });
     }
 
+    // Function to handle when the any input of the form changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    // Function to handle when the form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); // Output the form data to the console
-        // Do something with the form data
         createUsuario();
     };
 
+    // Function to handle when an image is cant be shown
     const handleImageError = (event) => {
-        event.target.src = 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png';
+        event.target.src = './icons/user.png';
     };
 
     return (
-        <Container className='usuario--container'>
+        <Container className='usuario--create'>
             <Row className='usuario--title'>
                 <h1 className="title">Crea tu Cuenta</h1>
             </Row>
-            <Form className="formulario" title="Crea tu cuenta" name="field2" onSubmit={handleSubmit}>
+            <Form className="formulario" title="Crea tu cuenta" onSubmit={handleSubmit}>
                 <Row>
-                    <Col xs={6} className='usuario--info1'>
-                        <h2 className="subtitle">Información Personal:</h2>
+                    <Col>
+                        <h2 className="subtitle mb-3">Información Personal:</h2>
                         <Form.Group className="mb-3" controlId="nombre">
                             <Form.Label>Nombre *</Form.Label>
                             <Form.Control placeholder="Ingresa tu nombre completo" name="nombre" onChange={handleInputChange} required />
@@ -85,15 +103,15 @@ function UsuarioCreate() {
                             <Form.Control placeholder="Ingresa tu número de celular" type="number" name="celular" onChange={handleInputChange} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="correoElectronico">
-                            <Form.Label>Correo Electrónico</Form.Label>
-                            <Form.Control placeholder="Ingresa tu correo electrónico" name="correoElectronico" type="email" onChange={handleInputChange} />
+                            <Form.Label>Correo Electrónico *</Form.Label>
+                            <Form.Control placeholder="Ingresa tu correo electrónico" name="correoElectronico" type="email" onChange={handleInputChange} required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="direccion">
                             <Form.Label>Dirección *</Form.Label>
                             <Form.Control placeholder="Ingresa tu dirección de residencia" name="direccion" onChange={handleInputChange} required />
                         </Form.Group>
-                        <h2 className="subtitle">Configurar Cuenta:</h2>
-                        <Form.Group className="mb-3 subtitle">
+                        <h2 className="subtitle mb-3">Configurar Cuenta:</h2>
+                        <Form.Group className="mb-3">
                             <Form.Label>Tipo de Cuenta *</Form.Label>
                             <Form.Select label="Default select" name="tipoUsuario" onChange={handleInputChange} required >
                                 <option>Ingresa tu rol</option>
@@ -103,18 +121,14 @@ function UsuarioCreate() {
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col xs={6} className="add-foto">
-                        <h2 className="subtitle center">Foto de Perfil</h2>
-                        <Row>
-                            <Image className="fotoCreate" src={formData['foto']} onError={handleImageError}required />
-                        </Row>
-                        <Row>
-                            <Col className='center'>
-                                <Form.Group className="mb-3" controlId="enlace">
-                                    <Form.Label>Enlace Foto de Peril*</Form.Label>
-                                    <Form.Control className="text-center" placeholder="Ingresa el enlace de la imagen" type="url" name="foto" onChange={handleInputChange} required />
-                                </Form.Group>
-                            </Col>
+                    <Col>
+                        <Row className="add-foto">
+                            <h2 className="subtitle center">Foto de Perfil</h2>
+                            <Image className="foto" src={formData['foto']} onError={handleImageError}required />
+                            <Form.Group className="mb-3" controlId="enlace">
+                                <Form.Label>Enlace Foto de Peril*</Form.Label>
+                                <Form.Control className="text-center" placeholder="Ingresa el enlace de la imagen" type="url" name="foto" onChange={handleInputChange} required />
+                            </Form.Group>
                         </Row>
                     </Col>
                 </Row>
@@ -128,15 +142,16 @@ function UsuarioCreate() {
                     <Col>
                         <Form.Group className="mb-3" controlId="verContrasenia">
                             <Form.Label>Verificar Contraseña *</Form.Label>
-                            <Form.Control type="password" placeholder="Ingresa nuevamente la contraseña de acceso a tu cuenta" name="verContrasenia" onChange={handleInputChange} required />
+                            <Form.Control type="password" placeholder="Ingresa nuevamente la contraseña de acceso" name="verContrasenia" onChange={handleInputChange} required />
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row>
-                    <Col className='center'>
-                        <a href='/'><Button className="btn-t2 big" type="button" >Cancelar</Button></a>
-                        <Button className="btn-t1 big" type="submit" >Crear Cuenta</Button>
-                    </Col>
+                <Row className="error">
+                    {error}
+                </Row>
+                <Row className="center">
+                    <Button className="btn-t2 big" type="button" >Cancelar</Button>
+                    <Button className="btn-t1 big" type="submit" >Crear Cuenta</Button>
                 </Row>
             </Form>
         </Container>

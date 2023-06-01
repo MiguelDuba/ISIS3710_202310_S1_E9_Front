@@ -29,6 +29,22 @@ export const getFullOffersList = function () {
     });
 }
 
+export const getOfferDetail = function (offerId) {
+  return fetch(`${BASE_URL}/ofertas/${offerId}`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    }
+  })
+  .then((response) => response.json())
+  .then((data) => { 
+    return getUserbyOffer(offerId, data.usuario.id).then((userData) => {
+      return { ...data, usuario: userData}
+    }).then((res) => res)
+  });
+}
+
+
+
 export const getUserbyOffer = async function(offerId, userId) {
     return fetch(`${BASE_URL}/ofertas/${offerId}/usuarios/${userId}`)
     .then((response) => response.json())

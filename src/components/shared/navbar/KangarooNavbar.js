@@ -11,14 +11,14 @@ function KangarooNavbar() {
     const logoutUser = () => {
         localStorage.removeItem('userData')
         localStorage.removeItem('sessionToken')
-        window.location.reload()
+        window.location.href = '/';
     }
     
     const loadUser = () => {
         if(!user) {
             return ( <Nav>
             <a href='/login'><Button className='log-in'><FormattedMessage id='sign-in'/></Button></a>
-            <Button className='sign-up'><FormattedMessage id='sign-up'/></Button>
+            <a href='/register'><Button className='sign-up'><FormattedMessage id='sign-up'/></Button></a>
         </Nav>)
         } else {
             return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'><FormattedMessage id='log-out'/></Button></Nav>)

@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { FormattedMessage, FormattedPlural, useIntl } from "react-intl";
 import { Navigate, useParams } from "react-router-dom";
-import {
-  getOfferById,
-  getUserbyOffer,
-} from "../../../helpers/backend/offerBackend";
+import { getOfferDetail } from "../../../helpers/backend/offerBackend";
 import {
   convertToUSD,
   formatterCOP,
@@ -22,33 +19,9 @@ function OfertaDetail() {
 
   const offerId = params.ofertaId;
 
-  useEffect(
-    () =>
-      async function () {
-        const newOffer = await getOfferById(offerId);
-        setOffer(newOffer);
-        console.log("offer set", newOffer);
-        if (newOffer.statusCode) {
-          console.log("err at offer");
-          setOffer(undefined);
-        } else {
-          const userData = await getUserbyOffer(
-            newOffer.id,
-            newOffer.usuario.id
-          );
-          if (userData.statusCode) {
-            console.log("err at user");
-          } else {
-            console.log(newOffer.usuario);
-            newOffer.usuario = userData;
-            console.log(newOffer.usuario);
-            setOffer({ ...newOffer, usuario: userData });
-            console.log("offer w/ set", newOffer);
-          }
-        }
-      },
-    [offerId]
-  );
+  useEffect(() => {
+    getOfferDetail(offerId).then((res) => setOffer(res));
+  }, [offerId]);
 
   if (!token) {
     <Navigate to="/error"></Navigate>;
@@ -64,8 +37,6 @@ function OfertaDetail() {
   const requestOffer = () => {
     console.log("Requesting offer...");
   };
-
-  // return (<h1>{JSON.stringify(offer)}</h1>)
 
   if (Object.keys(offer).length === 0) {
     return <h1>Loading...</h1>;

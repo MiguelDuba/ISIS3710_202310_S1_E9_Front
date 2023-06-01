@@ -13,11 +13,8 @@
     font-size: large;
 }
 
-.normal-text {
-    font-weight: normal;
-}
-
-.add-foto {
+.center {
+    justify-content: center;
     text-align: center;
 }
 
@@ -26,6 +23,9 @@
     color: white;
     border: 3px solid #EF7146;
     font-weight: bold;
+    display: inline-block;
+    width: fit-content;
+    padding: 0.5rem 2rem 0.5rem 2rem;
 }
 
 .formulario .btn-t2 {
@@ -33,40 +33,67 @@
     color: black;
     border: 3px solid #EF7146;
     font-weight: bold;
-}
-
-.formulario button {
-    margin: 0.5rem 1rem 0 1rem !important; 
+    display: inline-block;
+    width: fit-content;
+    padding: 0.5rem 3rem 0.5rem 3rem;
 }
 
 .formulario .big {
-    margin-left: 100px;
-    padding: 0.5rem 2rem 0.5rem 2rem;
+    margin: 0.5rem 1rem 0.5rem 1rem !important; 
     border-radius: 20px;
 }
 
-.center {
-    text-align: center;
+.usuario--create .add-foto {
+    justify-content: center;
+    margin: 2rem;
 }
 
-.fotoCreate {
-    padding: 0 20% 0 20%;
-    border-radius: 100%;
+.foto {
+    width: 100%;
+    margin: 0 !important;
+    max-width: 400px;
 }
 
-.formulario img {
-    min-height: 100px !important;
-    min-width: 100px !important;
+.formulario .btn-t2:hover {
+    background-color: transparent !important;
 }
 
-@media (min-width: 300px) and (max-width: 639px) {
+.error {
+    justify-content: center;
+    color: red;
+    font-weight: bold;
+}
+
+/* Media */
+
+@media (min-width: 700px) and (max-width: 1100px) {
     .usuario--title {
-        margin-top: 3rem;
+        margin-top: 1rem;
+    }
+    
+    .form-control {
+        font-size: 0.7rem !important;
+    }
+    
+    .form-select {
+        font-size: 0.7rem !important;
     }
 }
 
-@media (min-width: 639px) and (max-width: 790px) {
-    .usuario--title {
-        margin-top: 1rem;
+@media (max-width: 700px) {
+    .usuario--create {
+        margin-top: 3rem !important;
+    }
+
+    .add-foto {
+        margin: 0.5rem !important;
+    }
+
+    .form-control {
+        font-size: 0.5rem !important;
+    }
+
+    .form-select {
+        font-size: 0.5rem !important;
     }
 }
