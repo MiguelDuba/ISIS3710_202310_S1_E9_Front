@@ -10,6 +10,8 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [success, setSuccess] = useState(true);
 
+  const nav = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = await getToken({
@@ -29,7 +31,8 @@ export default function Login() {
       } else {
         localStorage.setItem("userData", JSON.stringify(userData));
         console.log(JSON.stringify(userData));
-        window.location.href('/')
+        nav("/")
+        window.location.reload();
       }
     }
   };

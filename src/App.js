@@ -29,12 +29,12 @@ function App() {
         <main>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home />} />
               <Route path="/ofertas" element={<OfertaList />} />
               <Route path="/ofertas/new" element={<OfertaCreate />} />
               <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/error" element={<PageNotFound />} />
+              <Route path="/" element={<Home />} />
             </Routes>
           </BrowserRouter>
         </main>

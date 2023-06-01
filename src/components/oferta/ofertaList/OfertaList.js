@@ -6,8 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
-  getOffers,
-  getUserbyOffer,
+  getFullOffersList,
 } from "../../../helpers/backend/offerBackend";
 import { GUARDIAN, KANGAROO } from "../../../helpers/constants";
 import filterImg from "../../../icons/filter-hmg.svg";
@@ -20,43 +19,36 @@ function mapCardElements(offerList) {
 
 function OfertaList() {
   const intl = useIntl();
-  const [offerList, setOfferList] = useState();
+  const [offerList, setOfferList] = useState([]);
   const [userSearch, setUserSearch] = useState("");
   const [initDate, setInitDate] = useState(dayjs().locale(intl.locale));
   const [endDate, setEndDate] = useState(
     dayjs().locale(intl.locale).add(1, "d")
   );
   const [offerType, setOfferType] = useState(KANGAROO);
-
   const [cardElements, setCardElements] = useState([]);
 
-  useEffect(
-    () =>
-      async function () {
-        if (!navigator.onLine) {
-          if(localStorage.getItem('offer-list') === null) {
-            // setList([]) todo: no saved data, loading
-        } else {
-            console.log('Getting list from local storage')
-            setOfferList(JSON.parse(localStorage.getItem('offer-list')))
-            setCardElements(mapCardElements(JSON.parse(localStorage.getItem('offer-list'))))
-        }
-        } else {
-          console.log("fetching offers..");
-          const offerData = await getOffers();
-          const asyncRes = await Promise.all(
-            offerData.map(async (offer) => {
-              const userData = await getUserbyOffer(offer.id, offer.usuario.id);
-              return { ...offer, usuario: userData };
-            })
+
+  useEffect(() => {
+    if(!navigator.onLine) {
+      if(localStorage.getItem('offer-list') === null) {
+        setCardElements(mapCardElements([]));
+      } else {
+        console.log("Getting list from local storage");
+          setOfferList(JSON.parse(localStorage.getItem("offer-list")));
+          setCardElements(
+            mapCardElements(JSON.parse(localStorage.getItem("offer-list")))
           );
-          setOfferList(asyncRes);
-          localStorage.setItem('offer-list', JSON.stringify(asyncRes))
-          setCardElements(mapCardElements(asyncRes));
-        }
-      },
-    []
-  );
+      }
+  } else {
+    getFullOffersList().then((res) => {
+      setOfferList(res);
+      setCardElements(mapCardElements(res));
+      localStorage.setItem("offer-list", JSON.stringify(res));
+    });
+  }
+    
+  }, [])
 
   const updateFilters = () => {
     console.log({
@@ -79,11 +71,11 @@ function OfertaList() {
   };
 
   const loadInfo = () => {
-    if (offerList && offerList.length > 0) {
-      return  <div className="gallery">{cardElements}</div>
-    } 
+    if (cardElements.length > 0) {
+      return <div className="gallery">{cardElements}</div>;
+    }
     return <div>Loading...</div>;
-  }
+  };
   return (
     <>
       <aside className="filter--sm">
@@ -157,7 +149,8 @@ function OfertaList() {
           </Button>
         </div>
       </aside>
-     { loadInfo()}
+      {/* {loadInfo()} */}
+      <div className="gallery">{cardElements}</div>
     </>
   );
 }

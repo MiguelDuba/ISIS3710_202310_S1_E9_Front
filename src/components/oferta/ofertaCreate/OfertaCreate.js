@@ -49,10 +49,28 @@ function OfertaCreate() {
   };
 
   useEffect(() => {
+    
     const saveForm = () => {
       localStorage.setItem("offer-form-data", JSON.stringify(offerData));
       console.log("Saving form:", offerData);
     };
+    
+
+
+    if(!navigator.onLine){
+      console.log('offline', localStorage.getItem("offer-form-data"))
+      if(localStorage.getItem('offer-form-data') !== null) {
+        setOfferData(JSON.parse(localStorage.getItem('offer-form-data')));
+      }
+    } else {
+      // Save the form every 5 seconds
+    const interval = setInterval(saveForm, 5000);
+
+    // Clean up the interval on component unmount
+    return () => {
+      clearInterval(interval);
+    };
+    }
 
     // Save the form every 5 seconds
     const interval = setInterval(saveForm, 5000);
