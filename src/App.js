@@ -1,50 +1,59 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import { IntlProvider } from 'react-intl';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import OfertaCreate from './components/oferta/ofertaCreate/OfertaCreate';
-import OfertaDetail from './components/oferta/ofertaDetail/OfertaDetail';
-import OfertaList from './components/oferta/ofertaList/OfertaList';
+import "./App.css";
+import OfertaCreate from "./components/oferta/ofertaCreate/OfertaCreate";
+import OfertaDetail from "./components/oferta/ofertaDetail/OfertaDetail";
+import OfertaList from "./components/oferta/ofertaList/OfertaList";
 import UsuarioCreate from './components/usuario/usuarioCreate/usuarioCreate';
 import UsuarioDetail from './components/usuario/usuarioDetail/UsuarioDetail';
-// import ReseniaCreate from './components/resenia/reseniaCreate/ReseniaCreate';
-// import ReseniaList from './components/resenia/reseniaList/ReseniaList';
-// import CreateAccount from './components/shared/createAccount/createAccount';
-import Login from './components/shared/login/Login';
-import KangarooNavbar from './components/shared/navbar/KangarooNavbar';
-import Footer from './components/shared/footer/Footer';
-import { ofertaDetail, ofertaListData } from './tempData/ofertaData';
-// import { reseniaListData } from './tempData/reseniaData';
+import Footer from "./components/shared/footer/Footer";
+import Login from "./components/shared/login/Login";
+import KangarooNavbar from "./components/shared/navbar/KangarooNavbar";
+import Home from "./components/shared/startpage/Home";
+import localeEnMessages from "./locales/en.json";
+import localeEsMessages from "./locales/es.json";
+
+const language = navigator.language || navigator.userLanguage;
+let langStr = "en";
+let messages = localeEnMessages;
+if (language.includes("es")) {
+  langStr = "es";
+  messages = localeEsMessages;
+}
 
 function App() {
   return (
     <div className="App">
-      <KangarooNavbar/>
-      <main>
-      <BrowserRouter>
-          <Routes>
-            <Route path="/"  />
-            <Route path="/ofertas" element={<OfertaList />} />
-            <Route path="/ofertas/new" element={<OfertaCreate />} />
-            <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
-            <Route path="/register" element={<UsuarioCreate />} />
-            <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/error" element={<PageNotFound />} />
-          </Routes>
-        </BrowserRouter>
-        
-        {/* <OfertaDetail info={ofertaDetail}/>
-        <OfertaCreate/>
-        <OfertaList info={ofertaListData}/> */}
-        {/* <UsuarioCreate/>Í */}
-      </main>
-      {/* <Footer/> */}
+      <IntlProvider locale={langStr} messages={messages}>
+        <KangarooNavbar />
+        <main>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/ofertas" element={<OfertaList />} />
+              <Route path="/ofertas/new" element={<OfertaCreate />} />
+              <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
+              <Route path="/register" element={<UsuarioCreate />} />
+              <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/error" element={<PageNotFound />} />
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </BrowserRouter>
+        </main>
+        <Footer />
+      </IntlProvider>
     </div>
   );
 }
 
-function PageNotFound () {
-  return <div><h1>ERROR</h1></div>
+function PageNotFound() {
+  return (
+    <div>
+      <h1>ERROR</h1>
+    </div>
+  );
 }
 
 export default App;
