@@ -43,6 +43,12 @@
     border-radius: 20px;
 }
 
+.usuario--detalle .small {
+    margin: 1rem 0.2rem 1rem 0.2rem !important;
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem!important;
+    border-radius: 5px;
+}
+
 .usuario--detalle .btn-t2:hover {
     background-color: transparent !important;
 }
@@ -76,6 +82,7 @@
     margin: 0 !important;
     max-width: 300px;
     min-width: 120px;
+    border-radius: 50%;
 }
 
 .lr-margin {

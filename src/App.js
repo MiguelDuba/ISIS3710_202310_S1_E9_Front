@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import OfertaCreate from './components/oferta/ofertaCreate/OfertaCreate';
 import OfertaDetail from './components/oferta/ofertaDetail/OfertaDetail';
@@ -28,7 +27,7 @@ function App() {
             <Route path="/ofertas/new" element={<OfertaCreate />} />
             <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
             <Route path="/register" element={<UsuarioCreate />} />
-            <Route path="/usuarios/:usuarioId/:tipo" element={<UsuarioDetail />} />
+            <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/error" element={<PageNotFound />} />
           </Routes>

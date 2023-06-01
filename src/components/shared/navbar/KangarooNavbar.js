@@ -10,7 +10,7 @@ function KangarooNavbar() {
     const logoutUser = () => {
         localStorage.removeItem('userData')
         localStorage.removeItem('sessionToken')
-        window.location.reload()
+        window.location.href = '/';
     }
     
     const loadUser = () => {
@@ -20,19 +20,13 @@ function KangarooNavbar() {
             <a href='/register'><Button className='sign-up'>Crea tu Cuenta</Button></a>
         </Nav>)
         } else {
-            let urlDetalle;
-            if(userData.tipoUsuario.toLowerCase() === 'ambos') {
-                urlDetalle = '/usuarios/' + userData.id + "/Canguro"
-            } else {
-                urlDetalle = '/usuarios/' + userData.id + "/" + userData.tipoUsuario
-            }
-            return (<Nav><a href={urlDetalle}>{userData.nombre}</a> <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)
+            return (<Nav><a href={'/usuarios/' + userData.id}>{userData.nombre}</a> <Button onClick={logoutUser} className='logout'>Salir</Button></Nav>)
         }
     }
     return (
         <Navbar className='kangaroo-nav' bg-white fixed='top' expand="lg">
             <Navbar.Brand>
-                <a className='nav--brand' href='#'><img src={logo} alt="Cartoon of a kangaroo"></img>Kangaroo</a> 
+                <a className='nav--brand' href='/'><img src={logo} alt="Cartoon of a kangaroo"></img>Kangaroo</a> 
             </Navbar.Brand>
             <Navbar.Collapse>
                 <Nav>

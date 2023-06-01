@@ -14,59 +14,61 @@ function UsuarioDetail() {
     const [experiencia, setExperiencia] = useState();
     const [habilidades, setHabilidades] = useState();
     const [antecedentes, setAntecedentes] = useState();
-    const [isCanguro, setIsCanguro] = useState(true);
+    const [isCanguro, setIsCanguro] = useState(null);
+    const [btnStatus, setBtnStatus] = useState(false);
 
     const usuarioId = params.usuarioId;
-    const tipoUsuario = params.tipo;
-
+    
     useEffect(
         () =>
         async function () {
+            // Get of the user with the given id
             const newUsuario = await getUsuarioById(usuarioId);
-            console.log(newUsuario)
+            // If inexistent user, redirect to error page        
             setUsuario(newUsuario);
+            if(isCanguro === null) {
+                setIsCanguro(newUsuario.tipoUsuario.toLowerCase() !== "canguro");
+                console.log(isCanguro)
+            }
             if(newUsuario.antecedentes.length === 0) {
                 setAntecedentes(<li>El usuario no tiene antecedentes</li>)
             } else {
                 setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
             }
-            if((newUsuario.tipoUsuario.toLowerCase() === "canguro" || newUsuario.tipoUsuario.toLowerCase() === "ambos")  && tipoUsuario.toLowerCase() === "canguro") {
-                console.log("NO")
-                setIsCanguro(true);
+            if(isCanguro) {
                 setTitulo(<h2>Especialidades:</h2>)
-                if (newUsuario.necesidades.length === 0) {
-                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
+                setExperiencia(newUsuario.aniosExperiencia + " años de experiencia")
+                if (newUsuario.especialidades.length === 0) {
+                    setHabilidades(<li>El canguro no tiene especialidades</li>)
                 } else {
-                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+                    setHabilidades(newUsuario.especialidades.map((nec) => <li>{nec.tipo}</li>))
                 }
-            } else if ((newUsuario.tipoUsuario.toLowerCase() === "acudiente" || newUsuario.tipoUsuario.toLowerCase() === "ambos")  && tipoUsuario.toLowerCase() === "acudiente") {
-                console.log("NO")
-                setIsCanguro(false);
-                setTitulo(<h2>Necesidades:</h2>)
-                if (newUsuario.necesidades.length === 0) {
-                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
-                } else {
-                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
-                }
+                setTitulo(<h2>Especialidades:</h2>)
             } else {
-                window.location.href = '/error';
+                setTitulo(<h2>Necesidades:</h2>)
+                setExperiencia("")
+                if (newUsuario.necesidades.length === 0) {
+                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
+                } else {
+                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+                }
+            }
+            if(newUsuario.tipoUsuario.toLowerCase() !== "ambos") {
+                setBtnStatus(true)
             }
         },
-        [usuarioId,tipoUsuario]
+        [usuarioId, isCanguro]
     );
 
     if (!token) {
         // return <Navigate to="/error"></Navigate>;
     }
 
-    const changeIsCanguro = () => {
-        console.log(isCanguro)
-        if (isCanguro) {
-            window.location.href = "/usuarios/" + usuarioId + "/Acudiente";
-        } else {
-            window.location.href = "/usuarios/" + usuarioId + "/Canguro";
+    const changeBtnStatus = (tipo) => {
+        console.log(tipo, isCanguro)
+        if(tipo === isCanguro) {
+            setIsCanguro(!isCanguro);
         }
-        setIsCanguro(!isCanguro);
     };
 
     const seeOfertas = () => {
@@ -84,6 +86,10 @@ function UsuarioDetail() {
     if (usuario) {
         return (
             <Container className="usuario--detalle">
+                <Row className="center">
+                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(true)}>Canguro</Button>
+                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(false)}>Acudiente</Button>
+                </Row>
                 <Row className="lr-margin">
                     <Col className="info">
                         <Row>
@@ -94,7 +100,7 @@ function UsuarioDetail() {
                                 {usuario.tipoUsuario}
                             </Col>
                             <Col className="usuario--exp">
-                                {experiencia} 2 años de experiencia
+                                {experiencia}
                             </Col>
                         </Row>
                         {titulo}
