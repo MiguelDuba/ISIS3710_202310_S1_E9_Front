@@ -40,6 +40,12 @@ function UsuarioCreate() {
         }
         // Send the request
         return fetch(BASE_URL + "/usuarios", requestCreateUsuario).then(async (response) => {
+            // Backend validation
+            if (response.status === 412) {
+                setError((await response.json()).message);
+                return;
+            }
+            // Automatic login process
             const token = await getToken({
                 email: formData["correoElectronico"], 
                 password: formData["contrasenia"], 
@@ -55,7 +61,7 @@ function UsuarioCreate() {
                 console.log(JSON.stringify(userData))
                 window.location.href = '/';
             }
-        })
+        });
     }
 
     // Function to handle when the any input of the form changes
@@ -97,8 +103,8 @@ function UsuarioCreate() {
                             <Form.Control placeholder="Ingresa tu número de celular" type="number" name="celular" onChange={handleInputChange} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="correoElectronico">
-                            <Form.Label>Correo Electrónico</Form.Label>
-                            <Form.Control placeholder="Ingresa tu correo electrónico" name="correoElectronico" type="email" onChange={handleInputChange} />
+                            <Form.Label>Correo Electrónico *</Form.Label>
+                            <Form.Control placeholder="Ingresa tu correo electrónico" name="correoElectronico" type="email" onChange={handleInputChange} required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="direccion">
                             <Form.Label>Dirección *</Form.Label>
