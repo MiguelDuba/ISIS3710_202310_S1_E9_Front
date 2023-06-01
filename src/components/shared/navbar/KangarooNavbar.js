@@ -21,7 +21,16 @@ function KangarooNavbar() {
             <Button className='sign-up'><FormattedMessage id='sign-up'/></Button>
         </Nav>)
         } else {
-            return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'><FormattedMessage id='log-out'/></Button></Nav>)
+            return (
+              <Nav>
+                <a className="user-profile" href="/">
+                  {userData.nombre}
+                </a>{" "}
+                <Button onClick={logoutUser} className="logout">
+                  <FormattedMessage id="log-out" />
+                </Button>
+              </Nav>
+            );
         }
     }
     return (

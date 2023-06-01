@@ -79,3 +79,12 @@ ul.nav--users {
 .searchIcn {
     width: 2rem;
 }
+
+.logout {
+    /* padding: 0 0; */
+}
+
+a.user-profile {
+    color: black;
+    margin: 0 1em;
+}
