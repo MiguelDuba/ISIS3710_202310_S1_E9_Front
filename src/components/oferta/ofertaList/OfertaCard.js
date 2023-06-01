@@ -21,7 +21,7 @@ function OfertaCard(props) {
   const intl = useIntl();
 
   const showLocalizedPrice = (precio) => {
-    if (intl.locale === "en-US") {
+    if (intl.locale === "en") {
       return formatterUSD.format(convertToUSD(precio));
     }
     return formatterCOP.format(precio);
