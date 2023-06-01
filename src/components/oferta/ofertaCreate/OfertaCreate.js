@@ -28,7 +28,7 @@ function OfertaCreate() {
 
   const [errorMsg, setErrorMsg] = useState(null);
   const [offerData, setOfferData] = useState({
-    price: 20000,
+    price: null,
     offerType: KANGAROO,
     initDate: dayjs(),
     endDate: dayjs().add(1, "d"),
@@ -49,107 +49,97 @@ function OfertaCreate() {
   };
 
   useEffect(() => {
-    
-    const saveForm = () => {
-      localStorage.setItem("offer-form-data", JSON.stringify(offerData));
-      console.log("Saving form:", offerData);
-    };
-    
-
-
-    if(!navigator.onLine){
-      console.log('offline', localStorage.getItem("offer-form-data"))
-      if(localStorage.getItem('offer-form-data') !== null) {
-        setOfferData(JSON.parse(localStorage.getItem('offer-form-data')));
+    if (!navigator.onLine) {
+      console.log(
+        "offline",
+        JSON.parse(localStorage.getItem("offer-form-data"))
+      );
+      if (localStorage.getItem("offer-form-data") !== null) {
+        const storedForm = JSON.parse(localStorage.getItem("offer-form-data"));
+        Object.keys(storedForm.activeTimes).forEach((day) => {
+          if (storedForm.activeDays.includes(day)) {
+          storedForm.activeTimes[day].start = dayjs(
+            storedForm.activeTimes[day].start
+          );
+          storedForm.activeTimes[day].end = dayjs(
+            storedForm.activeTimes[day].end
+          );}
+        });
+        const storedOffer = {
+          price: parseInt(storedForm.price),
+          offerType: storedForm.offerType,
+          initDate: dayjs(storedForm.initDate),
+          endDate: dayjs(storedForm.endDate),
+          activeDays: [...storedForm.activeDays],
+          activeTimes: storedForm.activeTimes,
+        };
+        console.log('stored', storedOffer);
+        setOfferData(storedOffer);
+        storedOffer.activeDays.forEach((day) => {
+          renderTime(day);});
       }
-    } else {
-      // Save the form every 5 seconds
-    const interval = setInterval(saveForm, 5000);
-
-    // Clean up the interval on component unmount
-    return () => {
-      clearInterval(interval);
-    };
     }
-
-    // Save the form every 5 seconds
-    const interval = setInterval(saveForm, 5000);
-
-    // Clean up the interval on component unmount
-    return () => {
-      clearInterval(interval);
-    };
-  }, [offerData]);
+  }, []);
 
   const handleInputChange = (name, value) => {
     setOfferData({ ...offerData, [name]: value });
+    localStorage.setItem("offer-form-data", JSON.stringify(offerData));
     console.log(offerData);
   };
 
   const createOffer = async function (event) {
     event.preventDefault();
+    let priceCOP = offerData.price;
+    if (intl.locale === "en") {
+      priceCOP = convertToCOP(offerData.price);
+    }
 
-    if (!navigator.onLine) {
-      if (localStorage.getItem("offer-form-data") === null) {
-        setErrorMsg("You are offline and no offer data was saved");
-      } else {
-        const localFormData = JSON.localStorage.getItem("offer-form-data");
-        console.log("restoring local data", localFormData);
-        setOfferData(JSON.parse(localFormData));
-      }
+    console.log(offerData);
+    const offer = {
+      price: priceCOP,
+      offerType: offerData.offerType,
+      initDate: offerData.initDate,
+      endDate: offerData.endDate,
+    };
+
+    offerData.activeDays.forEach((day) =>
+      validateScheduleData(offerData.activeTimes[day])
+    );
+
+    if (!validateOfferData(offer)) {
+      setErrorMsg("Invalid Dates");
     } else {
-      let priceCOP = offerData.price;
-      if (intl.locale === "en") {
-        priceCOP = convertToCOP(offerData.price);
-      }
-
-      console.log(offerData);
-      const offer = {
-        price: priceCOP,
-        offerType: offerData.offerType,
-        initDate: offerData.initDate,
-        endDate: offerData.endDate,
-      };
-
-      offerData.activeDays.forEach((day) =>
-        validateScheduleData(offerData.activeTimes[day])
-      );
-
-      if (!validateOfferData(offer)) {
-        setErrorMsg("Invalid Dates");
+      const bodyPayload = buildOfferPayload(offer);
+      if (!bodyPayload) {
+        setErrorMsg("Invalid User");
       } else {
-        const bodyPayload = buildOfferPayload(offer);
-        if (!bodyPayload) {
-          setErrorMsg("Invalid User");
-        } else {
-          console.log("Sending post request");
-          const offer = await postOffer(bodyPayload, token);
-          const offerId = offer.id;
-          console.log(offerId);
-          const schedulePayloads = [];
+        console.log("Sending post request");
+        const offer = await postOffer(bodyPayload, token);
+        const offerId = offer.id;
+        console.log(offerId);
+        const schedulePayloads = [];
 
-          offerData.activeDays.forEach((day) => {
-            const dayPayload = buildSchedulePayload(day, offerData.activeTimes);
-            schedulePayloads.push(dayPayload);
-          });
+        offerData.activeDays.forEach((day) => {
+          const dayPayload = buildSchedulePayload(day, offerData.activeTimes);
+          schedulePayloads.push(dayPayload);
+        });
 
-          await schedulePayloads.forEach(async (schedule) => {
-            const scheudlePayload = {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(schedule),
-            };
-            const res = await createAndAssocSchedule(scheudlePayload, offerId);
-            if (!res) {
-              setErrorMsg("Error creating schedule");
-            } else {
-              alert("Offer created successfully");
-            }
-          });
-        }
+        await schedulePayloads.forEach(async (schedule) => {
+          const scheudlePayload = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(schedule),
+          };
+          const res = await createAndAssocSchedule(scheudlePayload, offerId);
+          if (!res) {
+            setErrorMsg("Error creating schedule");
+          } else {
+            alert("Offer created successfully");
+          }
+        });
       }
     }
   };
@@ -238,6 +228,7 @@ function OfertaCreate() {
               placeholder={intl.formatMessage({ id: "price-placeholder" })}
               decimalsLimit={0}
               prefix={"$"}
+              value={offerData.price === 0 ? "" : offerData.price}
               // intlConfig={{
               //   locale: intl.locale,
               //   currency: intl.locale === "en" ? "USD" : "COP",
@@ -314,6 +305,7 @@ function OfertaCreate() {
                     value={day}
                     label={day}
                     onClick={showHourForDay}
+                    defaultChecked={offerData.activeDays.includes(day)}
                   />
                   {renderTime(day)}
                 </Row>

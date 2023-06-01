@@ -74,7 +74,7 @@ function OfertaList() {
     if (cardElements.length > 0) {
       return <div className="gallery">{cardElements}</div>;
     }
-    return <div>Loading...</div>;
+    return <div className='pwa-loading'>Loading...</div>;
   };
   return (
     <>
@@ -149,8 +149,7 @@ function OfertaList() {
           </Button>
         </div>
       </aside>
-      {/* {loadInfo()} */}
-      <div className="gallery">{cardElements}</div>
+      {loadInfo()}
     </>
   );
 }

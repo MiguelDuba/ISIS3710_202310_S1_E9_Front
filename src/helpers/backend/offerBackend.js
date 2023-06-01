@@ -27,16 +27,6 @@ export const getFullOffersList = function () {
         })
       ).then((res) => res)
     });
-    // .then((data) => {
-    //   console.log('new', data);
-    //   Promise.all( 
-    //     data.map((offer) => {
-    //       return getUserbyOffer(offer.id, offer.usuario.id).then((userData) => {
-    //         return { ...offer, usuario: userData}
-    //       })
-    //     })
-    //   ).then((res) => res)
-    // });
 }
 
 export const getUserbyOffer = async function(offerId, userId) {
