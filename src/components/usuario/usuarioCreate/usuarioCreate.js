@@ -60,18 +60,22 @@ function UsuarioCreate() {
     };
 
     const handleImageError = (event) => {
-        event.target.src = 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png';
+        event.target.src = './icons/user.png';
     };
 
+    /*
+        1. Cambiar tamaño de los h1 cuando se hace mas pequeña la pantalla
+
+    */
     return (
-        <Container className='usuario--container'>
-            <Row className='usuario--title'>
+        <Container className='usuario--create'>
+            <Row className='usuario--title' style={{border: '1px solid black'}}>
                 <h1 className="title">Crea tu Cuenta</h1>
             </Row>
-            <Form className="formulario" title="Crea tu cuenta" name="field2" onSubmit={handleSubmit}>
-                <Row>
-                    <Col xs={6} className='usuario--info1'>
-                        <h2 className="subtitle">Información Personal:</h2>
+            <Form className="formulario" title="Crea tu cuenta" onSubmit={handleSubmit}>
+                <Row style={{border: '1px solid black'}}>
+                    <Col style={{border: '1px solid black'}}>
+                        <h2 className="subtitle mb-3">Información Personal:</h2>
                         <Form.Group className="mb-3" controlId="nombre">
                             <Form.Label>Nombre *</Form.Label>
                             <Form.Control placeholder="Ingresa tu nombre completo" name="nombre" onChange={handleInputChange} required />
@@ -92,8 +96,8 @@ function UsuarioCreate() {
                             <Form.Label>Dirección *</Form.Label>
                             <Form.Control placeholder="Ingresa tu dirección de residencia" name="direccion" onChange={handleInputChange} required />
                         </Form.Group>
-                        <h2 className="subtitle">Configurar Cuenta:</h2>
-                        <Form.Group className="mb-3 subtitle">
+                        <h2 className="subtitle mb-3">Configurar Cuenta:</h2>
+                        <Form.Group className="mb-3">
                             <Form.Label>Tipo de Cuenta *</Form.Label>
                             <Form.Select label="Default select" name="tipoUsuario" onChange={handleInputChange} required >
                                 <option>Ingresa tu rol</option>
@@ -103,40 +107,34 @@ function UsuarioCreate() {
                             </Form.Select>
                         </Form.Group>
                     </Col>
-                    <Col xs={6} className="add-foto">
-                        <h2 className="subtitle center">Foto de Perfil</h2>
-                        <Row>
-                            <Image className="fotoCreate" src={formData['foto']} onError={handleImageError}required />
-                        </Row>
-                        <Row>
-                            <Col className='center'>
-                                <Form.Group className="mb-3" controlId="enlace">
-                                    <Form.Label>Enlace Foto de Peril*</Form.Label>
-                                    <Form.Control className="text-center" placeholder="Ingresa el enlace de la imagen" type="url" name="foto" onChange={handleInputChange} required />
-                                </Form.Group>
-                            </Col>
+                    <Col style={{border: '1px solid black'}}>
+                        <Row className="add-foto">
+                            <h2 className="subtitle center">Foto de Perfil</h2>
+                            <Image className="foto" src={formData['foto']} onError={handleImageError}required />
+                            <Form.Group className="mb-3" controlId="enlace">
+                                <Form.Label>Enlace Foto de Peril*</Form.Label>
+                                <Form.Control className="text-center" placeholder="Ingresa el enlace de la imagen" type="url" name="foto" onChange={handleInputChange} required />
+                            </Form.Group>
                         </Row>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
+                <Row style={{border: '1px solid black'}}>
+                    <Col style={{border: '1px solid black'}}>
                         <Form.Group className="mb-3" controlId="contrasenia">
                             <Form.Label>Contraseña *</Form.Label>
                             <Form.Control type="password" placeholder="Ingresa tu contraseña de acceso a tu cuenta" name="contrasenia" onChange={handleInputChange} required />
                         </Form.Group>
                     </Col>
-                    <Col>
+                    <Col style={{border: '1px solid black'}}>
                         <Form.Group className="mb-3" controlId="verContrasenia">
                             <Form.Label>Verificar Contraseña *</Form.Label>
-                            <Form.Control type="password" placeholder="Ingresa nuevamente la contraseña de acceso a tu cuenta" name="verContrasenia" onChange={handleInputChange} required />
+                            <Form.Control type="password" placeholder="Ingresa nuevamente la contraseña de acceso" name="verContrasenia" onChange={handleInputChange} required />
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row>
-                    <Col className='center'>
-                        <a href='/'><Button className="btn-t2 big" type="button" >Cancelar</Button></a>
-                        <Button className="btn-t1 big" type="submit" >Crear Cuenta</Button>
-                    </Col>
+                <Row className="center" style={{border: '1px solid black'}}>
+                    <Button className="btn-t2 big" type="button" >Cancelar</Button>
+                    <Button className="btn-t1 big" type="submit" >Crear Cuenta</Button>
                 </Row>
             </Form>
         </Container>
