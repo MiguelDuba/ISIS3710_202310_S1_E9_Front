@@ -2,6 +2,7 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { ChevronLeft, ChevronRight, StarFill } from 'react-bootstrap-icons';
+import { FormattedMessage } from 'react-intl';
 import './InfoAcudiente.css';
 
 function InfoAcudiente() {
@@ -14,7 +15,7 @@ function InfoAcudiente() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Acudiente</h5>
+                            <h5><FormattedMessage id="guardian"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -39,7 +40,7 @@ function InfoAcudiente() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Acudiente</h5>
+                            <h5><FormattedMessage id="guardian"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -64,7 +65,7 @@ function InfoAcudiente() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Acudiente</h5>
+                            <h5><FormattedMessage id="guardian"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -89,7 +90,7 @@ function InfoAcudiente() {
                         </div>
                         <div className="userInfoTop">
                             <h5>Brooklyn Simmons</h5>
-                            <h5>Acudiente</h5>
+                            <h5><FormattedMessage id="guardian"/></h5>
                         </div>
                     </div>
                     <div className='infoDiv'>
@@ -114,7 +115,7 @@ function InfoAcudiente() {
                     </div>
                     <div className="userInfoTop">
                         <h5>Brooklyn Simmons</h5>
-                        <h5>Acudiente</h5>
+                        <h5><FormattedMessage id="guardian"/></h5>
                     </div>
                 </div>
                 <div className='infoDiv'>
@@ -165,10 +166,11 @@ function InfoAcudiente() {
     return (
         <div class="container">
             <div style={{ justifyContent: 'center'}}>
-                <h1 style={{ margin: '50px' }}>Conoce nuev@s niñer@s</h1>
-                <h6 style={{ margin: '40px' }}>Busca y encuentra ofertas de servicios de niñera que se 
-                    adapten mejor a tus necesidades y, al mismo tiempo, revisa 
-                    las reseñas de otros clientes que han trabajado con ellas.</h6>
+                <a href='ofertas'> 
+                <h1 style={{ margin: '50px' }}><FormattedMessage id="banner-offers-a"/></h1>
+                <h6 style={{ margin: '40px' }}><FormattedMessage id="description-offers-a"/></h6>
+
+                </a>
             </div>
             <AliceCarousel
                 items={items}

@@ -1,11 +1,11 @@
-.reseniaCard {
+.contratoCard {
     display: flex;
     border: .1em solid #E9A672;
     border-radius: 1em;
     border-color: #E9A672;
     flex-direction: column;
-    padding: 5px 10px 10px 10px;
-    width: 400px;
+    padding: 5% 10%;
+    margin: 5% 5%;
 }
 
 .data {
@@ -43,49 +43,9 @@
     border-radius: 50%;
     overflow: hidden;
   }
-
+  
 .rounded-circle img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
-
-.alice-carousel .prev-btn,
-.alice-carousel .next-btn {
-    display: flex;
-    padding: 0% 0% 0% 0%;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #E9A672;
-    border: none;
-    justify-content: center;
-    align-items: center;
-  }
-
-.caret-right,
-.caret-left {
-    color: white;
-  }
-
-.alice-carousel__dots {
-  bottom: 20px; 
-}
-
-.alice-carousel__dots-item {
-  background-color: #E9A672;
-  width: 8px;
-  height: 8px; 
-  margin: 0 4px; 
-  border-radius: 50%;
-}
-
-.alice-carousel__dots-item.__active {
-  background-color: #EF7146;
-}
-
-.home-navigation {
-  text-decoration: none;
-  color:black;
-}

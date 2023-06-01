@@ -1,5 +1,6 @@
 
 .login-wrapper {
+    padding: 2em 10em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,4 +15,9 @@
     white-space: nowrap;
     text-align: center;
     
+}
+
+.invalid-login {
+    color: #CD3232;
+    font-weight: bold;
 }

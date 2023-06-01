@@ -15,6 +15,20 @@ export const getOffers = async function () {
     .then((data) => data);
 }
 
+export const getFullOffersList = function () {
+  return fetch(`${BASE_URL}/ofertas`)
+    .then((response) => response.json())
+    .then((data) => {
+      return Promise.all( 
+        data.map((offer) => {
+          return getUserbyOffer(offer.id, offer.usuario.id).then((userData) => {
+            return { ...offer, usuario: userData}
+          })
+        })
+      ).then((res) => res)
+    });
+}
+
 export const getUserbyOffer = async function(offerId, userId) {
     return fetch(`${BASE_URL}/ofertas/${offerId}/usuarios/${userId}`)
     .then((response) => response.json())
@@ -22,7 +36,6 @@ export const getUserbyOffer = async function(offerId, userId) {
 }
 
 export const getOfferById = async function(offerId) {
-    //TODO check if token isnull
     return fetch(`${BASE_URL}/ofertas/${offerId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,

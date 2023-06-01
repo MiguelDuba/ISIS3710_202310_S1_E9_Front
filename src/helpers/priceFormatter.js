@@ -12,3 +12,14 @@ export const formatterCOP = new Intl.NumberFormat('es-CO', {
     maximumSignificantDigits: 3
   });
 
+
+const CURRENCY_FACTOR = 4300
+
+export const convertToUSD = (priceInCOP) =>  {
+  // return fx(priceInCOP).from("COP").to("USD")
+  return priceInCOP / CURRENCY_FACTOR
+}
+
+export const convertToCOP = (priceInUSD) =>  {
+  return priceInUSD * CURRENCY_FACTOR
+}

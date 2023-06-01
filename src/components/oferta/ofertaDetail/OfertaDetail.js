@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
+import { FormattedMessage, FormattedPlural, useIntl } from "react-intl";
 import { Navigate, useParams } from "react-router-dom";
 import {
   getOfferById,
   getUserbyOffer,
 } from "../../../helpers/backend/offerBackend";
-import { formatterCOP } from "../../../helpers/priceFormatter";
+import {
+  convertToUSD,
+  formatterCOP,
+  formatterUSD,
+} from "../../../helpers/priceFormatter";
 import { formatOfferTime } from "../../../helpers/timeFormatter";
 import "./OfertaDetail.css";
 
 function OfertaDetail() {
   const params = useParams();
+  const intl = useIntl();
   const token = localStorage.getItem("sessionToken");
   const [offer, setOffer] = useState({});
 
@@ -24,6 +30,7 @@ function OfertaDetail() {
         console.log("offer set", newOffer);
         if (newOffer.statusCode) {
           console.log("err at offer");
+          setOffer(undefined);
         } else {
           const userData = await getUserbyOffer(
             newOffer.id,
@@ -32,10 +39,10 @@ function OfertaDetail() {
           if (userData.statusCode) {
             console.log("err at user");
           } else {
-            console.log(newOffer.usuario)
+            console.log(newOffer.usuario);
             newOffer.usuario = userData;
-            console.log(newOffer.usuario)
-            setOffer({...newOffer, usuario: userData});
+            console.log(newOffer.usuario);
+            setOffer({ ...newOffer, usuario: userData });
             console.log("offer w/ set", newOffer);
           }
         }
@@ -47,11 +54,22 @@ function OfertaDetail() {
     <Navigate to="/error"></Navigate>;
   }
 
+  const showLocalizedPrice = (precio) => {
+    if (intl.locale === "en") {
+      return formatterUSD.format(convertToUSD(precio));
+    }
+    return formatterCOP.format(precio);
+  };
+
   const requestOffer = () => {
     console.log("Requesting offer...");
   };
 
-  if (offer) {
+  // return (<h1>{JSON.stringify(offer)}</h1>)
+
+  if (Object.keys(offer).length === 0) {
+    return <h1>Loading...</h1>;
+  } else if (offer) {
     return (
       <>
         <div className="ofertaDetail--container">
@@ -61,34 +79,51 @@ function OfertaDetail() {
               <Row className="detail--subtitle">
                 <Col className="offer-type">{offer.tipoOferta}</Col>
                 <Col className="experience">
-                  {offer.usuario.aniosExperiencia} años de experiencia
+                  {offer.usuario.aniosExperiencia}{" "}
+                  <FormattedPlural
+                    value={offer.usuario.aniosExperiencia}
+                    one={<FormattedMessage id="experience-sing" />}
+                    other={<FormattedMessage id="experience-pl" />}
+                  />
                 </Col>
               </Row>
             </div>
             <div>
-              <h3>Precio</h3>
-              <p className="detail--info">
-                {formatterCOP.format(offer.precio)}
-              </p>
+              <h3>
+                <FormattedMessage id="price" />
+              </h3>
+              <p className="detail--info">{showLocalizedPrice(offer.precio)}</p>
             </div>
-            {offer.usuario.especialidades && offer.usuario.especialidades.length > 0 && <div>
-              <h3>Habilidades</h3>
-              <ul className="detail--info">
-                {offer.usuario.especialidades.map((ability) => {
-                  return <li>{ability.tipo}</li>;
-                })}
-              </ul>
-            </div>}
-            {offer.usuario.necesidades && offer.usuario.necesidades.length > 0 && <div>
-              <h3>Necesidades</h3>
-              <ul className="detail--info">
-                {offer.usuario.necesidades.map((ability) => {
-                  return <li>{ability.tipo}</li>;
-                })}
-              </ul>
-            </div>}
+            {offer.usuario.especialidades &&
+              offer.usuario.especialidades.length > 0 && (
+                <div>
+                  <h3>
+                    <FormattedMessage id="abilities" />
+                  </h3>
+                  <ul className="detail--info">
+                    {offer.usuario.especialidades.map((ability) => {
+                      return <li>{ability.tipo}</li>;
+                    })}
+                  </ul>
+                </div>
+              )}
+            {offer.usuario.necesidades &&
+              offer.usuario.necesidades.length > 0 && (
+                <div>
+                  <h3>
+                    <FormattedMessage id="needs" />
+                  </h3>
+                  <ul className="detail--info">
+                    {offer.usuario.necesidades.map((ability) => {
+                      return <li>{ability.tipo}</li>;
+                    })}
+                  </ul>
+                </div>
+              )}
             <div>
-              <h3>Horario</h3>
+              <h3>
+                <FormattedMessage id="schedule" />
+              </h3>
               <ul className="detail--info">
                 {offer.horarios.map((item) => {
                   return <li>{formatOfferTime(item)}</li>;
@@ -107,12 +142,16 @@ function OfertaDetail() {
           </div>
         </div>
         <Button onClick={requestOffer} variant="flat">
-          Solicitar
+          <FormattedMessage id="request" />
         </Button>
       </>
     );
   } else {
-    return <h1>Error getting offer</h1>;
+    return (
+      <h1>
+        <FormattedMessage id="offer-detail-err" />
+      </h1>
+    );
   }
 }
 
