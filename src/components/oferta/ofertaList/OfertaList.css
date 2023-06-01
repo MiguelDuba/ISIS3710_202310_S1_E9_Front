@@ -13,6 +13,12 @@ aside.filter--sm {
     display: none;
 }
 
+.pwa-loading {
+  font-size: large;
+  text-align: center;
+  font-weight: bold;
+}
+
 
 @media (max-width: 480px) {
     .gallery {

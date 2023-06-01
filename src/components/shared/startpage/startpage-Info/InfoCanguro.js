@@ -167,8 +167,11 @@ function InfoCanguro() {
     return (
         <div class="container" >
             <div style={{ justifyContent: 'center'}}>
+                <a className='home-navigation' href='/ofertas'>
+
                 <h1 style={{ margin: '50px' }}><FormattedMessage id="banner-offers-c"/></h1>
                 <h6 style={{ margin: '40px' }}><FormattedMessage id="description-offers-c"/></h6>
+                </a>
             </div>
             <AliceCarousel
                 items={items}

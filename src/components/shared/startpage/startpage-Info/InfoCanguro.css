@@ -84,3 +84,8 @@
 .alice-carousel__dots-item.__active {
   background-color: #EF7146;
 }
+
+.home-navigation {
+  text-decoration: none;
+  color:black;
+}
