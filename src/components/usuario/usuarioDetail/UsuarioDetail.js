@@ -11,6 +11,7 @@ function UsuarioDetail() {
     const token = localStorage.getItem("sessionToken");
     const [usuario, setUsuario] = useState();
     const [titulo, setTitulo] = useState();
+    const [experiencia, setExperiencia] = useState();
     const [habilidades, setHabilidades] = useState();
     const [antecedentes, setAntecedentes] = useState();
     const [isCanguro, setIsCanguro] = useState(true);
@@ -82,46 +83,44 @@ function UsuarioDetail() {
 
     if (usuario) {
         return (
-            <Container className="mid">
-                <Row className="justify-content-md-center down">
-                    <Button className="change" type="button" disabled={isCanguro} onClick={changeIsCanguro}>Canguro</Button>
-                    <Button className="change" type="button" disabled={!isCanguro} onClick={changeIsCanguro}>Acudiente</Button>
-                </Row>
-                <Row className="justify-content-md-center">
-                    <Col xs={4}>
+            <Container className="usuario--detalle">
+                <Row className="lr-margin">
+                    <Col className="info">
                         <Row>
-                            <Row className="left">
-                                <h1 className="title no-margin">{usuario.nombre}</h1> 
-                            </Row>
-                            <span>{tipoUsuario}</span>
-                            <span className="bold">{usuario.aniosExperiencia} años de experiencia</span>
+                            <h1 className="usuario--nombre">{usuario.nombre}</h1>
                         </Row>
-                        <Row className="left">
-                            {titulo}
-                            <ul>
-                                {habilidades}
-                            </ul>
-                            <h2>Métodos de Contacto:</h2>
-                            <ul>
-                                <li> Correo: {usuario.correoElectronico} </li>
-                                <li> Celular: {usuario.celular} </li>
-                            </ul>
-                            <h2>Antecedentes:</h2>
-                            <ul className="list-group">
-                                {antecedentes}
-                            </ul>
+                        <Row>
+                            <Col className="usuario--tipo" xs={2}>
+                                {usuario.tipoUsuario}
+                            </Col>
+                            <Col className="usuario--exp">
+                                {experiencia} 2 años de experiencia
+                            </Col>
                         </Row>
+                        {titulo}
+                        <ul>
+                            {habilidades}
+                        </ul>
+                        <h2>Métodos de Contacto:</h2>
+                        <ul>
+                            <li> Correo: {usuario.correoElectronico} </li>
+                            <li> Celular: {usuario.celular} </li>
+                        </ul>
+                        <h2>Antecedentes:</h2>
+                        <ul>
+                            {antecedentes}
+                        </ul>
                     </Col>
-                    <Col xs={4} className="add-foto cent">
-                        <Row>
-                            <Image className="fotoCreate" src={usuario.foto} />
+                    <Col>
+                        <Row className="add-foto">
+                            <Image className="foto" src={usuario.foto} />
                         </Row>
                     </Col>
                 </Row>
-                <Row className="justify-content-md-center">
-                    <Button className="big-btn" type="button" onClick={seeOfertas}>Ver Ofertas</Button>
-                    <Button className="big-btn" type="button" onClick={seeResenias}>Ver Reseñas</Button>
-                    <Button className="big-btn" type="button" onClick={addResenia}>Añadir Reseña</Button>
+                <Row className="center">
+                    <Button className="btn-t1 big" type="button" onClick={seeOfertas}>Ver Ofertas</Button>
+                    <Button className="btn-t2 big" type="button" onClick={addResenia}>Añadir Reseña</Button>
+                    <Button className="btn-t1 big" type="button" onClick={seeResenias}>Ver Reseñas</Button>
                 </Row>
             </Container> 
         );
