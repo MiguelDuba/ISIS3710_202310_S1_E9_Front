@@ -22,7 +22,6 @@ export const getUserbyOffer = async function(offerId, userId) {
 }
 
 export const getOfferById = async function(offerId) {
-    //TODO check if token isnull
     return fetch(`${BASE_URL}/ofertas/${offerId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
