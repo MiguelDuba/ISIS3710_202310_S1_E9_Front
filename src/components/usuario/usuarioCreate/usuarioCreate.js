@@ -24,6 +24,7 @@ function UsuarioCreate() {
     const txtProfilePicture = intl.formatMessage({ id: 'profile-picture' });
 
     const txtSuccRegister = intl.formatMessage({ id: 'successfull-sign-up' });
+    const txtInternet = intl.formatMessage({ id: 'return-when-internet' });
 
     const startData = {
         nombre: '',
@@ -76,6 +77,7 @@ function UsuarioCreate() {
                 password: formData["contrasenia"], 
                 roles: "registeredUser"
             })
+            localStorage.removeItem("register-form-data");
             localStorage.setItem('sessionToken', token.token)
             const userData = await getUserByEmail(formData["correoElectronico"])
             if (!userData) {
@@ -119,9 +121,11 @@ function UsuarioCreate() {
     // Function to handle when the form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData)
-        createUsuario();
-        localStorage.removeItem("register-form-data");
+        if (!navigator.onLine) {
+            alert(txtInternet)
+        } else {
+            createUsuario();
+        }
     };
 
     const handleCancel = () => {
