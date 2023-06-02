@@ -102,7 +102,7 @@ function UsuarioDetail() {
     };
 
     const seeContratos = () => {
-        navigate('/contratos');
+        navigate('/contratos', { state: { usuarioId } });
     };
 
     if (usuario) {
