@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUsuarioById } from "../../../helpers/backend/usuarioBackend";
+import { FormattedMessage, useIntl } from "react-intl";
 import "./UsuarioDetail.css";
 
 function UsuarioDetail() {
     const navigate = useNavigate();
+    const intl = useIntl();
+
+    const txtExperience = intl.formatMessage({ id: 'experience' });
 
     const params = useParams();
     const token = localStorage.getItem("sessionToken");
@@ -28,27 +32,26 @@ function UsuarioDetail() {
             setUsuario(newUsuario);
             if(isCanguro === null) {
                 setIsCanguro(newUsuario.tipoUsuario.toLowerCase() !== "canguro");
-                console.log(isCanguro)
             }
             if(newUsuario.antecedentes.length === 0) {
-                setAntecedentes(<li>El usuario no tiene antecedentes</li>)
+                setAntecedentes(<li><FormattedMessage id="no-legal-background"/></li>)
             } else {
                 setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
             }
             if(isCanguro) {
-                setTitulo(<h2>Especialidades:</h2>)
-                setExperiencia(newUsuario.aniosExperiencia + " años de experiencia")
+                setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
+                setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
                 if (newUsuario.especialidades.length === 0) {
-                    setHabilidades(<li>El canguro no tiene especialidades</li>)
+                    setHabilidades(<li><FormattedMessage id="no-abilities"/></li>)
                 } else {
                     setHabilidades(newUsuario.especialidades.map((nec) => <li>{nec.tipo}</li>))
                 }
-                setTitulo(<h2>Especialidades:</h2>)
+                setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
             } else {
-                setTitulo(<h2>Necesidades:</h2>)
+                setTitulo(<h2><FormattedMessage id="needs"/>:</h2>)
                 setExperiencia("")
                 if (newUsuario.necesidades.length === 0) {
-                    setHabilidades(<li>El acudiente no tiene necesidades</li>)
+                    setHabilidades(<li><FormattedMessage id="no-needs"/></li>)
                 } else {
                     setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
                 }
@@ -87,8 +90,8 @@ function UsuarioDetail() {
         return (
             <Container className="usuario--detalle">
                 <Row className="center">
-                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(true)}>Canguro</Button>
-                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(false)}>Acudiente</Button>
+                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(true)}><FormattedMessage id="kangaroo"/></Button>
+                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(false)}><FormattedMessage id="guardian"/></Button>
                 </Row>
                 <Row className="lr-margin">
                     <Col className="info">
@@ -97,7 +100,7 @@ function UsuarioDetail() {
                         </Row>
                         <Row>
                             <Col className="usuario--tipo" xs={2}>
-                                {usuario.tipoUsuario}
+                                <FormattedMessage id={usuario.tipoUsuario}/>
                             </Col>
                             <Col className="usuario--exp">
                                 {experiencia}
@@ -107,12 +110,12 @@ function UsuarioDetail() {
                         <ul>
                             {habilidades}
                         </ul>
-                        <h2>Métodos de Contacto:</h2>
+                        <h2><FormattedMessage id="contact-methods"/>:</h2>
                         <ul>
-                            <li> Correo: {usuario.correoElectronico} </li>
-                            <li> Celular: {usuario.celular} </li>
+                            <li> <FormattedMessage id="email"/>: {usuario.correoElectronico} </li>
+                            <li> <FormattedMessage id="phone"/>: {usuario.celular} </li>
                         </ul>
-                        <h2>Antecedentes:</h2>
+                        <h2><FormattedMessage id="legal-background"/>:</h2>
                         <ul>
                             {antecedentes}
                         </ul>
@@ -124,9 +127,9 @@ function UsuarioDetail() {
                     </Col>
                 </Row>
                 <Row className="center">
-                    <Button className="btn-t1 big" type="button" onClick={seeOfertas}>Ver Ofertas</Button>
-                    <Button className="btn-t2 big" type="button" onClick={addResenia}>Añadir Reseña</Button>
-                    <Button className="btn-t1 big" type="button" onClick={seeResenias}>Ver Reseñas</Button>
+                    <Button className="btn-t1 big" type="button" onClick={seeOfertas}><FormattedMessage id="view-offers"/></Button>
+                    <Button className="btn-t2 big" type="button" onClick={addResenia}><FormattedMessage id="add-review"/></Button>
+                    <Button className="btn-t1 big" type="button" onClick={seeResenias}><FormattedMessage id="view-reviews"/></Button>
                 </Row>
             </Container> 
         );

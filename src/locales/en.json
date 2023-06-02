@@ -64,5 +64,17 @@
   "placeholder-address": "Enter your address",
   "placeholder-password": "Enter your password",
   "placeholder-confirm": "Confirm your password",
-  "placeholder-picture": "Enter your profile picture link"
+  "placeholder-picture": "Enter your profile picture link",
+  "experience": "years of experience",
+  "contact-methods": "Contact Methods",
+  "legal-background": "Legal Background",
+  "view-offers": "View Offers",
+  "view-reviews": "View Reviews",
+  "add-review": "Add Review",
+  "ambos": "both",
+  "canguro": "kangaroo",
+  "acudiente": "guardian",
+  "no-legal-background": "The user doesn't have legal background",
+  "no-needs": "The guardian doesn't have needs",
+  "no-abilities": "The kangaroo doesn't have special abilities"
 }

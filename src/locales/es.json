@@ -64,5 +64,17 @@
   "placeholder-email": "Ingresa tu correo",
   "placeholder-password": "Ingresa tu contraseña",
   "placeholder-confirm": "Ingresa tu contraseña de nuevo",
-  "placeholder-picture": "Ingresa el enlace de tu foto de perfil"
+  "placeholder-picture": "Ingresa el enlace de tu foto de perfil",
+  "experience": "años de experiencia",
+  "contact-methods": "Métodos de contacto",
+  "legal-background": "Antecedentes",
+  "view-offers": "Ver Ofertas",
+  "view-reviews": "Ver Reseñas",
+  "add-review": "Añadir Reseña",
+  "both": "ambos",
+  "canguro": "canguro",
+  "acudiente": "acudiente",
+  "no-legal-background": "El usuario no tiene antecedentes",
+  "no-needs": "El acudiente no tiene necesidades",
+  "no-abilities": "El canguro no tiene especialidades"
 }
