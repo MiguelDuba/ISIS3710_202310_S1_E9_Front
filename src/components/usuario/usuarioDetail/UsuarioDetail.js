@@ -23,42 +23,59 @@ function UsuarioDetail() {
 
     const usuarioId = params.usuarioId;
     
+    function ejecu(newUsuario) {
+        if(isCanguro === null) {
+            setIsCanguro(newUsuario.tipoUsuario.toLowerCase() !== "canguro");
+        }
+        if(newUsuario.antecedentes.length === 0) {
+            setAntecedentes(<li><FormattedMessage id="no-legal-background"/></li>)
+        } else {
+            setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
+        }
+        if(isCanguro) {
+            setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
+            setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
+            if (newUsuario.especialidades.length === 0) {
+                setHabilidades(<li><FormattedMessage id="no-abilities"/></li>)
+            } else {
+                setHabilidades(newUsuario.especialidades.map((nec) => <li>{nec.tipo}</li>))
+            }
+            setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
+        } else {
+            setTitulo(<h2><FormattedMessage id="needs"/>:</h2>)
+            setExperiencia("")
+            if (newUsuario.necesidades.length === 0) {
+                setHabilidades(<li><FormattedMessage id="no-needs"/></li>)
+            } else {
+                setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+            }
+        }
+        if(newUsuario.tipoUsuario.toLowerCase() !== "ambos") {
+            setBtnStatus(true)
+        }
+    }
+
     useEffect(
         () => {
-            // Get of the user with the given id
-            getUsuarioById(usuarioId).then((newUsuario) => {
-                // If inexistent user, redirect to error page        
-                setUsuario(newUsuario);
-                if(isCanguro === null) {
-                    setIsCanguro(newUsuario.tipoUsuario.toLowerCase() !== "canguro");
-                }
-                if(newUsuario.antecedentes.length === 0) {
-                    setAntecedentes(<li><FormattedMessage id="no-legal-background"/></li>)
+            console.log("ENTRA AL USE EFFECT")
+            console.log(navigator)
+            if(!navigator.onLine) {
+                if(localStorage.getItem("userData") === null) {
+                    console.log(JSON.parse(localStorage.getItem('userData')))
                 } else {
-                    setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
+                    console.log("NO HAY INTERNET")
+                    setUsuario(JSON.parse(localStorage.getItem('userData')));
                 }
-                if(isCanguro) {
-                    setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
-                    setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
-                    if (newUsuario.especialidades.length === 0) {
-                        setHabilidades(<li><FormattedMessage id="no-abilities"/></li>)
-                    } else {
-                        setHabilidades(newUsuario.especialidades.map((nec) => <li>{nec.tipo}</li>))
-                    }
-                    setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
-                } else {
-                    setTitulo(<h2><FormattedMessage id="needs"/>:</h2>)
-                    setExperiencia("")
-                    if (newUsuario.necesidades.length === 0) {
-                        setHabilidades(<li><FormattedMessage id="no-needs"/></li>)
-                    } else {
-                        setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
-                    }
-                }
-                if(newUsuario.tipoUsuario.toLowerCase() !== "ambos") {
-                    setBtnStatus(true)
-                }
-            });
+            } else {
+                console.log("SI HAY INTERNET")
+                // Get of the user with the given id
+                getUsuarioById(usuarioId).then((newUsuario) => {
+                    // If inexistent user, redirect to error page        
+                    setUsuario(newUsuario);
+                    ejecu(newUsuario)
+                });
+            }
+            
         }, [usuarioId, isCanguro]
     );
 
@@ -89,8 +106,8 @@ function UsuarioDetail() {
         return (
             <Container className="usuario--detalle">
                 <Row className="center">
-                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(true)}><FormattedMessage id="kangaroo"/></Button>
-                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(false)}><FormattedMessage id="guardian"/></Button>
+                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(false)}><FormattedMessage id="kangaroo"/></Button>
+                    <Button className="btn-t2 small" type="button" disabled={btnStatus} onClick={() => changeBtnStatus(true)}><FormattedMessage id="guardian"/></Button>
                 </Row>
                 <Row className="lr-margin">
                     <Col className="info">
