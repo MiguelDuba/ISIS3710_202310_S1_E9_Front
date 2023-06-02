@@ -10,6 +10,7 @@ function UsuarioDetail() {
     const intl = useIntl();
 
     const txtExperience = intl.formatMessage({ id: 'experience' });
+    const txtProfilePicture = intl.formatMessage({ id: 'profile-picture' });
 
     const params = useParams();
     const token = localStorage.getItem("sessionToken");
@@ -37,7 +38,7 @@ function UsuarioDetail() {
                 } else {
                     setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
                 }
-                if(isCanguro) {
+                if(!isCanguro) {
                     setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
                     setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
                     if (newUsuario.especialidades.length === 0) {
@@ -59,7 +60,7 @@ function UsuarioDetail() {
                     setBtnStatus(true)
                 }
             });
-        }, [usuarioId, isCanguro]
+        }, [usuarioId, isCanguro, txtExperience]
     );
 
     if (!token) {
@@ -67,7 +68,6 @@ function UsuarioDetail() {
     }
 
     const changeBtnStatus = (tipo) => {
-        console.log(tipo, isCanguro)
         if(tipo === isCanguro) {
             setIsCanguro(!isCanguro);
         }
@@ -121,7 +121,7 @@ function UsuarioDetail() {
                     </Col>
                     <Col>
                         <Row className="add-foto">
-                            <Image className="foto" src={usuario.foto} />
+                            <Image className="foto" alt={`${txtProfilePicture} ${usuario.nombre}`} src={usuario.foto} />
                         </Row>
                     </Col>
                 </Row>
