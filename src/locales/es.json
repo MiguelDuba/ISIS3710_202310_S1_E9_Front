@@ -76,5 +76,8 @@
   "acudiente": "acudiente",
   "no-legal-background": "El usuario no tiene antecedentes",
   "no-needs": "El acudiente no tiene necesidades",
-  "no-abilities": "El canguro no tiene especialidades"
+  "no-abilities": "El canguro no tiene especialidades",
+  "no-matching-passwords": "Las contraseñas no coinciden",
+  "invalid-email": "El correo ingresado ya se encuentra registrado",
+  "invalid-role": "El rol seleccionado es inválido"
 }
