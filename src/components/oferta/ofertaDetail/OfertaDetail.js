@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { FormattedMessage, FormattedPlural, useIntl } from "react-intl";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getOfferDetail } from "../../../helpers/backend/offerBackend";
 import {
   convertToUSD,
@@ -12,6 +12,7 @@ import { formatOfferTime } from "../../../helpers/timeFormatter";
 import "./OfertaDetail.css";
 
 function OfertaDetail() {
+  const navigate = useNavigate();
   const params = useParams();
   const intl = useIntl();
   const token = localStorage.getItem("sessionToken");
@@ -35,7 +36,7 @@ function OfertaDetail() {
   };
 
   const requestOffer = () => {
-    console.log("Requesting offer...");
+    navigate(`/contratos/new/`);
   };
 
   if (Object.keys(offer).length === 0) {
