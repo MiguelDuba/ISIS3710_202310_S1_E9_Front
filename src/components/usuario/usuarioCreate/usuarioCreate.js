@@ -23,6 +23,8 @@ function UsuarioCreate() {
     const txtError3 = intl.formatMessage({ id: 'invalid-role' });
     const txtProfilePicture = intl.formatMessage({ id: 'profile-picture' });
 
+    const txtSuccRegister = intl.formatMessage({ id: 'successfull-sign-up' });
+
     // State to store the form data
     const [formData, setFormData] = useState({
         nombre: '',
@@ -81,6 +83,7 @@ function UsuarioCreate() {
                 localStorage.setItem('userData', JSON.stringify(userData))
                 console.log(JSON.stringify(userData))
                 window.location.href = '/';
+                alert(txtSuccRegister);
             }
         });
     }

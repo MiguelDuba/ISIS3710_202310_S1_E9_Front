@@ -78,6 +78,7 @@
   "legal-background": "Legal Background",
   "view-offers": "View Offers",
   "view-reviews": "View Reviews",
+  "view-contracts": "View Contracts",
   "add-review": "Add Review",
   "ambos": "both",
   "canguro": "kangaroo",
@@ -87,5 +88,8 @@
   "no-abilities": "The kangaroo doesn't have special abilities",
   "no-matching-passwords": "The passwords don't match",
   "invalid-email": "The entered email is not available",
-  "invalid-role": "The entered role is not valid"
+  "invalid-role": "The entered role is not valid",
+  "successfull-log-out": "You have been successfully logged out",
+  "successfull-sign-up": "You have been successfully signed up",
+  "successfull-sign-in": "You have been successfully signed in"
 }

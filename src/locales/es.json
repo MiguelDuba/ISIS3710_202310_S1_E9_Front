@@ -78,6 +78,7 @@
   "legal-background": "Antecedentes",
   "view-offers": "Ver Ofertas",
   "view-reviews": "Ver Reseñas",
+  "view-contracts": "Ver Contratos",
   "add-review": "Añadir Reseña",
   "ambos": "ambos",
   "canguro": "canguro",
@@ -87,5 +88,8 @@
   "no-abilities": "El canguro no tiene especialidades",
   "no-matching-passwords": "Las contraseñas no coinciden",
   "invalid-email": "El correo ingresado ya se encuentra registrado",
-  "invalid-role": "El rol seleccionado es inválido"
+  "invalid-role": "El rol seleccionado es inválido",
+  "successfull-log-out": "Has cerrado sesión exitosamente",
+  "successfull-sign-up": "Te has registrado exitosamente",
+  "successfull-sign-in": "Has iniciado sesión exitosamente"
 }
