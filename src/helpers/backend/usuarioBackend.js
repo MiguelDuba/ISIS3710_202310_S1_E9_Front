@@ -17,5 +17,4 @@ export const getUsuarioById = async function(usuarioId) {
         }
       })
       .then((response) => response.json())
-      .then((data) => data);
 }

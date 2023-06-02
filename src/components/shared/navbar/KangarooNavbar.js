@@ -21,7 +21,7 @@ function KangarooNavbar() {
             <a href='/register'><Button className='sign-up'><FormattedMessage id='sign-up'/></Button></a>
         </Nav>)
         } else {
-            return (<Nav>{userData.nombre} <Button onClick={logoutUser} className='logout'><FormattedMessage id='log-out'/></Button></Nav>)
+            return (<Nav><a href={'/usuarios/' + userData.id}>{userData.nombre}</a><Button onClick={logoutUser} className='logout'><FormattedMessage id='log-out'/></Button></Nav>)
         }
     }
     return (
