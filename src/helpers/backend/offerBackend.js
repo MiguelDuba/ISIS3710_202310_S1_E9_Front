@@ -32,6 +32,12 @@ export const getOfferById = async function(offerId) {
       .then((data) => data);
 }
 
+export const getOfferByUser = async function(userId) {
+   return fetch(`${BASE_URL}/usuarios/${userId}/ofertas`)
+    .then((response) => response.json())
+    .then((data) => data);
+}
+
 export const createAndAssocSchedule = async function(schedulePayload, offerId) {
     const id = await fetch(BASE_URL + "/horarios", schedulePayload)
     .then((response) => response.json())

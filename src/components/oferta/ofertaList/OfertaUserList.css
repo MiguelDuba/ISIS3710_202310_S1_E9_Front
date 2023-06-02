@@ -1,0 +1,31 @@
+.offer-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 1em;
+    padding: 0 3em;
+}
+
+.oferta-item {
+    border: .1em solid #E9A672;
+    border-radius: 1em;
+    border-color: #E9A672;
+    padding: 5% 5%;
+    margin: 5% 5%;
+}
+
+.oferta-item:hover {
+    border: .3em solid #E9A672;
+}
+
+.oferta-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    align-items: center;
+}
+
+.oferta-list > li {
+    text-align: left;
+}
