@@ -1,7 +1,7 @@
 import { Row, Col, Container, Form, Image, Button } from 'react-bootstrap';
 import { getToken, getUserByEmail } from '../../../helpers/backend/backend';
 import { BASE_URL } from "../../../helpers/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./usuarioCreate.css"
 
@@ -18,9 +18,15 @@ function UsuarioCreate() {
     const phVerPassword = intl.formatMessage({ id: 'placeholder-confirm' });
     const phPicture = intl.formatMessage({ id: 'placeholder-picture' });
     const tForm = intl.formatMessage({ id: 'create-user' });
+    const txtError1 = intl.formatMessage({ id: 'no-matching-passwords' });
+    const txtError2 = intl.formatMessage({ id: 'invalid-email' });
+    const txtError3 = intl.formatMessage({ id: 'invalid-role' });
+    const txtProfilePicture = intl.formatMessage({ id: 'profile-picture' });
 
-    // State to store the form data
-    const [formData, setFormData] = useState({
+    const txtSuccRegister = intl.formatMessage({ id: 'successfull-sign-up' });
+    const txtInternet = intl.formatMessage({ id: 'return-when-internet' });
+
+    const startData = {
         nombre: '',
         cedula: '',
         contrasenia: '',
@@ -28,10 +34,13 @@ function UsuarioCreate() {
         correoElectronico: '',
         direccion: '',
         celular: '',
-        tipoUsuario: '',
+        tipoUsuario: 'select',
         aniosExperiencia: 0,
         foto: 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png',
-    });
+    }
+
+    // State to store the form data
+    const [formData, setFormData] = useState({});
 
     const [error, setError] = useState();
 
@@ -48,14 +57,18 @@ function UsuarioCreate() {
         };
         // Frontend validation
         if(formData["contrasenia"] !== formData["verContrasenia"]) {
-            setError("Las contraseñas no coinciden")
+            setError(txtError1)
+            return;
+        }
+        if(formData["tipoUsuario"] === "select" || formData["tipoUsuario"] === "") {
+            setError(txtError3)
             return;
         }
         // Send the request
         return fetch(BASE_URL + "/usuarios", requestCreateUsuario).then(async (response) => {
             // Backend validation
             if (response.status === 412) {
-                setError((await response.json()).message);
+                setError(txtError2);
                 return;
             }
             // Automatic login process
@@ -64,6 +77,7 @@ function UsuarioCreate() {
                 password: formData["contrasenia"], 
                 roles: "registeredUser"
             })
+            localStorage.removeItem("register-form-data");
             localStorage.setItem('sessionToken', token.token)
             const userData = await getUserByEmail(formData["correoElectronico"])
             if (!userData) {
@@ -73,20 +87,62 @@ function UsuarioCreate() {
                 localStorage.setItem('userData', JSON.stringify(userData))
                 console.log(JSON.stringify(userData))
                 window.location.href = '/';
+                alert(txtSuccRegister);
             }
         });
     }
+
+    useEffect(() => {
+        if (!navigator.onLine) {
+            console.log("No hay internet");
+            if (localStorage.getItem("register-form-data") !== null) {
+                console.log("No hay internet y hay datos guardados");
+                setFormData(JSON.parse(localStorage.getItem("register-form-data")));
+            } else {
+                setFormData(startData);
+            }
+        } else {
+            console.log("Hay internet");
+            if (localStorage.getItem("register-form-data") !== null) {
+                setFormData(JSON.parse(localStorage.getItem("register-form-data")));
+            } else {
+                setFormData(startData);
+            }
+        }
+    }, []);
 
     // Function to handle when the any input of the form changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
+        localStorage.setItem("register-form-data", JSON.stringify(formData));
     };
 
     // Function to handle when the form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
-        createUsuario();
+        if (!navigator.onLine) {
+            alert(txtInternet)
+        } else {
+            createUsuario();
+        }
+    };
+
+    const handleCancel = () => {
+        localStorage.removeItem("register-form-data");
+        setFormData({
+            nombre: '',
+            cedula: '',
+            contrasenia: '',
+            verContrasenia: '',
+            correoElectronico: '',
+            direccion: '',
+            celular: '',
+            tipoUsuario: 'select',
+            aniosExperiencia: 0,
+            foto: 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png',
+        });
+        window.location.href = '/';
     };
 
     // Function to handle when an image is cant be shown
@@ -105,29 +161,29 @@ function UsuarioCreate() {
                         <h2 className="subtitle mb-3"><FormattedMessage id="personal-info"/>:</h2>
                         <Form.Group className="mb-3" controlId="nombre">
                             <Form.Label><FormattedMessage id="name"/> *</Form.Label>
-                            <Form.Control placeholder={phName} name="nombre" onChange={handleInputChange} required />
+                            <Form.Control placeholder={phName} name="nombre" onChange={handleInputChange} defaultValue={formData.nombre} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="cedula" >
                             <Form.Label><FormattedMessage id="id-number"/> *</Form.Label>
-                            <Form.Control placeholder={phId} type="number" name="cedula" onChange={handleInputChange} required />
+                            <Form.Control placeholder={phId} type="number" name="cedula" onChange={handleInputChange} defaultValue={formData.cedula} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="celular" >
                             <Form.Label><FormattedMessage id="phone"/> *</Form.Label>
-                            <Form.Control placeholder={phPhone} type="number" name="celular" onChange={handleInputChange} required />
+                            <Form.Control placeholder={phPhone} type="number" name="celular" onChange={handleInputChange} defaultValue={formData.celular} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="correoElectronico">
                             <Form.Label><FormattedMessage id="email"/> *</Form.Label>
-                            <Form.Control placeholder={phEmail} name="correoElectronico" type="email" onChange={handleInputChange} required/>
+                            <Form.Control placeholder={phEmail} name="correoElectronico" type="email" onChange={handleInputChange} defaultValue={formData.correoElectronico} required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="direccion">
                             <Form.Label><FormattedMessage id="address"/> *</Form.Label>
-                            <Form.Control placeholder={phAddress} name="direccion" onChange={handleInputChange} required />
+                            <Form.Control placeholder={phAddress} name="direccion" onChange={handleInputChange} defaultValue={formData.direccion} required />
                         </Form.Group>
                         <h2 className="subtitle mb-3"><FormattedMessage id="account-config"/>:</h2>
                         <Form.Group className="mb-3">
                             <Form.Label><FormattedMessage id="account-type"/> *</Form.Label>
-                            <Form.Select label="Default select" name="tipoUsuario" onChange={handleInputChange} required >
-                                <option><FormattedMessage id="enter-role"/></option>
+                            <Form.Select label={`Default ${formData.tipoUsuario}`} name="tipoUsuario" onChange={handleInputChange} defaultValue={formData.tipoUsuario} required >
+                                <option value="select" ><FormattedMessage id="enter-role"/></option>
                                 <option value="canguro"><FormattedMessage id="kangaroo"/></option>
                                 <option value="acudiente"><FormattedMessage id="guardian"/></option>
                                 <option value="ambos"><FormattedMessage id="both-roles"/></option>
@@ -137,7 +193,7 @@ function UsuarioCreate() {
                     <Col>
                         <Row className="add-foto">
                             <h2 className="subtitle center"><FormattedMessage id="profile-picture"/></h2>
-                            <Image className="foto" src={formData['foto']} onError={handleImageError}required />
+                            <Image className="foto" src={formData['foto']} alt={`${txtProfilePicture} ${formData["nombre"]}`} onError={handleImageError}required />
                             <Form.Group className="mb-3 center" controlId="enlace">
                                 <Form.Label><FormattedMessage id="picture-link"/> *</Form.Label>
                                 <Form.Control className="text-center" placeholder={phPicture} type="url" name="foto" onChange={handleInputChange} required />
@@ -163,7 +219,7 @@ function UsuarioCreate() {
                     {error}
                 </Row>
                 <Row className="center">
-                    <Button className="btn-t2 big" type="button" ><FormattedMessage id="cancel"/></Button>
+                    <Button className="btn-t2 big" type="button" onClick={handleCancel} ><FormattedMessage id="cancel"/></Button>
                     <Button className="btn-t1 big" type="submit" ><FormattedMessage id="create-account"/></Button>
                 </Row>
             </Form>

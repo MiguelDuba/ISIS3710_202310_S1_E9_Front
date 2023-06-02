@@ -78,11 +78,19 @@
   "legal-background": "Antecedentes",
   "view-offers": "Ver Ofertas",
   "view-reviews": "Ver Reseñas",
+  "view-contracts": "Ver Contratos",
   "add-review": "Añadir Reseña",
-  "both": "ambos",
+  "ambos": "ambos",
   "canguro": "canguro",
   "acudiente": "acudiente",
   "no-legal-background": "El usuario no tiene antecedentes",
   "no-needs": "El acudiente no tiene necesidades",
-  "no-abilities": "El canguro no tiene especialidades"
+  "no-abilities": "El canguro no tiene especialidades",
+  "no-matching-passwords": "Las contraseñas no coinciden",
+  "invalid-email": "El correo ingresado ya se encuentra registrado",
+  "invalid-role": "El rol seleccionado es inválido",
+  "successfull-log-out": "Has cerrado sesión exitosamente",
+  "successfull-sign-up": "Te has registrado exitosamente",
+  "successfull-sign-in": "Has iniciado sesión exitosamente",
+  "return-when-internet": "Por favor, vuelve cuando tengas conexión a internet"
 }
