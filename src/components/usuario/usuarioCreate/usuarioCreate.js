@@ -101,7 +101,11 @@ function UsuarioCreate() {
             }
         } else {
             console.log("Hay internet");
-            setFormData(startData);
+            if (localStorage.getItem("register-form-data") !== null) {
+                setFormData(JSON.parse(localStorage.getItem("register-form-data")));
+            } else {
+                setFormData(startData);
+            }
         }
     }, []);
 
@@ -117,6 +121,7 @@ function UsuarioCreate() {
         e.preventDefault();
         console.log(formData)
         createUsuario();
+        localStorage.removeItem("register-form-data");
     };
 
     const handleCancel = () => {
@@ -133,6 +138,7 @@ function UsuarioCreate() {
             aniosExperiencia: 0,
             foto: 'https://media.discordapp.net/attachments/1040862459378020502/1104408884539555970/image_1.png',
         });
+        window.location.href = '/';
     };
 
     // Function to handle when an image is cant be shown
@@ -151,28 +157,28 @@ function UsuarioCreate() {
                         <h2 className="subtitle mb-3"><FormattedMessage id="personal-info"/>:</h2>
                         <Form.Group className="mb-3" controlId="nombre">
                             <Form.Label><FormattedMessage id="name"/> *</Form.Label>
-                            <Form.Control placeholder={phName} name="nombre" onChange={handleInputChange} value={formData.nombre} required />
+                            <Form.Control placeholder={phName} name="nombre" onChange={handleInputChange} defaultValue={formData.nombre} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="cedula" >
                             <Form.Label><FormattedMessage id="id-number"/> *</Form.Label>
-                            <Form.Control placeholder={phId} type="number" name="cedula" onChange={handleInputChange} value={formData.cedula} required />
+                            <Form.Control placeholder={phId} type="number" name="cedula" onChange={handleInputChange} defaultValue={formData.cedula} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="celular" >
                             <Form.Label><FormattedMessage id="phone"/> *</Form.Label>
-                            <Form.Control placeholder={phPhone} type="number" name="celular" onChange={handleInputChange} value={formData.celular} required />
+                            <Form.Control placeholder={phPhone} type="number" name="celular" onChange={handleInputChange} defaultValue={formData.celular} required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="correoElectronico">
                             <Form.Label><FormattedMessage id="email"/> *</Form.Label>
-                            <Form.Control placeholder={phEmail} name="correoElectronico" type="email" onChange={handleInputChange} value={formData.correoElectronico} required/>
+                            <Form.Control placeholder={phEmail} name="correoElectronico" type="email" onChange={handleInputChange} defaultValue={formData.correoElectronico} required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="direccion">
                             <Form.Label><FormattedMessage id="address"/> *</Form.Label>
-                            <Form.Control placeholder={phAddress} name="direccion" onChange={handleInputChange} value={formData.direccion} required />
+                            <Form.Control placeholder={phAddress} name="direccion" onChange={handleInputChange} defaultValue={formData.direccion} required />
                         </Form.Group>
                         <h2 className="subtitle mb-3"><FormattedMessage id="account-config"/>:</h2>
                         <Form.Group className="mb-3">
                             <Form.Label><FormattedMessage id="account-type"/> *</Form.Label>
-                            <Form.Select label={`Default ${formData.tipoUsuario}`} name="tipoUsuario" onChange={handleInputChange} value={formData.tipoUsuario} required >
+                            <Form.Select label={`Default ${formData.tipoUsuario}`} name="tipoUsuario" onChange={handleInputChange} defaultValue={formData.tipoUsuario} required >
                                 <option value="select" ><FormattedMessage id="enter-role"/></option>
                                 <option value="canguro"><FormattedMessage id="kangaroo"/></option>
                                 <option value="acudiente"><FormattedMessage id="guardian"/></option>
@@ -186,7 +192,7 @@ function UsuarioCreate() {
                             <Image className="foto" src={formData['foto']} alt={`${txtProfilePicture} ${formData["nombre"]}`} onError={handleImageError}required />
                             <Form.Group className="mb-3 center" controlId="enlace">
                                 <Form.Label><FormattedMessage id="picture-link"/> *</Form.Label>
-                                <Form.Control className="text-center" placeholder={phPicture} type="url" name="foto" onChange={handleInputChange} value={formData.XXXXX} required />
+                                <Form.Control className="text-center" placeholder={phPicture} type="url" name="foto" onChange={handleInputChange} required />
                             </Form.Group>
                         </Row>
                     </Col>
@@ -209,7 +215,7 @@ function UsuarioCreate() {
                     {error}
                 </Row>
                 <Row className="center">
-                    <Button className="btn-t2 big" type="button" ><FormattedMessage id="cancel" onClick={handleCancel}/></Button>
+                    <Button className="btn-t2 big" type="button" onClick={handleCancel} ><FormattedMessage id="cancel"/></Button>
                     <Button className="btn-t1 big" type="submit" ><FormattedMessage id="create-account"/></Button>
                 </Row>
             </Form>
