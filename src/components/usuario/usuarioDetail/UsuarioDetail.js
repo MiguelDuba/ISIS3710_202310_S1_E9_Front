@@ -1,8 +1,8 @@
-import { Col, Container, Row, Image, Button } from "react-bootstrap";
-import "./UsuarioDetail.css"
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUsuarioById } from "../../../helpers/backend/usuarioBackend";
+import "./UsuarioDetail.css";
 
 function UsuarioDetail() {
     const navigate = useNavigate();
@@ -72,7 +72,7 @@ function UsuarioDetail() {
     };
 
     const seeOfertas = () => {
-        console.log('Button 3 clicked');
+        navigate(`/usuario/${usuarioId}/ofertas`);
     };
     
     const seeResenias = () => {
