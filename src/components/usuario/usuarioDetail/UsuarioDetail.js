@@ -63,7 +63,8 @@ function UsuarioDetail() {
                 if(localStorage.getItem('userData') === null) {
                     console.log("No hay datos en local storage")
                 } else {
-                    const u = localStorage.getItem('userData');
+                    const u = JSON.parse(localStorage.getItem('userData'));
+                    console.log(u);
                     setUsuario(u);
                     loadDetail(u);
                 }
@@ -71,7 +72,8 @@ function UsuarioDetail() {
                 console.log("Hay internet")
                 // Get of the user with the given id
                 getUsuarioById(usuarioId).then((newUsuario) => {
-                    // If inexistent user, redirect to error page        
+                    // If inexistent user, redirect to error page
+                    console.log(newUsuario);     
                     setUsuario(newUsuario);
                     loadDetail(newUsuario);
                 });
