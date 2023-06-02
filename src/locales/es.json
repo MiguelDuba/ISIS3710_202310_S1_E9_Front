@@ -33,6 +33,7 @@
   "schedule": "Horario",
   "cancel": "Cancelar",
   "create-offer": "Crear oferta", 
+  "create-resenia": "Crear reseña", 
   "abilities": "Habilidades", 
   "needs": "Necesidades", 
   "experience-pl": " años de experiencia",
@@ -42,5 +43,14 @@
   "request": "Solicitar",
   "offer-detail-err": "Error getting offer.", 
   "kangaroo": "Canguro", 
-  "guardian": "Acudiente"
+  "guardian": "Acudiente",
+  "resenias": "Reseñas",
+  "title": "Titulo",
+  "title-placeholder": "Ingresa un titulo que describa tu opinion",
+  "description": "Descripcion",
+  "description-placeholder": "Ingresa la descripción de tu opinion",
+  "score": "Calificacion",
+  "new-resenia": "Nueva Reseña"
+
+
 }

@@ -33,6 +33,7 @@
   "schedule": "Schedule",
   "cancel": "Cancel",
   "create-offer": "Create Offer", 
+  "create-resenia": "Create review",
   "abilities": "Abilites", 
   "needs": "Needs",
   "experience-pl": "years of experience",
@@ -42,5 +43,13 @@
   "request": "Request", 
   "offer-detail-err": "Error getting offer.",
   "kangaroo": "Kangaroo", 
-  "guardian": "Guardian"
+  "guardian": "Guardian",
+  "resenias": "Reviews",
+  "title": "Title",
+  "title-placeholder": "Enter a title to describe your opinion",
+  "description": "Description",
+  "description-placeholder": "Enter a description to describe your opinion",
+  "score": "Score",
+  "new-resenia": "New Review"
+
 }

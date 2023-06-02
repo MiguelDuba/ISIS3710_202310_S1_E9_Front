@@ -14,6 +14,8 @@ import KangarooNavbar from "./components/shared/navbar/KangarooNavbar";
 import Home from "./components/shared/startpage/Home";
 import localeEnMessages from "./locales/en.json";
 import localeEsMessages from "./locales/es.json";
+import ReseniaCreate from "./components/resenia/reseniaCreate/ReseniaCreate";
+import ReseniaList from "./components/resenia/reseniaList/ReseniaList";
 
 const language = navigator.language || navigator.userLanguage;
 let langStr = "en";
@@ -36,6 +38,8 @@ function App() {
               <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
               <Route path="/register" element={<UsuarioCreate />} />
               <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
+              <Route path="/resenias/new" element={<ReseniaCreate />} />
+              <Route path="/resenias/user" element={<ReseniaList />} />
               <Route path="/login" element={<Login />} />
               <Route path="/error" element={<PageNotFound />} />
               <Route path="/" element={<Home />} />

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { useLocation } from 'react-router-dom';
 import './ReseniaCreate.css';
 import { buildReseniaPayload } from './ReseniaCreateHelper';
 import { BASE_URL } from "../../../helpers/constants";
+import { FormattedMessage, useIntl } from "react-intl";
 
 
 const token = localStorage.getItem("sessionToken");
@@ -17,18 +19,27 @@ async function postResenia(reseniaPayload) {
     body: JSON.stringify(reseniaPayload),
   };
   console.log(requestReseniaPayload)
-  return fetch(BASE_URL + "/resenias", requestReseniaPayload)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+  return fetch(BASE_URL + "/resenias", requestReseniaPayload);
 } 
 
 
-function ReseniaCreate() {
+function ReseniaCreate(props) {
 
+  const intl = useIntl();
+  const location = useLocation();
+  const idReceptor = location.state.usuarioId;
   const [titulo, setTitulo] = useState("")
   const [calificacion, setCalificacion] = useState({ kindOfStand: "", another: "another" });
   const [descripcion, setDescripcion] = useState("")
   const { kindOfStand } = calificacion;
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [reseniaData, setReseniaData] = useState({
+    titulo: null,
+    calificacion: null,
+    descripcion: null,
+    idReceptor: idReceptor,
+  });
+  
   
   const handleChange = e => {
     e.persist();
@@ -44,6 +55,33 @@ function ReseniaCreate() {
     console.log("canceling create...");
   };
 
+  useEffect(() => {
+    if (!navigator.onLine) {
+      console.log(
+        "offline",
+        JSON.parse(localStorage.getItem("resenia-form-data"))
+      );
+      if (localStorage.getItem("resenia-form-data") !== null) {
+        const storedForm = JSON.parse(localStorage.getItem("resenia-form-data"));
+        const storedResenia = {
+          titulo: storedForm.titulo,
+          calificacion: parseInt(storedForm.calificacion),
+          descripcion: storedForm.descripcion,
+          idReceptor: idReceptor
+
+        };
+        console.log('stored', storedResenia);
+        setReseniaData(storedResenia);
+      }
+    }
+  }, []);
+
+  const handleInputChange = (name, value) => {
+    setReseniaData({ ...reseniaData, [name]: value });
+    localStorage.setItem("resenia-form-data", JSON.stringify(reseniaData));
+    console.log(reseniaData);
+  };
+
   const createResenia = async function (event) {
     event.preventDefault();
     console.log("creating resenia...");
@@ -52,6 +90,7 @@ function ReseniaCreate() {
       titulo: titulo, 
       calificacion: kindOfStand, 
       descripcion:  descripcion, 
+      receptor: idReceptor,
     }
 
     const bodyPayload = buildReseniaPayload(resenia);
@@ -59,9 +98,14 @@ function ReseniaCreate() {
       console.log("invalid user");
     } else {
       console.log("sending post request");
-      const resenia = await postResenia(bodyPayload);
-      const reseniaId = resenia.id;
-      console.log(reseniaId)
+      const resenia = await postResenia(bodyPayload)
+      .then(res => res.json());
+
+      if (!resenia) {
+            setErrorMsg("Error creating schedule");
+          } else {
+            alert("Offer created successfully");
+          }
       
     }
 
@@ -69,27 +113,31 @@ function ReseniaCreate() {
 
   return (
     <Form className="createResenia">
-      <h1>Nueva Reseña</h1>
+      <h1><FormattedMessage id="new-resenia" /></h1>
       <Row>
         <Col className="form--ReseniaData">
 
           <Form.Group controlId="form--Titulo">
-            <Form.Label>Titulo</Form.Label>
+            <Form.Label><FormattedMessage id="title" /></Form.Label>
               <Form.Control
                 id="form--Titulo-Input"
                 name="input-titulo"
-                placeholder="Ingresa un título que describa tu opinión"
-                onChange={(e) => setTitulo(e.target.value)}
+                placeholder={intl.formatMessage({ id: "title-placeholder" })}
+                onValueChange={(value, _, values) =>
+                  handleInputChange("titulo", value)
+                }
               />
           </Form.Group>
 
           <Form.Group controlId="form--Descripcion">
-            <Form.Label>Descripcion</Form.Label>
+            <Form.Label><FormattedMessage id="description" /></Form.Label>
             <Form.Control
               id="form--Descripcion-Input"
               name="input-Descripcion"
-              placeholder="Ingresa la descripción de tu opinion"
-              onChange={(e) => setDescripcion(e.target.value)}
+              placeholder={intl.formatMessage({ id: "description-placeholder" })}
+              onValueChange={(value, _, values) =>
+                handleInputChange("descripcion", value)
+                }
             />
           </Form.Group>
 
@@ -98,8 +146,7 @@ function ReseniaCreate() {
         <Col className="form-Calificacion">
 
           <Form.Group>
-            <Form.Label className='form-label padding-left: 50em' >Calificacion</Form.Label>
-            {/*</Form.Group><>Califica tu experiencia, siendo 1 pésima y 5 excelente<>*/}
+            <Form.Label className='form-label padding-left: 50em' ><FormattedMessage id="score" /></Form.Label>
             <Form.Check className='form-check'
               value="1"
               type="radio"
@@ -154,7 +201,7 @@ function ReseniaCreate() {
             type="cancel"
             onClick={cancelReseniaCreate}
           >
-            Cancelar
+            <FormattedMessage id="cancel" />
           </Button>
         </Col>
         <Col className="resenia-createBtn" size={6}>
@@ -164,10 +211,11 @@ function ReseniaCreate() {
             type="submit"
             onClick={createResenia}
           >
-            Crear reseña
+            <FormattedMessage id="create-resenia" />
           </Button>
         </Col>
       </Row>
+      <div>{errorMsg && <p>{errorMsg}</p>}</div>
     </Form>
   );
 }

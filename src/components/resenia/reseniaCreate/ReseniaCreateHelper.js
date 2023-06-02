@@ -1,13 +1,12 @@
 export const buildReseniaPayload = (resenia) => {
 
-  console.log(resenia.calificacion);
   const calificacion = parseInt(resenia.calificacion); 
 
   return {
     titulo: resenia.titulo,
     calificacion: calificacion,
     descripcion: resenia.descripcion,
-    receptor: getUser(),
+    receptor: resenia.receptor,
     autor: getUser(),
   };
 };
