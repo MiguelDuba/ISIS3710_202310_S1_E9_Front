@@ -10,6 +10,7 @@ function UsuarioDetail() {
     const intl = useIntl();
 
     const txtExperience = intl.formatMessage({ id: 'experience' });
+    const txtProfilePicture = intl.formatMessage({ id: 'profile-picture' });
 
     const params = useParams();
     const token = localStorage.getItem("sessionToken");
@@ -121,7 +122,7 @@ function UsuarioDetail() {
                     </Col>
                     <Col>
                         <Row className="add-foto">
-                            <Image className="foto" src={usuario.foto} />
+                            <Image className="foto" alt={`${txtProfilePicture} ${usuario.nombre}`} src={usuario.foto} />
                         </Row>
                     </Col>
                 </Row>

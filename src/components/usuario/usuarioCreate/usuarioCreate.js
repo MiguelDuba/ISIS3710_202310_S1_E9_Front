@@ -21,6 +21,7 @@ function UsuarioCreate() {
     const txtError1 = intl.formatMessage({ id: 'no-matching-passwords' });
     const txtError2 = intl.formatMessage({ id: 'invalid-email' });
     const txtError3 = intl.formatMessage({ id: 'invalid-role' });
+    const txtProfilePicture = intl.formatMessage({ id: 'profile-picture' });
 
     // State to store the form data
     const [formData, setFormData] = useState({
@@ -145,7 +146,7 @@ function UsuarioCreate() {
                     <Col>
                         <Row className="add-foto">
                             <h2 className="subtitle center"><FormattedMessage id="profile-picture"/></h2>
-                            <Image className="foto" src={formData['foto']} onError={handleImageError}required />
+                            <Image className="foto" src={formData['foto']} alt={`${txtProfilePicture} ${formData["nombre"]}`} onError={handleImageError}required />
                             <Form.Group className="mb-3 center" controlId="enlace">
                                 <Form.Label><FormattedMessage id="picture-link"/> *</Form.Label>
                                 <Form.Control className="text-center" placeholder={phPicture} type="url" name="foto" onChange={handleInputChange} required />
