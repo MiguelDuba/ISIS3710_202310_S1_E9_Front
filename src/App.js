@@ -6,12 +6,15 @@ import "./App.css";
 import OfertaCreate from "./components/oferta/ofertaCreate/OfertaCreate";
 import OfertaDetail from "./components/oferta/ofertaDetail/OfertaDetail";
 import OfertaList from "./components/oferta/ofertaList/OfertaList";
-import UsuarioCreate from './components/usuario/usuarioCreate/usuarioCreate';
-import UsuarioDetail from './components/usuario/usuarioDetail/UsuarioDetail';
+import OfertaUserList from "./components/oferta/ofertaList/OfertaUserList";
+import ReseniaCreate from "./components/resenia/reseniaCreate/ReseniaCreate";
+import ReseniaList from "./components/resenia/reseniaList/ReseniaList";
 import Footer from "./components/shared/footer/Footer";
 import Login from "./components/shared/login/Login";
 import KangarooNavbar from "./components/shared/navbar/KangarooNavbar";
 import Home from "./components/shared/startpage/Home";
+import UsuarioCreate from './components/usuario/usuarioCreate/usuarioCreate';
+import UsuarioDetail from './components/usuario/usuarioDetail/UsuarioDetail';
 import localeEnMessages from "./locales/en.json";
 import localeEsMessages from "./locales/es.json";
 
@@ -36,6 +39,9 @@ function App() {
               <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />
               <Route path="/register" element={<UsuarioCreate />} />
               <Route path="/usuarios/:usuarioId" element={<UsuarioDetail />} />
+              <Route path="/usuarios/:usuarioId/ofertas" element={<OfertaUserList />} />
+              <Route path="/resenias/new" element={<ReseniaCreate />} />
+              <Route path="/resenias/user" element={<ReseniaList />} />
               <Route path="/login" element={<Login />} />
               <Route path="/error" element={<PageNotFound />} />
               <Route path="/" element={<Home />} />

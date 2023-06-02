@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { FormattedMessage, FormattedPlural, useIntl } from "react-intl";
 import {
   convertToUSD,
@@ -30,11 +29,10 @@ function OfertaCard(props) {
     <div className="ofertaCard">
       <a href={`/ofertas/${offerId}`}>
         <div className="userInfo">
-          <img
-            src={userData.foto}
-            rounded-circle
-            alt={`${userData.name} profile`}
-          ></img>
+            <img
+              src={userData.foto}
+              alt={`${userData.name} profile`}
+            ></img>
           <div className="userInfoTop">
             <h5>{userData.nombre}</h5>
             <p>{offerData.tipoOferta}</p>

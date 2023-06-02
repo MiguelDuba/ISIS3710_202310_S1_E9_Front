@@ -77,12 +77,11 @@ input:not(.form-check-input) {
     box-sizing: border-box;
     border-width: .3em;
     border-radius: .8em;
-    padding: 0 5%;
 }
 
 .offer-cancelBtn {
     justify-self: end;
-
+    
 }
 
 .offer-createBtn {

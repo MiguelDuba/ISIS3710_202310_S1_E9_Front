@@ -166,7 +166,7 @@ function InfoAcudiente() {
     return (
         <div class="container">
             <div style={{ justifyContent: 'center'}}>
-                <a href='ofertas'> 
+                <a className='home-navigation' href='ofertas'> 
                 <h1 style={{ margin: '50px' }}><FormattedMessage id="banner-offers-a"/></h1>
                 <h6 style={{ margin: '40px' }}><FormattedMessage id="description-offers-a"/></h6>
 
