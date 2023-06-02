@@ -38,7 +38,7 @@ function UsuarioDetail() {
                 } else {
                     setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
                 }
-                if(isCanguro) {
+                if(!isCanguro) {
                     setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
                     setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
                     if (newUsuario.especialidades.length === 0) {
