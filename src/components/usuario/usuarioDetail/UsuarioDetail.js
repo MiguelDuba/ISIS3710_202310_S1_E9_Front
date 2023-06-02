@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUsuarioById } from "../../../helpers/backend/usuarioBackend";
-import { FormattedMessage, useIntl } from "react-intl";
 import "./UsuarioDetail.css";
 
 function UsuarioDetail() {
@@ -74,7 +74,7 @@ function UsuarioDetail() {
     };
 
     const seeOfertas = () => {
-        navigate(`/usuario/${usuarioId}/ofertas`);
+        navigate(`/usuarios/${usuarioId}/ofertas`);
     };
     
     const seeResenias = () => {

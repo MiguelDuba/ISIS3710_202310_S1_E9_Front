@@ -103,13 +103,14 @@ function OfertaDetail() {
             </div>
           </div>
           <div className="ofertaDetail--image">
-            <Image
-              className="person-img"
-              src={offer.usuario.foto}
-              alt={`Imagen de ${offer.usuario.nombre}`}
-              fluid
-              roundedCircle
-            ></Image>
+            <a href={`/usuarios/${offer.usuario.id}`}>
+              <Image
+                className="person-img"
+                src={offer.usuario.foto}
+                alt={`${offer.usuario.nombre}`}
+                fluid
+              ></Image>
+            </a>
           </div>
         </div>
         <Button onClick={requestOffer} variant="flat">
