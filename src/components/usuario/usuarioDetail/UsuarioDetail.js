@@ -60,7 +60,7 @@ function UsuarioDetail() {
                     setBtnStatus(true)
                 }
             });
-        }, [usuarioId, isCanguro]
+        }, [usuarioId, isCanguro, txtExperience]
     );
 
     if (!token) {
@@ -68,7 +68,6 @@ function UsuarioDetail() {
     }
 
     const changeBtnStatus = (tipo) => {
-        console.log(tipo, isCanguro)
         if(tipo === isCanguro) {
             setIsCanguro(!isCanguro);
         }
