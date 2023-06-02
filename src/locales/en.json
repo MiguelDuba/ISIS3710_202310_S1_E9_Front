@@ -84,5 +84,8 @@
   "acudiente": "guardian",
   "no-legal-background": "The user doesn't have legal background",
   "no-needs": "The guardian doesn't have needs",
-  "no-abilities": "The kangaroo doesn't have special abilities"
+  "no-abilities": "The kangaroo doesn't have special abilities",
+  "no-matching-passwords": "The passwords don't match",
+  "invalid-email": "The entered email is not available",
+  "invalid-role": "The entered role is not valid"
 }

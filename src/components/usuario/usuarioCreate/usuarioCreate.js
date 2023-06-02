@@ -18,6 +18,9 @@ function UsuarioCreate() {
     const phVerPassword = intl.formatMessage({ id: 'placeholder-confirm' });
     const phPicture = intl.formatMessage({ id: 'placeholder-picture' });
     const tForm = intl.formatMessage({ id: 'create-user' });
+    const txtError1 = intl.formatMessage({ id: 'no-matching-passwords' });
+    const txtError2 = intl.formatMessage({ id: 'invalid-email' });
+    const txtError3 = intl.formatMessage({ id: 'invalid-role' });
 
     // State to store the form data
     const [formData, setFormData] = useState({
@@ -48,14 +51,18 @@ function UsuarioCreate() {
         };
         // Frontend validation
         if(formData["contrasenia"] !== formData["verContrasenia"]) {
-            setError("Las contraseñas no coinciden")
+            setError(txtError1)
+            return;
+        }
+        if(formData["tipoUsuario"] === "select" || formData["tipoUsuario"] === "") {
+            setError(txtError3)
             return;
         }
         // Send the request
         return fetch(BASE_URL + "/usuarios", requestCreateUsuario).then(async (response) => {
             // Backend validation
             if (response.status === 412) {
-                setError((await response.json()).message);
+                setError(txtError2);
                 return;
             }
             // Automatic login process
@@ -86,6 +93,7 @@ function UsuarioCreate() {
     // Function to handle when the form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(formData)
         createUsuario();
     };
 
@@ -127,7 +135,7 @@ function UsuarioCreate() {
                         <Form.Group className="mb-3">
                             <Form.Label><FormattedMessage id="account-type"/> *</Form.Label>
                             <Form.Select label="Default select" name="tipoUsuario" onChange={handleInputChange} required >
-                                <option><FormattedMessage id="enter-role"/></option>
+                                <option value="select" ><FormattedMessage id="enter-role"/></option>
                                 <option value="canguro"><FormattedMessage id="kangaroo"/></option>
                                 <option value="acudiente"><FormattedMessage id="guardian"/></option>
                                 <option value="ambos"><FormattedMessage id="both-roles"/></option>
