@@ -1,0 +1,32 @@
+.mid {
+    padding: 6rem 26rem 0 26rem;
+    clear:both;
+}
+
+.formulario {
+    text-align: left;
+    align-content: flex-start;
+}
+
+.subtitle-1 {
+    text-align: center;
+    font-size: large;
+    padding: 1rem 3rem 1rem 3rem;
+}
+
+.subtitle {
+    text-align: left;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.btn-t1 {
+    background-color: #EF7146;
+    color: white;
+    border: 3px solid #EF7146;
+    margin: 1rem 0.5rem 0 5.5rem;
+    padding: 1rem 3.5rem 1rem 3.5rem;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: x-large;
+}
