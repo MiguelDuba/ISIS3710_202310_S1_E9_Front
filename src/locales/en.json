@@ -92,5 +92,9 @@
   "successfull-log-out": "You have been successfully logged out",
   "successfull-sign-up": "You have been successfully signed up",
   "successfull-sign-in": "You have been successfully signed in",
-  "return-when-internet": "Please return when you have internet connection"
+  "return-when-internet": "Please return when you have internet connection",
+  "contratos": "Contracts",
+  "price-day": "Price per day",
+  "contract-date": "Date"
+  
 }
