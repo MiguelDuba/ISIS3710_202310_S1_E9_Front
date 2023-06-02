@@ -64,7 +64,6 @@ function UsuarioDetail() {
                     console.log("No hay datos en local storage")
                 } else {
                     const u = JSON.parse(localStorage.getItem('userData'));
-                    console.log(u);
                     setUsuario(u);
                     loadDetail(u);
                 }
@@ -73,9 +72,12 @@ function UsuarioDetail() {
                 // Get of the user with the given id
                 getUsuarioById(usuarioId).then((newUsuario) => {
                     // If inexistent user, redirect to error page
-                    console.log(newUsuario);     
-                    setUsuario(newUsuario);
-                    loadDetail(newUsuario);
+                    if (newUsuario.statusCode !== 500) {    
+                        setUsuario(newUsuario);
+                        loadDetail(newUsuario);
+                    } else {
+                        navigate("/error");
+                    }
                 });
             }
         }, [usuarioId, isCanguro, txtExperience]
@@ -155,7 +157,9 @@ function UsuarioDetail() {
                 </Row>
             </Container> 
         );
-    }   
+    } else {
+        navigate('/error');
+    }
 }
 
 export default UsuarioDetail;
