@@ -18,6 +18,10 @@
     text-align: center;
 }
 
+.mid {
+    text-align: center !important;
+}
+
 .formulario .btn-t1 {
     background-color: #EF7146;
     color: white;

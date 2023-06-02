@@ -45,8 +45,12 @@ function App() {
   );
 }
 
-function PageNotFound () {
-  return <div><h1>ERROR</h1></div>
+function PageNotFound() {
+  return (
+    <div>
+      <h1>ERROR</h1>
+    </div>
+  );
 }
 
 export default App;
