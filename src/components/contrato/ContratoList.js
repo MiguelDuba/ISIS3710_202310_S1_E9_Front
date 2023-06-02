@@ -16,7 +16,7 @@ function mapCardElements(contractList) {
 function ContratoList(){
 
     const location = useLocation();
-    const idReceptor = location.state.usuarioid;
+    const idReceptor = location.state.usuarioId;
     const [cardElements, setCardElements] = useState([]);
     const token = localStorage.getItem("sessionToken");
 
