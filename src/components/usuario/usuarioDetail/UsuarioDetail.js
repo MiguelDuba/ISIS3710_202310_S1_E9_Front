@@ -24,43 +24,42 @@ function UsuarioDetail() {
     const usuarioId = params.usuarioId;
     
     useEffect(
-        () =>
-        async function () {
+        () => {
             // Get of the user with the given id
-            const newUsuario = await getUsuarioById(usuarioId);
-            // If inexistent user, redirect to error page        
-            setUsuario(newUsuario);
-            if(isCanguro === null) {
-                setIsCanguro(newUsuario.tipoUsuario.toLowerCase() !== "canguro");
-            }
-            if(newUsuario.antecedentes.length === 0) {
-                setAntecedentes(<li><FormattedMessage id="no-legal-background"/></li>)
-            } else {
-                setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
-            }
-            if(isCanguro) {
-                setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
-                setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
-                if (newUsuario.especialidades.length === 0) {
-                    setHabilidades(<li><FormattedMessage id="no-abilities"/></li>)
-                } else {
-                    setHabilidades(newUsuario.especialidades.map((nec) => <li>{nec.tipo}</li>))
+            getUsuarioById(usuarioId).then((newUsuario) => {
+                // If inexistent user, redirect to error page        
+                setUsuario(newUsuario);
+                if(isCanguro === null) {
+                    setIsCanguro(newUsuario.tipoUsuario.toLowerCase() !== "canguro");
                 }
-                setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
-            } else {
-                setTitulo(<h2><FormattedMessage id="needs"/>:</h2>)
-                setExperiencia("")
-                if (newUsuario.necesidades.length === 0) {
-                    setHabilidades(<li><FormattedMessage id="no-needs"/></li>)
+                if(newUsuario.antecedentes.length === 0) {
+                    setAntecedentes(<li><FormattedMessage id="no-legal-background"/></li>)
                 } else {
-                    setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+                    setAntecedentes(newUsuario.antecedentes.map((ant) => <li>{ant.tipo}</li>))
                 }
-            }
-            if(newUsuario.tipoUsuario.toLowerCase() !== "ambos") {
-                setBtnStatus(true)
-            }
-        },
-        [usuarioId, isCanguro]
+                if(isCanguro) {
+                    setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
+                    setExperiencia(newUsuario.aniosExperiencia + " " + txtExperience)
+                    if (newUsuario.especialidades.length === 0) {
+                        setHabilidades(<li><FormattedMessage id="no-abilities"/></li>)
+                    } else {
+                        setHabilidades(newUsuario.especialidades.map((nec) => <li>{nec.tipo}</li>))
+                    }
+                    setTitulo(<h2><FormattedMessage id="abilities"/>:</h2>)
+                } else {
+                    setTitulo(<h2><FormattedMessage id="needs"/>:</h2>)
+                    setExperiencia("")
+                    if (newUsuario.necesidades.length === 0) {
+                        setHabilidades(<li><FormattedMessage id="no-needs"/></li>)
+                    } else {
+                        setHabilidades(newUsuario.necesidades.map((nec) => <li>{nec.tipo}</li>))
+                    }
+                }
+                if(newUsuario.tipoUsuario.toLowerCase() !== "ambos") {
+                    setBtnStatus(true)
+                }
+            });
+        }, [usuarioId, isCanguro]
     );
 
     if (!token) {
