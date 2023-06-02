@@ -12,8 +12,30 @@ export default function Login() {
 
   const nav = useNavigate();
 
+  const handleSubmit2 = (e) => {
+    console.log('loggingin')
+    e.preventDefault();
+    getToken({
+      email: email,
+      password: password,
+      roles: "registeredUser",
+    }).then((token) => {
+      if(token.statusCode) {
+        setSuccess(false);
+      } else {
+        localStorage.setItem("sessionToken", token.token);
+        getUserByEmail(email).then((userData) => {
+          localStorage.setItem("userData", JSON.stringify(userData));
+          nav("/");
+          window.location.reload();
+        });
+      }
+    });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('loggingin')
     const token = await getToken({
       email: email,
       password: password,
@@ -32,26 +54,26 @@ export default function Login() {
         localStorage.setItem("userData", JSON.stringify(userData));
         console.log(JSON.stringify(userData));
         nav("/")
-        window.location.reload();
+        // window.location.reload();
       }
     }
   };
 
   return (
     <div  className="login-wrapper">
-      <form  onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit2}>
         <label>
-          <p><FormattedMessage id='email'/></p>
-          <input type="text" onChange={(e) => setEmail(e.target.value)} />
+          <FormattedMessage id='email'/>
         </label>
+          <input type="email" onChange={(e) => setEmail(e.target.value)} />
         <label>
-          <p><FormattedMessage id='password'/></p>
+         <FormattedMessage id='password'/>
+        </label>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
-        <div>
+        <div className="login-btn">
           <Button type="submit"><FormattedMessage id='sign-in'/></Button>
         </div>
       </form>
