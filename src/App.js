@@ -13,7 +13,7 @@ import UsuarioDetail from './components/usuario/usuarioDetail/UsuarioDetail';
 import Footer from './components/shared/footer/Footer';
 import Login from './components/shared/login/Login';
 import KangarooNavbar from './components/shared/navbar/KangarooNavbar';
-import { ofertaDetail, ofertaListData } from './tempData/ofertaData';
+// import { ofertaDetail, ofertaListData } from './tempData/ofertaData';
 // import { reseniaListData } from './tempData/reseniaData';
 
 function App() {
