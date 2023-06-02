@@ -127,7 +127,7 @@ function UsuarioCreate() {
                         <Form.Group className="mb-3">
                             <Form.Label><FormattedMessage id="account-type"/> *</Form.Label>
                             <Form.Select label="Default select" name="tipoUsuario" onChange={handleInputChange} required >
-                                <option><FormattedMessage id="enter-role"/></option>
+                                <option value="select" ><FormattedMessage id="enter-role"/></option>
                                 <option value="canguro"><FormattedMessage id="kangaroo"/></option>
                                 <option value="acudiente"><FormattedMessage id="guardian"/></option>
                                 <option value="ambos"><FormattedMessage id="both-roles"/></option>
