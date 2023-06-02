@@ -4,7 +4,8 @@
 }
 
 .form-label {
-    font-size: 1.1em
+    font-size: 1.1em;
+    justify-content: left;
 }
 
 input:not(.form-check-input) {
@@ -42,6 +43,7 @@ input:not(.form-check-input) {
     border-width: .3em;
     border-radius: .8em;
     padding: 0 5%;
+    margin: 2em;
 }
 
 .resenia-cancelBtn {
@@ -63,4 +65,16 @@ input:not(.form-check-input) {
     background-color: #EF7146;
     border-color: #EF7146; 
     font-weight: bold;
+}
+
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 5em;
+    padding-right: 30em;
+    margin-bottom: 0.125rem;
+}
+
+.form-label {
+    margin: 1rem;
 }
