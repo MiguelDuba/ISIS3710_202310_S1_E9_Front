@@ -43,7 +43,7 @@ function App() {
               <Route path="/resenias/new" element={<ReseniaCreate />} />
               <Route path="/resenias/user" element={<ReseniaList />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/error" element={<PageNotFound />} />
+              <Route path="*" element={<PageNotFound />} />
               <Route path="/" element={<Home />} />
             </Routes>
           </BrowserRouter>
@@ -57,7 +57,7 @@ function App() {
 function PageNotFound() {
   return (
     <div>
-      <h1>ERROR</h1>
+      <h1>404 ERROR</h1>
     </div>
   );
 }
