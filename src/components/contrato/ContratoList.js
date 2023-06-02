@@ -1,9 +1,9 @@
-import { FormattedMessage} from "react-intl";
+import { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
+import { useLocation } from 'react-router-dom';
 import {
   getContractByReceptor, getFullContract,
 } from ".//../../helpers/backend/contractBackend";
-import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
 
 import ContratoCard from "./ContratoCard";
 
@@ -11,7 +11,6 @@ import ContratoCard from "./ContratoCard";
 function mapCardElements(contractList) {
     return contractList.map((contract) => <ContratoCard info={contract} />);
 }
-
 
 function ContratoList(){
 
@@ -28,6 +27,7 @@ function ContratoList(){
         const contractFullData = await getFullContract(contract.id, token);
         return {contractFullData}
       }));
+      console.log(asyncRes)
       setCardElements(mapCardElements(asyncRes))
         
       }, [])

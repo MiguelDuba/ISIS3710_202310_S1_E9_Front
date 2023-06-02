@@ -1,7 +1,7 @@
 import {
-    convertToUSD,
-    formatterCOP,
-    formatterUSD,
+  convertToUSD,
+  formatterCOP,
+  formatterUSD,
 } from ".//../../helpers/priceFormatter";
   
 import { FormattedMessage, useIntl } from "react-intl";
@@ -41,7 +41,7 @@ function ContratoCard(props){
               <span className="infoDiv--title">
                 <FormattedMessage id="price-day" />
               </span>
-              {showLocalizedPrice(contractData.precio)}
+              {showLocalizedPrice(contractData.oferta.precio)}
               <span className="infoDiv--title">Fecha</span>
               {contractData.fecha}
               <span className="infoDiv--title">
