@@ -106,7 +106,7 @@ function UsuarioDetail() {
     };
 
     const seeContratos = () => {
-        navigate('/contratos', { state: { usuarioId } });
+        navigate('/contratos/user', { state: { usuarioId } });
     };
 
     if (usuario) {

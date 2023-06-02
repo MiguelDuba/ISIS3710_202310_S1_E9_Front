@@ -9,6 +9,9 @@ import OfertaList from "./components/oferta/ofertaList/OfertaList";
 import OfertaUserList from "./components/oferta/ofertaList/OfertaUserList";
 import ReseniaCreate from "./components/resenia/reseniaCreate/ReseniaCreate";
 import ReseniaList from "./components/resenia/reseniaList/ReseniaList";
+import ContratoCreate from "./components/contrato/ContratoCreate";
+import ContratoDetail from "./components/contrato/ContratoDetail";
+import ContratoList from "./components/contrato/ContratoList";
 import Footer from "./components/shared/footer/Footer";
 import Login from "./components/shared/login/Login";
 import KangarooNavbar from "./components/shared/navbar/KangarooNavbar";
@@ -34,6 +37,9 @@ function App() {
         <main>
           <BrowserRouter>
             <Routes>
+              <Route path="/contratos/user" element={<ContratoList />} />
+              <Route path="/contratos/new" element={<ContratoCreate />} />
+              <Route path="/contratos/:contratoId" element={<ContratoDetail />} />
               <Route path="/ofertas" element={<OfertaList />} />
               <Route path="/ofertas/new" element={<OfertaCreate />} />
               <Route path="/ofertas/:ofertaId" element={<OfertaDetail />} />

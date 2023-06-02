@@ -1,33 +1,43 @@
+import { FormattedMessage} from "react-intl";
+import {
+  getContractByReceptor, getFullContract,
+} from ".//../../helpers/backend/contractBackend";
+import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
+
+import ContratoCard from "./ContratoCard";
+
+
+function mapCardElements(contractList) {
+    return contractList.map((contract) => <ContratoCard info={contract} />);
+}
+
+
 function ContratoList(){
-    console.log('card', JSON.stringify(props))
-    const userData = props.info.user;
-    const reseniaData = props.info.resenia;
+
+    const location = useLocation();
+    const idReceptor = location.state.usuarioid;
+    const [cardElements, setCardElements] = useState([]);
+    const token = localStorage.getItem("sessionToken");
+
+    useEffect(() => async function () {
+      const userId = idReceptor;
+      const contractData = await getContractByReceptor(userId, token);
+      console.log("Los datos del contrato son "+contractData);
+      const asyncRes = await Promise.all(contractData.map(async (contract) => {
+        const contractFullData = await getFullContract(contract.id, token);
+        return {contractFullData}
+      }));
+      setCardElements(mapCardElements(asyncRes))
+        
+      }, [])
 
     return (
-        <div className="reseniaCard">
-            <div className='userInfo' >
-                <div class="rounded-circle">
-                    <img src={userData.image} alt={`${userData.name} profile` }></img>
-                </div>
-                <div className="userInfoTop">
-                    <h5>{userData.name}</h5>
-                    {userData.offerType}
-                </div>
-            </div>
-            <div className='infoDiv'>
-                <div class="row">
-                    <div class="col-md-auto margin-top: 5px">
-                        <p><b>{reseniaData.titulo}</b></p>
-                    </div>
-                    <div class="col col-lg-2">
-                        {reseniaData.calificacion}
-                        <StarFill className="star-icon mx-2"/>
-                    </div>
-                </div>
-                <p>{reseniaData.descripcion}</p>
-            </div>
-        </div>
-    )
+      <div>
+        <h1 style={{ margin: '50px' }}><FormattedMessage id="contratos"/></h1>
+        <div className="gallery">{cardElements}</div>
+      </div>
+    );    
 }
 
 export default ContratoList;

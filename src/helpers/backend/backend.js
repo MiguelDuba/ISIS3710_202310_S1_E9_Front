@@ -27,3 +27,4 @@ export const getUserByEmail = async function (email) {
         }
       }).then(data => data.json())
 }
+

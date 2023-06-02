@@ -92,5 +92,8 @@
   "successfull-log-out": "Has cerrado sesión exitosamente",
   "successfull-sign-up": "Te has registrado exitosamente",
   "successfull-sign-in": "Has iniciado sesión exitosamente",
-  "return-when-internet": "Por favor, vuelve cuando tengas conexión a internet"
+  "return-when-internet": "Por favor, vuelve cuando tengas conexión a internet",
+  "contratos": "Contratos",
+  "price-day": "Precio por día",
+  "contract-date": "Fecha"
 }
