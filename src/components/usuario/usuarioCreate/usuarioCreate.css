@@ -3,22 +3,23 @@
     align-content: flex-start;
 }
 
-.form-label {
+.usuario--create .form-label {
     font-weight: normal;
+    margin: 0 !important;
 }
 
-.subtitle {
+.usuario--create .subtitle {
     text-align: left;
     font-weight: bold;
     font-size: large;
 }
 
-.center {
+.usuario--create .center {
     justify-content: center;
     text-align: center;
 }
 
-.mid {
+.usuario--create .mid {
     text-align: center !important;
 }
 
@@ -52,17 +53,18 @@
     margin: 2rem;
 }
 
-.foto {
+.usuario--create .foto {
     width: 100%;
     margin: 0 !important;
-    max-width: 400px;
+    padding: 0 !important;
+    max-width: 300px;
 }
 
 .formulario .btn-t2:hover {
     background-color: transparent !important;
 }
 
-.error {
+.usuario--create .error {
     justify-content: center;
     color: red;
     font-weight: bold;
@@ -71,33 +73,33 @@
 /* Media */
 
 @media (min-width: 700px) and (max-width: 1100px) {
-    .usuario--title {
+    .usuario--create .usuario--title {
         margin-top: 1rem;
     }
     
-    .form-control {
+    .usuario--create .form-control {
         font-size: 0.7rem !important;
     }
     
-    .form-select {
+    .usuario--create .form-select {
         font-size: 0.7rem !important;
     }
 }
 
 @media (max-width: 700px) {
-    .usuario--create {
+    .usuario--create .usuario--create {
         margin-top: 3rem !important;
     }
 
-    .add-foto {
+    .usuario--create .add-foto {
         margin: 0.5rem !important;
     }
 
-    .form-control {
+    .usuario--create .form-control {
         font-size: 0.5rem !important;
     }
 
-    .form-select {
+    .usuario--create .form-select {
         font-size: 0.5rem !important;
     }
 }

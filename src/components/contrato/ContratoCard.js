@@ -42,8 +42,6 @@ function ContratoCard(props){
                 <FormattedMessage id="price-day" />
               </span>
               {showLocalizedPrice(contractData.oferta.precio)}
-              <span className="infoDiv--title">Fecha</span>
-              {contractData.fecha}
               <span className="infoDiv--title">
                 <FormattedMessage id="contract-date" />
               </span>
