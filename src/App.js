@@ -1,3 +1,4 @@
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { IntlProvider } from 'react-intl';
@@ -69,3 +70,13 @@ function PageNotFound() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
